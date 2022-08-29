@@ -1,7 +1,7 @@
 package com.team_28.StackOverFlow.jwt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,12 +11,17 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    //private String user_nickname;
+    private String userid;
     private String username;
     private String password;
     private String roles;
@@ -26,5 +31,9 @@ public class Member {
             return Arrays.asList(this.roles.split(","));
         }
         return new ArrayList<>();
+    }
+    private String refreshToken;
+    public void updateRefreshToken(String newToken){
+        this.refreshToken = newToken;
     }
 }

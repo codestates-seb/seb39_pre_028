@@ -1,0 +1,25 @@
+package com.team_28.StackOverFlow.jwt.dto;
+
+import com.team_28.StackOverFlow.jwt.model.Member;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class SignupDto {
+    private String username;
+    private String userID;
+    private String password;
+
+    public Member toEntity() {
+        return Member.builder()
+                .username(username)
+                .userid(userID)
+                .password(password)
+                .build();
+    }
+
+    public void encodePassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
+}
