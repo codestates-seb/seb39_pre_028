@@ -34,7 +34,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader("accesstoken");
 
         //로그인, 리프레시 요청이라면 토큰 검사X
-        if(servletPath.equals("/regi/signin") || servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup")){
+        if(servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup")){
             filterChain.doFilter(request,response);
         } else if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
             //토큰값이 없거나 정상적이지 않다면 401 오류
@@ -50,7 +50,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 String accessToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
 
                 //Access Token 검증
-                JWTVerifier verifier = JWT.require(Algorithm.HMAC256(JWT_SECRET)).build();
+                JWTVerifier verifier = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build();
                 DecodedJWT decodedJWT = verifier.verify(accessToken);
 
                 //Access Token 내 Claim에서 ___꺼내 Authentication 객체 생성 & SecurityContext에 저장
@@ -68,7 +68,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 new ObjectMapper().writeValue(response.getWriter(), errorResponse);
             } catch (Exception e) {
                 log.info("CustomAuthorizationFilter : JWT 토큰이 잘못되었습니다. message : {}", e.getMessage());
-                response.setStatus(401);
+                response.setStatus(400);
                 response.setContentType(APPLICATION_JSON_VALUE);
                 response.setCharacterEncoding("utf-8");
                 ErrorResponse errorResponse = new ErrorResponse(400, "잘못된 JWT Token 입니다.");

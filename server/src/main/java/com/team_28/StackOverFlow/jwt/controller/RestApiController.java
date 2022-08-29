@@ -47,49 +47,18 @@ public class RestApiController {
         memberRepository.save(member);
         return new ResponseEntity<>(member, HttpStatus.CREATED);
     }
-//    @PostMapping("regi/signin")
-//    public ResponseEntity signin(@RequestBody SigninDto dto){
-//        System.out.println("로그인 시도");
-//        Member member = memberRepository.findByUserId(dto.getUserID());
-//        return new ResponseEntity<>(member,HttpStatus.OK);
-//    }
 
-//    @PostMapping("regi/signin")
-//    public ResponseEntity signin(@RequestBody SigninDto signinDto){
-//        try{
-//            System.out.println("로그인 시도");
-//            Member member = memberRepository.findByUsername(signinDto.getUsername());
-//            Authentication authenticate = authenticationManager
-//                    .authenticate(
-//                            new UsernamePasswordAuthenticationToken(
-//                                    signinDto.getUsername(), signinDto.getPassword()
-//                            )
-//                    );
-//            PrincipalDetails principalDetails = (PrincipalDetails) authenticate.getPrincipal();
-//            return ResponseEntity.ok()
-//                    .header(
-//                            AUTHORIZATION,
-//                            JWT.create()
-//                                    .withSubject("access token")
-//                                    .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 30)))
-//                                    .withClaim("id", principalDetails.getMember().getId())
-//                                    .withClaim("username", principalDetails.getMember().getUsername())
-//                                    .sign(Algorithm.HMAC512("access_token"))
-//                    )
-//                    .body(member);
-//        }
-//        catch (BadCredentialsException ex) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//    }
-    @PostMapping("/regi/refresh")
+    @GetMapping("/regi/refresh")
     public ResponseEntity<Map<String, String>> refresh(HttpServletRequest request, HttpServletResponse response) {
-        String authorizationHeader = request.getHeader(AUTHORIZATION);
+        System.out.println("refresh 컨트롤러 시작");
+        String accessTokenHeader = request.getHeader(ACCESS_TOKEN_HEADER);
+        String refreshTokenHeader = request.getHeader(REFRESH_TOKEN_HEADER);
+        System.out.println(accessTokenHeader+" + "+refreshTokenHeader);
 
-        if (authorizationHeader == null || !authorizationHeader.startsWith(TOKEN_HEADER_PREFIX)) {
+        if (accessTokenHeader == null || !accessTokenHeader.startsWith(TOKEN_HEADER_PREFIX)) {
             throw new RuntimeException("JWT Token이 존재하지 않습니다.");
         }
-        String refreshToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
+        String refreshToken = refreshTokenHeader.substring(TOKEN_HEADER_PREFIX.length());
         Map<String, String> tokens = accountService.refresh(refreshToken);
         response.setHeader(ACCESS_TOKEN_HEADER, tokens.get(ACCESS_TOKEN_HEADER));
         if (tokens.get(REFRESH_TOKEN_HEADER) != null) {
@@ -98,9 +67,14 @@ public class RestApiController {
         return ResponseEntity.ok(tokens);
     }
 
-    @PostMapping("regi/logout")
+    @PostMapping("/regi/logout")
     public String logout(){
         return "logout";
+    }
+
+    @GetMapping("/board")
+    public String board(){
+        return "board";
     }
 
 

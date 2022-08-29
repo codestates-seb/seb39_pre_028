@@ -71,7 +71,7 @@ public class PrincipalDetailsService implements AccountService, UserDetailsServi
     @Override
     public Map<String, String> refresh(String refreshToken) {
         //refreshToken 유효성 검사
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256("refresh_token")).build();
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build();
         DecodedJWT decodedJWT = verifier.verify(refreshToken);
 
         //accessToken 재발급
@@ -88,7 +88,7 @@ public class PrincipalDetailsService implements AccountService, UserDetailsServi
                 .withSubject("access token")
                 .withExpiresAt(new Date(now + ACCESS_TOKEN_EXP))
                 .withClaim("id", member.getId())
-                .withClaim("username", member.getUsername())
+                .withClaim("userId", member.getUserid())
                 .sign(Algorithm.HMAC512(JWT_SECRET));
         Map<String , String > accessTokenResponseMap = new HashMap<>();
 
@@ -97,17 +97,18 @@ public class PrincipalDetailsService implements AccountService, UserDetailsServi
         long refreshExpireTime = decodedJWT.getClaim("exp").asLong() * 1000;
         long diffDays = (refreshExpireTime - now)/1000 / (24*3600);
         long diffMin = (refreshExpireTime - now) / 1000/60;
+
         if(diffMin <= 5 ){
             String newRefreshToken = JWT.create()
                     .withSubject("refresh token")
                     .withExpiresAt(new Date(now + REFRESH_TOKEN_EXP))
                     .withClaim("id", member.getId())
-                    .withClaim("username", member.getUsername())
-                    .sign(Algorithm.HMAC256(JWT_SECRET));
-            accessTokenResponseMap.put(REFRESH_TOKEN_HEADER, newRefreshToken);
+                    .withClaim("userId", member.getUserid())
+                    .sign(Algorithm.HMAC512(JWT_SECRET));
+            accessTokenResponseMap.put(REFRESH_TOKEN_HEADER, TOKEN_HEADER_PREFIX + newRefreshToken);
             member.updateRefreshToken(newRefreshToken);
         }
-        accessTokenResponseMap.put(ACCESS_TOKEN_HEADER,accessToken);
+        accessTokenResponseMap.put(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
         return accessTokenResponseMap;
     }
 }

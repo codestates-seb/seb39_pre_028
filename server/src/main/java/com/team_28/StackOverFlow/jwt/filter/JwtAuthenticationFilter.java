@@ -37,9 +37,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final MemberRepository memberRepository;
     private final AccountService accountService;
 
-//    public void JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
-//        super.setAuthenticationManager(authenticationManager);
-//    }
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
@@ -66,42 +63,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
         return null;
     }
-
-
-//    @Override
-//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-//
-//        System.out.println("successfulAuthentication");
-//        PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
-//
-//        String accessToken = JWT.create()
-//                .withSubject("access token")
-//                .withExpiresAt(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXP))// 1min
-//                .withClaim("id", principalDetails.getMember().getId())
-//                .withClaim("userId", principalDetails.getMember().getUserid())
-//                .sign(Algorithm.HMAC512(JWT_SECRET));
-//        //response.addHeader("Authorization", "Bearer " + accessToken);
-//
-//        String refreshToken = JWT.create()
-//                .withSubject("refresh token")
-//                .withExpiresAt(new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXP))// 10 min
-//                .withClaim("id", principalDetails.getMember().getId())
-//                .withClaim("userId", principalDetails.getMember().getUserid())
-//                .sign(Algorithm.HMAC512(JWT_SECRET));
-//        //refreshToken DB에 저장
-//        accountService.updateRefreshToken(principalDetails.getUsername(),refreshToken);
-//        //Access Token, Refresh Token 프론트 단에 response Header로 전달
-//        response.setContentType(APPLICATION_JSON_VALUE);
-//        response.setCharacterEncoding("utf-8");
-//        response.setHeader(ACCESS_TOKEN_HEADER, accessToken);
-//        response.setHeader(REFRESH_TOKEN_HEADER, refreshToken);
-//
-//        Map<String ,String> responsMap = new HashMap<>();
-//        responsMap.put(ACCESS_TOKEN_HEADER,accessToken);
-//        responsMap.put(REFRESH_TOKEN_HEADER,refreshToken);
-//        new ObjectMapper().writeValue(response.getWriter(), responsMap);
-//
-//    }
 
 
 }

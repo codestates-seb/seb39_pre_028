@@ -38,7 +38,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 .withClaim("id", principalDetails.getMember().getId())
                 .withClaim("userId", principalDetails.getMember().getUserid())
                 .sign(Algorithm.HMAC512(JWT_SECRET));
-        //response.addHeader("Authorization", "Bearer " + accessToken);
 
         String refreshToken = JWT.create()
                 .withSubject("refresh token")
@@ -51,12 +50,12 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         //Access Token, Refresh Token 프론트 단에 response Header로 전달
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
-        response.setHeader(ACCESS_TOKEN_HEADER, accessToken);
-        response.setHeader(REFRESH_TOKEN_HEADER, refreshToken);
+        response.setHeader(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
+        response.setHeader(REFRESH_TOKEN_HEADER, TOKEN_HEADER_PREFIX + refreshToken);
 
         Map<String ,String> responsMap = new HashMap<>();
-        responsMap.put(ACCESS_TOKEN_HEADER,accessToken);
-        responsMap.put(REFRESH_TOKEN_HEADER,refreshToken);
+        responsMap.put(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
+        responsMap.put(REFRESH_TOKEN_HEADER,TOKEN_HEADER_PREFIX + refreshToken);
         new ObjectMapper().writeValue(response.getWriter(), responsMap);
 
     }
