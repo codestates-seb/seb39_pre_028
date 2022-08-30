@@ -21,9 +21,16 @@ const OutContainer = styled("div")`
 `;
 
 const InnerContainer = styled("div")`
+  display: flex;
+  justify-content: center;
   height: 100vh;
   border: 1px solid red;
   width: 97vw;
+`;
+
+const MainContainer = styled("div")`
+  border: 1px solid green;
+  width: 70vw;
 `;
 
 function App() {
@@ -32,19 +39,21 @@ function App() {
       <Header />
       <OutContainer>
         <InnerContainer>
-          <Routes>
-            <Route path="/" element={<Board />} />
-            <Route path="/questions" element={<Question />} />
-            <Route path="/questiondetail" element={<QuestionDetail />} />
-            <Route
-              path="/questiondetail/questionedit"
-              element={<QuestionEdit />}
-            />
-            <Route path="/authcheck" element={<AuthCheck />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signin/signup" element={<SignUp />} />
-            <Route path="/signin/signout" element={<SignOut />} />
-          </Routes>
+          <MainContainer>
+            <Routes>
+              <Route path="/" element={<Board />} />
+              <Route path="/questions" element={<Question />} />
+              <Route path="/questiondetail" element={<QuestionDetail />} />
+              <Route
+                path="/questiondetail/questionedit"
+                element={<QuestionEdit />}
+              />
+              <Route path="/authcheck" element={<AuthCheck />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signin/signup" element={<SignUp />} />
+              <Route path="/signin/signout" element={<SignOut />} />
+            </Routes>
+          </MainContainer>
         </InnerContainer>
       </OutContainer>
     </div>
