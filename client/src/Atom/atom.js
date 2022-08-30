@@ -6,8 +6,8 @@ const { persistAtom } = recoilPersist();
 export const userStateAtom = atom({
   key: "userStateAtom",
   default: {
-    id: "",
-    password: "",
+    member_id: "",
+    userid: "",
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -17,4 +17,33 @@ export const isLoginAtom = atom({
   default: false,
 
   effects_UNSTABLE: [persistAtom],
+});
+
+export const questionAtom = atom({
+  key: "questionAtom",
+  default: {
+    memberid: "",
+    questionid: "",
+    userid: "",
+    questionTitle: "",
+    questionContent: "",
+    createdAt: "",
+    lastModifiedAtt: "",
+    isAnswered: false,
+  },
+});
+
+export const answerAtom = atom({
+  key: "answerAtom",
+  default: {
+    answer: {
+      answerid: "",
+      questionid: "",
+      memberid: "",
+      userid: "",
+      answerContent: "",
+      createdAt: "",
+      lastModifiedAt: "",
+    },
+  },
 });

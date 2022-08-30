@@ -1,15 +1,16 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { userStateAtom, isLoginAtom } from "../Atom/atom";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [signInfo, setSignInfo] = useState({});
-  const [userInfo, setUserInfo] = useRecoilState(userStateAtom);
-  const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
+  const setUserInfo = useSetRecoilState(userStateAtom);
+  const setIsLogin = useSetRecoilState(isLoginAtom);
+  const navigate = useNavigate();
 
   const handleIdChange = (event) => {
     setId(event.currentTarget.value);
@@ -22,28 +23,24 @@ function SignIn() {
   const LoginHandler = (event) => {
     event.preventDefault();
     setSignInfo({
-      id: id,
+      userid: id,
       password: password,
     });
     return axios
-      .post("/login", signInfo)
+      .post("/regi/signin", signInfo)
       .then((res) => {
-        const { accessToken } = res.headers.accesstoken;
-        const { refreshToken } = res.headers.refreshtoken;
+        console.log(res.headers.accesstoken);
 
-        if (res.headers.accesstoken && res.headers.refreshtoken) {
-          localStorage.setItem("accessToken", accessToken);
-          localStorage.setItem("refreshToken", refreshToken);
+        if (res.headers.accesstoken) {
+          localStorage.setItem("accessToken", res.headers.accesstoken);
         }
 
-        axios.defaults.headers.common["accesstoken"] = `Bearer ${accessToken}`;
-        axios.defaults.headers.common["accesstoken"] = "";
-
-        setIsLogin(!isLogin);
+        setIsLogin(true);
         setUserInfo(res.data.userInfo);
+        navigate("/");
 
         console.log("로그인 성공");
-        console.log(userInfo);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -82,9 +79,9 @@ function SignIn() {
       </div>
 
       <div>
-        <Link to="/signin/signup">
-          <span>회원 가입</span>
-        </Link>
+        <button type="submit" onClick={() => navigate("/signin/signup")}>
+          회원가입
+        </button>
       </div>
     </div>
   );

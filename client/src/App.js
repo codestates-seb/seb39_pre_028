@@ -7,6 +7,7 @@ import SignUp from "./SignIn/SignUp";
 import SignOut from "./SignIn/SignOut";
 import Header from "./Common/Header";
 import AuthCheck from "./Common/AuthCheck";
+import QuestionDetail from "./Board/QuestionDetail/QuestionDetail";
 import { Routes, Route } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Board />} />
         <Route path="/questions" element={<Question />} />
+        <Route path="/questiondetail" element={<QuestionDetail />} />
         <Route path="/authcheck" element={<AuthCheck />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signin/signup" element={<SignUp />} />
