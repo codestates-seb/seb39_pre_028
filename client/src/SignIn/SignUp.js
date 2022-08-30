@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignUp() {
+  const [username, setUsername] = useState("");
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [signInfo, setSignInfo] = useState({});
-  //   const [isClick, setIsClick] = useState(false);
+  const navigate = useNavigate();
+
+  const onUsernameHandler = (event) => {
+    setUsername(event.currentTarget.value);
+  };
 
   const onIdHandler = (event) => {
     setId(event.currentTarget.value);
@@ -15,17 +21,19 @@ function SignUp() {
     setPassword(event.currentTarget.value);
   };
 
-  const onSubmit = (event) => {
+  const signInHandler = (event) => {
     event.preventDefault();
     setSignInfo({
-      id: id,
+      username: username,
+      userid: id,
       password: password,
     });
     return axios // 회원가입 요청
-      .post("/signup", signInfo)
+      .post("/regi/signup", signInfo)
       .then((res) => {
         console.log(res.data);
         console.log("회원가입 성공");
+        navigate("/signin");
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -34,13 +42,18 @@ function SignUp() {
       });
   };
 
-  //   useEffect(() => {
-  //     onSubmit();
-  //   }, [isClick, signInfo]);
-
   return (
     <div className="loginregister">
       <form>
+        <div>
+          <input
+            name="username"
+            type="text"
+            placeholder="유저네임"
+            value={username}
+            onChange={onUsernameHandler}
+          />
+        </div>
         <div>
           <input
             name="id"
@@ -62,7 +75,7 @@ function SignUp() {
         </div>
 
         <div>
-          <button type="submit" onClick={onSubmit}>
+          <button type="submit" onClick={signInHandler}>
             계정 생성하기
           </button>
         </div>
