@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 public class SignupDto {
     private String username;
-    private String userID;
+    private String userid;
     private String password;
 
     public Member toEntity() {
         return Member.builder()
                 .username(username)
-                .userid(userID)
+                .userid(userid)
                 .password(password)
                 .build();
     }

@@ -10,7 +10,7 @@ public interface AccountService {
     Long saveRole(String roleName);
     Long addRoleToUser();
 
-    void updateRefreshToken(String userId, String refreshToken);
+    //void updateRefreshToken(String userId, String refreshToken);
 
-    Map<String, String> refresh(String refreshToken);
+    //Map<String, String> refresh(String refreshToken);
 }

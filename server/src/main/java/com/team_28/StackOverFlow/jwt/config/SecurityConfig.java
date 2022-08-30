@@ -2,16 +2,14 @@ package com.team_28.StackOverFlow.jwt.config;
 
 import com.team_28.StackOverFlow.jwt.filter.CustomAuthorizationFilter;
 import com.team_28.StackOverFlow.jwt.filter.JwtAuthenticationFilter;
-import com.team_28.StackOverFlow.jwt.filter.JwtAuthorizationFilter;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.jwt.service.AccountService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -32,15 +30,12 @@ public class SecurityConfig {
     private final MemberRepository memberRepository;
     private final AuthenticationFailureHandler authenticationFailureHandler;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
-    private final CustomAuthorizationFilter customAuthorizationFilter;
     private final AccessDeniedHandler accessDeniedHandler;
-    private final AccountService accountService;
-
+    private final RedisTemplate redisTemplate;
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -50,12 +45,9 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/regi/signin","/regi/signup","/board/**").permitAll()
+                .antMatchers("/regi/**","/board/**").permitAll()
                 .antMatchers("/questions/**","/answers/**").access("hasRole('ROLE_USER')")
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .anyRequest().authenticated();
         return http.build();
     }
 
@@ -66,14 +58,16 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) throws Exception{
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,memberRepository,accountService);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,memberRepository);
             jwtAuthenticationFilter.setFilterProcessesUrl("/regi/signin");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
             jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
 
             builder
                     .addFilter(corsFilter)
-                    .addFilter(jwtAuthenticationFilter);
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterBefore(new CustomAuthorizationFilter(authenticationManager,redisTemplate,memberRepository), UsernamePasswordAuthenticationFilter.class)
+                    .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
         }
     }

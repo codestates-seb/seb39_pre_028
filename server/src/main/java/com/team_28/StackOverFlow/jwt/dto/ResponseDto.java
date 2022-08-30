@@ -1,10 +1,11 @@
 package com.team_28.StackOverFlow.jwt.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ResponseDto {
-    private Long id;
-    private String username;
-    private String userId;
+    private Long memberid;
+    private String userid;
 }

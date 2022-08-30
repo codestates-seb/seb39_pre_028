@@ -1,14 +1,15 @@
-package com.team_28.StackOverFlow.question.controller;
+package com.team_28.StackOverFlow.board.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/questions")
-public class QuestionController {
+@RequestMapping("/board")
+public class BoardController {
     @GetMapping
-    public String question(){
-        return "question";
+    public String board(){
+        return "board";
     }
+
 }

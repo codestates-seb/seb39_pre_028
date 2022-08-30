@@ -8,13 +8,13 @@ public class JwtConstants {
     public static final long MONTH = 30*DAY;
 
     public static final long ACCESS_TOKEN_EXP = 10 * MINUTE;
-    public static final long REFRESH_TOKEN_EXP = 30 * MINUTE;
+    //public static final long REFRESH_TOKEN_EXP = 30 * MINUTE;
 
     //secret
     public static final String JWT_SECRET = "jwt_secret_key_Team_28";
 
     //header
     public static final String ACCESS_TOKEN_HEADER = "accesstoken";
-    public static final String REFRESH_TOKEN_HEADER = "refreshtoken";
+    //public static final String REFRESH_TOKEN_HEADER = "refreshtoken";
     public static final String TOKEN_HEADER_PREFIX = "Bearer ";
 }

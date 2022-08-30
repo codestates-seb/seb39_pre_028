@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class SigninDto {
-    private String userID;
+    private String userid;
     private String password;
 
     public Member toEntity() {
         return Member.builder()
-                .userid(userID)
+                .userid(userid)
                 .password(password)
                 .build();
     }

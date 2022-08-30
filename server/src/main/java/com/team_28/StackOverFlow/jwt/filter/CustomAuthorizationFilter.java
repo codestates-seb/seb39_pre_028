@@ -7,35 +7,49 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team_28.StackOverFlow.jwt.exception.ErrorResponse;
+import com.team_28.StackOverFlow.jwt.model.Member;
+import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
+import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.util.ObjectUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.JWT_SECRET;
-import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.TOKEN_HEADER_PREFIX;
+import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 @Component
-public class CustomAuthorizationFilter extends OncePerRequestFilter {
+public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
+    private final RedisTemplate redisTemplate;
+    private final MemberRepository memberRepository;
+
+    public CustomAuthorizationFilter(AuthenticationManager authenticationManager, RedisTemplate redisTemplate, MemberRepository memberRepository) {
+        super(authenticationManager);
+        this.redisTemplate = redisTemplate;
+        this.memberRepository = memberRepository;
+    }
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         String servletPath = request.getServletPath();
-        String authorizationHeader = request.getHeader("accesstoken");
+        String authorizationHeader = request.getHeader(ACCESS_TOKEN_HEADER);
 
         //로그인, 리프레시 요청이라면 토큰 검사X
-        if(servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup")){
+        if(servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout") ||servletPath.equals("/board") || servletPath.equals("/board/search")){
             filterChain.doFilter(request,response);
+            return;
         } else if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
             //토큰값이 없거나 정상적이지 않다면 401 오류
             logger.info("CustomAuthorizationFilter : JWT Token이 존재하지 않습니다.");
@@ -52,14 +66,22 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                 //Access Token 검증
                 JWTVerifier verifier = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build();
                 DecodedJWT decodedJWT = verifier.verify(accessToken);
-
-                //Access Token 내 Claim에서 ___꺼내 Authentication 객체 생성 & SecurityContext에 저장
                 String userId = decodedJWT.getClaim("userId").asString();
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,null,null);
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-                filterChain.doFilter(request,response);
-            } catch (TokenExpiredException e) {
+                if(userId != null) {
+                    //(추가) Redis 에 해당 accessToken logout 여부 확인
+                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
+                    if (ObjectUtils.isEmpty(isLogout)) {
+                        //Access Token 내 Claim에서 userId꺼내 Authentication 객체 생성 & SecurityContext에 저장
+                        Member member = memberRepository.findByUserid(userId);
+                        PrincipalDetails principalDetails = new PrincipalDetails(member);
+                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
+                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    }
+                    filterChain.doFilter(request, response);
+                }
+                    super.doFilterInternal(request, response, filterChain);
+                }
+             catch (TokenExpiredException e) {
                 log.info("CustomAuthorizationfilter : Access Token이 만료되었습니다.");
                 response.setStatus(401);
                 response.setContentType(APPLICATION_JSON_VALUE);

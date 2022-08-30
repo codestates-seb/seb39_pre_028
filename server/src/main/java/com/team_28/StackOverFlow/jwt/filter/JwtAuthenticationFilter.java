@@ -10,6 +10,7 @@ import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.jwt.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
-import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.REFRESH_TOKEN_HEADER;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
@@ -35,7 +35,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
-    private final AccountService accountService;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -44,8 +43,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             System.out.println("시도필터 성공");
             ObjectMapper om = new ObjectMapper();
             SigninDto signinDto = om.readValue(request.getInputStream(), SigninDto.class);
-            System.out.println(signinDto.getUserID() + " + " + signinDto.getPassword());
-            Member member = memberRepository.findByUserid(signinDto.getUserID());
+            System.out.println(signinDto.getUserid() + " + " + signinDto.getPassword());
+            Member member = memberRepository.findByUserid(signinDto.getUserid());
             System.out.println(member.getUsername() + " + " + member.getPassword());
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getUserid(), signinDto.getPassword());
             System.out.println(authenticationToken.toString());
@@ -59,7 +58,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         } catch (IOException e) {
             System.out.println("시도 필터 에러");
             e.printStackTrace();
-            ;
         }
         return null;
     }

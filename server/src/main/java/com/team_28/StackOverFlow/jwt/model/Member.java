@@ -20,7 +20,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long memberid;
     private String userid;
     private String username;
     private String password;
@@ -32,8 +32,8 @@ public class Member {
         }
         return new ArrayList<>();
     }
-    private String refreshToken;
-    public void updateRefreshToken(String newToken){
-        this.refreshToken = newToken;
-    }
+    //private String refreshToken;
+    //public void updateRefreshToken(String newToken){
+        //this.refreshToken = newToken;
+    //}
 }
