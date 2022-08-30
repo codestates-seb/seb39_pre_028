@@ -15,7 +15,7 @@
     "recoil-persist": "^4.2.0",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://ec2-13-125-176-124.ap-northeast-2.compute.amazonaws.com:8080",
+  "proxy": "http://ec2-3-34-138-239.ap-northeast-2.compute.amazonaws.com:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

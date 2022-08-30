@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userStateAtom, isLoginAtom } from "../Atom/atom";
-import interceptor from "../Common/interceptor";
+import authAxios from "../Common/interceptor";
 
 function Question() {
   const isLogin = useRecoilValue(isLoginAtom);
@@ -18,13 +18,13 @@ function Question() {
   let content = "내용";
 
   let questionObj = {
-    작성자: userInfo.nickname,
-    "작성 일시": new Date(),
-    내용: content,
+    // userId: userInfo.userId,
+    // createdAt: new Date(),
+    questionContent: content,
   };
 
-  const addQuestion = async () => {
-    const res = await interceptor.post("/question", questionObj);
+  const addQuestion = () => {
+    const res = authAxios.post("/questions", questionObj);
     console.log(res);
   };
 
