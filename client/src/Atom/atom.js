@@ -6,7 +6,7 @@ const { persistAtom } = recoilPersist();
 export const userStateAtom = atom({
   key: "userStateAtom",
   default: {
-    member_id: "",
+    memberid: "",
     userid: "",
   },
   effects_UNSTABLE: [persistAtom],
@@ -28,7 +28,7 @@ export const questionAtom = atom({
     questionTitle: "",
     questionContent: "",
     createdAt: "",
-    lastModifiedAtt: "",
+    lastModifiedAt: "",
     isAnswered: false,
   },
 });
@@ -36,7 +36,8 @@ export const questionAtom = atom({
 export const answerAtom = atom({
   key: "answerAtom",
   default: {
-    answer: {
+
+    answer: [{
       answerid: "",
       questionid: "",
       memberid: "",
@@ -45,5 +46,6 @@ export const answerAtom = atom({
       createdAt: "",
       lastModifiedAt: "",
     },
+    ],
   },
 });
