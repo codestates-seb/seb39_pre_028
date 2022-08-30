@@ -1,33 +1,46 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { isLoginAtom } from "../Atom/atom";
 import { useRecoilValue } from "recoil";
 
+const Contaniner = styled("div")`
+  display: flex;
+  border-bottom: 1px solid black;
+`;
+
+const List = styled("li")`
+  list-style: none;
+  padding: 10px 20px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 function Header() {
   const isLogin = useRecoilValue(isLoginAtom);
+  const navigate = useNavigate();
 
   return (
     <div>
-      <ul>
-        <Link to="/">
-          <li>Board</li>
-        </Link>
+      <Contaniner>
+        <List onClick={() => navigate("/")}>
+          <FontAwesomeIcon icon={faStackOverflow} />
+          stack overflow
+        </List>
 
-        <Link to="/questions">
-          {" "}
-          <li>Questions </li>
-        </Link>
+        <List onClick={() => navigate("/")}>Board</List>
+
+        <List onClick={() => navigate("/questions")}>Questions </List>
 
         {isLogin ? (
-          <li>
-            <Link to="/signin/signout">SignOut</Link>
-          </li>
+          <List onClick={() => navigate("/signin/signout")}>SignOut</List>
         ) : (
-          <li>
-            <Link to="/signin">SignIn</Link>
-          </li>
+          <List onClick={() => navigate("/signin")}>SignIn</List>
         )}
-      </ul>
+      </Contaniner>
     </div>
   );
 }

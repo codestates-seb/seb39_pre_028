@@ -7,6 +7,7 @@ import SignUp from "./SignIn/SignUp";
 import SignOut from "./SignIn/SignOut";
 import Header from "./Common/Header";
 import AuthCheck from "./Common/AuthCheck";
+import QuestionDetail from "./Board/QuestionDetail/QuestionDetail";
 import { Routes, Route } from "react-router-dom";
 import QuestionDetail from "./QuestionDetail/QuestionDetail";
 import QuestionEdit from "./QuestionDetail/Edit/QuestionEdit";

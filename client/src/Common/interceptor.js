@@ -37,10 +37,10 @@ authAxios.interceptors.response.use(
         console.log(error);
         const setIsLogin = useSetRecoilState(isLoginAtom);
         const navigate = useNavigate();
+
         setIsLogin(false);
         alert("로그인 만료");
         localStorage.removeItem("accessToken");
-
         navigate("/authcheck");
       }
     }

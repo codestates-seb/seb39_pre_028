@@ -22,11 +22,11 @@ export const isLoginAtom = atom({
 export const questionAtom = atom({
   key: "questionAtom",
   default: {
-    memberId: "",
-    questionId: "1",
-    userId: "",
-    questionTitle: "제목",
-    questionContent: "내용",
+    memberid: "",
+    questionid: "",
+    userid: "",
+    questionTitle: "",
+    questionContent: "",
     createdAt: "",
     lastModifiedAt: "",
     isAnswered: false,
@@ -36,16 +36,16 @@ export const questionAtom = atom({
 export const answerAtom = atom({
   key: "answerAtom",
   default: {
-    answer: [
-      // {
-      //   answerId: "", //답변 id
-      //   questionId: "", // 질문 id
-      //   memberId: "", //작성자 고유 id
-      //   userId: "", //답변 작성자 사용하는 id
-      //   answerContent: "",
-      //   createdAt: "",
-      //   lastModifiedAt: "",
-      // },
+
+    answer: [{
+      answerid: "",
+      questionid: "",
+      memberid: "",
+      userid: "",
+      answerContent: "",
+      createdAt: "",
+      lastModifiedAt: "",
+    },
     ],
   },
 });

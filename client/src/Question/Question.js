@@ -1,39 +1,79 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userStateAtom, isLoginAtom } from "../Atom/atom";
+import { userStateAtom, isLoginAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 
 function Question() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [questionInfo, setQuestionInfo] = useState({});
+  const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
+  const uerInfo = useRecoilValue(userStateAtom);
   const isLogin = useRecoilValue(isLoginAtom);
-  const userInfo = useRecoilValue(userStateAtom);
   const navigate = useNavigate();
 
+  // 일단 로그인 안한 상태일 경우 authcheck로
   useEffect(() => {
     if (!isLogin) {
       navigate("/authcheck");
     }
   });
 
-  let content = "내용";
+  const setTitleHandler = (event) => setTitle(event.currentTarget.value);
 
-  let questionObj = {
-    // userId: userInfo.userId,
-    // createdAt: new Date(),
-    questionContent: content,
+  const setContentHandler = (event) => setContent(event.currentTarget.value);
+
+  const addQuestion = async (event) => {
+    event.preventDefault();
+    setQuestionInfo({
+      questionTitle: title,
+      questionContent: content,
+      createdAt: new Date(),
+      memberid: uerInfo.memberid,
+    });
+    return authAxios
+      .post("/questions", questionInfo)
+      .then(() => {
+        setQuestionsAtom(questionInfo);
+        console.log(questionsAtom);
+        navigate("/questionDetail");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
-  const addQuestion = () => {
-    const res = authAxios.post("/questions", questionObj);
-    console.log(res);
-  };
-
-  //   const state = useRecoilValue(userStateAtom);
-  //   const login = useRecoilValue(isLoginAtom);
-  //   console.log("state", state);
-  //   console.log(login);
-
-  return <div onClick={addQuestion}>질문 작성하기</div>;
+  return (
+    <div>
+      <div>Ask a question</div>
+      <form>
+        <div>
+          <input
+            type="text"
+            name="title"
+            placeholder="질문 제목"
+            value={title}
+            onChange={setTitleHandler}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="content"
+            placeholder="질문 내용"
+            value={content}
+            onChange={setContentHandler}
+          />
+        </div>
+        <div>
+          <button type="submit" onClick={addQuestion}>
+            질문 등록
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
 export default Question;
