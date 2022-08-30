@@ -13,6 +13,8 @@ const Contaniner = styled("div")`
 
 const List = styled("li")`
   list-style: none;
+  height: 40px;
+  font-size: 20px;
   padding: 10px 20px;
   :hover {
     cursor: pointer;

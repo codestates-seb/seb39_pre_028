@@ -7,7 +7,6 @@
 // {/* <button onClick={editHandler}>질문 수정</button> */}
 // <button onClick={deleteHandler}>질문 삭제</button>
 
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoginAtom, userStateAtom, questionAtom } from "../Atom/atom";
