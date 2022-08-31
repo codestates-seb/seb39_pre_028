@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Getter
 @Setter
@@ -41,9 +40,9 @@ public class Member extends Auditable {
     //public void updateRefreshToken(String newToken){
         //this.refreshToken = newToken;
     //}
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Question> questions = new ArrayList<>();
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Answer> answers = new ArrayList<>();
 
     public void setQuestion(Question question){

@@ -23,13 +23,18 @@ public class CustomAuthProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String userId = authentication.getName();
         String password = (String) authentication.getCredentials();
-
+        System.out.println("authenticate 접속");
         PrincipalDetails principalDetails = (PrincipalDetails) principalDetailsService.loadUserByUsername(userId);
+        System.out.println(userId);
+        System.out.println(principalDetails.getPassword());
+        System.out.println(password);
 
         //PW 검사
-        if(!passwordEncoder.matches(password, principalDetails.getPassword())) {
+        if((!password.equals(principalDetails.getPassword())) && (!passwordEncoder.matches(password, principalDetails.getPassword()))){
+            System.out.println("password 검증 실패");
             throw new BadCredentialsException("Provider - authenticate() : 비밀번호가 일치하지 않습니다.");
         }
+        System.out.println("authenticate 성공");
         return new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
     }
 

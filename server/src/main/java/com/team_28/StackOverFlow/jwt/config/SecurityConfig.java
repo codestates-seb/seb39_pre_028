@@ -1,7 +1,9 @@
 package com.team_28.StackOverFlow.jwt.config;
 
+import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.jwt.filter.CustomAuthorizationFilter;
 import com.team_28.StackOverFlow.jwt.filter.JwtAuthenticationFilter;
+import com.team_28.StackOverFlow.jwt.mapper.MemberMapper;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.jwt.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,7 @@ public class SecurityConfig {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AccessDeniedHandler accessDeniedHandler;
     private final RedisTemplate redisTemplate;
+    private final MemberMapper mapper;
 
 
     @Bean
@@ -45,7 +48,7 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/regi/**","/board/**","/questions/**").permitAll()
+                .antMatchers("/regi/**","/board/**","/questions/**","/h2/**").permitAll()
                 .antMatchers("/answers/**").access("hasRole('ROLE_USER')")
                 .anyRequest().authenticated();
         return http.build();
@@ -58,7 +61,7 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) throws Exception{
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,memberRepository);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,memberRepository,mapper);
             jwtAuthenticationFilter.setFilterProcessesUrl("/regi/signin");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
             jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);

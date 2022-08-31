@@ -5,6 +5,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.team_28.StackOverFlow.jwt.dto.SignupDto;
 import com.team_28.StackOverFlow.jwt.exception.ErrorResponse;
 import com.team_28.StackOverFlow.jwt.entity.Member;
@@ -21,7 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
@@ -34,20 +36,29 @@ public class PrincipalDetailsService implements AccountService, UserDetailsServi
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final RedisTemplate redisTemplate;
+
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        System.out.println("service 도착");
         Member memberEntity = memberRepository.findByUserid(userId);
+        System.out.println(memberEntity.getUserid()+memberEntity.getPassword());
+        System.out.println("memberEntity에 저장");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("memberEntity.json"),memberEntity);
+            String jsonInString = mapper.writeValueAsString(memberEntity);
+            System.out.println(jsonInString);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return new PrincipalDetails(memberEntity);
     }
-
     @Override
     public Long saveAccount(SignupDto dto) {
         validateDuplicateUsername(dto);
         dto.encodePassword(passwordEncoder.encode(dto.getPassword()));
         return memberRepository.save(dto.toEntity()).getMemberid();
-
     }
-
     private void validateDuplicateUsername(SignupDto dto){
         if(memberRepository.existsByUserid(dto.getUserid())){
             throw new RuntimeException("이미 존재하는 ID 입니다.");

@@ -47,7 +47,7 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
         String authorizationHeader = request.getHeader(ACCESS_TOKEN_HEADER);
 
         //로그인, 리프레시 요청이라면 토큰 검사X
-        if(servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout") ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
+        if(servletPath.equals("/h2")||servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout") ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
             filterChain.doFilter(request,response);
             return;
         } else if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
