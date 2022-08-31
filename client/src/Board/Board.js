@@ -1,13 +1,13 @@
 import axios from "axios";
 import authAxios from "../Common/interceptor";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
 
 function Board() {
-  const [questions, setQuestions] = [];
+  const [questions, setQuestions] = useState([]);
   const setQuestionsAtom = useSetRecoilState(questionAtom);
   const setAnswerAtom = useSetRecoilState(answerAtom);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function Board() {
     <section>
       <div>게시판</div>
       <ul>
-        {questions &&
+        {Array.isArray(questions) &&
           questions.map((question, idx) => (
             <Questions
               key={idx}

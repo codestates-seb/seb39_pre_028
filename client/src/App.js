@@ -36,7 +36,7 @@ const MainContainer = styled("div")`
 function App() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <OutContainer>
         <InnerContainer>
           <MainContainer>
