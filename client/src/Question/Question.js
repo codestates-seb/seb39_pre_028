@@ -37,7 +37,7 @@ function Question() {
       .then(() => {
         setQuestionsAtom(questionInfo);
         console.log(questionsAtom);
-        navigate("/questionDetail");
+        navigate("/questiondetail");
       })
       .catch((err) => {
         console.log(err.message);
