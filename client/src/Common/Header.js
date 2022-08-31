@@ -8,6 +8,8 @@ import { useRecoilValue } from "recoil";
 
 const Contaniner = styled("div")`
   display: flex;
+  margin-top: 0;
+  border: 2px solid red;
   border-bottom: 1px solid black;
 `;
 
@@ -26,24 +28,22 @@ function Header() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <Contaniner>
-        <List onClick={() => navigate("/")}>
-          <FontAwesomeIcon icon={faStackOverflow} />
-          stack overflow
-        </List>
+    <Contaniner>
+      <List onClick={() => navigate("/")}>
+        <FontAwesomeIcon icon={faStackOverflow} />
+        stack overflow
+      </List>
 
-        <List onClick={() => navigate("/")}>Board</List>
+      <List onClick={() => navigate("/")}>Board</List>
 
-        <List onClick={() => navigate("/questions")}>Questions </List>
+      <List onClick={() => navigate("/questions")}>Questions </List>
 
-        {isLogin ? (
-          <List onClick={() => navigate("/signin/signout")}>SignOut</List>
-        ) : (
-          <List onClick={() => navigate("/signin")}>SignIn</List>
-        )}
-      </Contaniner>
-    </div>
+      {isLogin ? (
+        <List onClick={() => navigate("/signin/signout")}>SignOut</List>
+      ) : (
+        <List onClick={() => navigate("/signin")}>SignIn</List>
+      )}
+    </Contaniner>
   );
 }
 
