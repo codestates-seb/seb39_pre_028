@@ -1,11 +1,19 @@
 import { useRecoilValue } from "recoil";
 import { answerAtom } from "../../Atom/atom";
 import AnswerItem from "./AnswerItem";
+import styled from "styled-components";
 
+const AnswerContainer = styled("section")`
+  height: auto;
+  padding: 10px;
+`;
 function AnswerSecion() {
   const answerArr = useRecoilValue(answerAtom);
 
   return (
+
+    <AnswerContainer>
+
     <ul>
       {answerArr.map((item) => (
         <li key={item.answerId}>
@@ -19,6 +27,7 @@ function AnswerSecion() {
         </li>
       ))}
     </ul>
+     </AnswerContainer>
   );
 }
 
