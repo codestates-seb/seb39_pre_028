@@ -2,11 +2,12 @@ import axios from "axios";
 import authAxios from "../Common/interceptor";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
 
 function Board() {
+  // const [questions, setQuestions] = [];
   const [questions, setQuestions] = useState([]);
   const setQuestionsAtom = useSetRecoilState(questionAtom);
   const setAnswerAtom = useSetRecoilState(answerAtom);
@@ -16,8 +17,9 @@ function Board() {
     return authAxios
       .get("/board")
       .then((res) => {
-        console.log(res.data);
-        setQuestions(res.data);
+        // console.log(res.data);
+        console.log(res.data.question);
+        setQuestions(res.data.question);
       })
       .catch((err) => {
         console.log(err.message);
@@ -29,11 +31,19 @@ function Board() {
   }, []);
 
   const clickHandler = (question) => {
-    return axios.get(`/question?q=${question.questionid}`).then((res) => {
-      setQuestionsAtom(res.data.question);
-      setAnswerAtom(res.data.answer);
-      navigate("/questiondetail");
-    });
+    console.log("성공");
+    return axios
+      .get(`/question?q=${question.questionid}`)
+      .then((res) => {
+        console.log("성공");
+        setQuestionsAtom(res.data.question);
+        setAnswerAtom(res.data.answer);
+        navigate("/questiondetail");
+      })
+      .catch((err) => {
+        console.log("실패");
+        console.log(err.message);
+      });
   };
 
   return (
