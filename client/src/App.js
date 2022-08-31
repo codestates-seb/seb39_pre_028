@@ -16,16 +16,19 @@ axios.defaults.withCredentials = true;
 
 const OutContainer = styled("div")`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: -8px;
+  border: 1px solid black;
 `;
 
 const InnerContainer = styled("div")`
   display: flex;
+  margin-top: 20px;
   justify-content: center;
   height: 100vh;
-  border: 1px solid red;
   width: 97vw;
+  border: 1px solid red;
 `;
 
 const MainContainer = styled("div")`
