@@ -36,16 +36,16 @@ export const questionAtom = atom({
 export const answerAtom = atom({
   key: "answerAtom",
   default: {
-
-    answer: [{
-      answerid: "",
-      questionid: "",
-      memberid: "",
-      userid: "",
-      answerContent: "",
-      createdAt: "",
-      lastModifiedAt: "",
-    },
+    answer: [
+      {
+        answerid: "",
+        questionid: "",
+        memberid: "",
+        userid: "",
+        answerContent: "",
+        createdAt: "",
+        lastModifiedAt: "",
+      },
     ],
   },
 });

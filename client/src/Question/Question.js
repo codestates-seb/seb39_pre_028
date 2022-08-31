@@ -9,7 +9,7 @@ function Question() {
   const [content, setContent] = useState("");
   const [questionInfo, setQuestionInfo] = useState({});
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
-  const uerInfo = useRecoilValue(userStateAtom);
+  const userInfo = useRecoilValue(userStateAtom);
   const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ function Question() {
       questionTitle: title,
       questionContent: content,
       createdAt: new Date(),
-      memberid: uerInfo.memberid,
+      memberid: userInfo.memberid,
     });
     return authAxios
       .post("/questions", questionInfo)
