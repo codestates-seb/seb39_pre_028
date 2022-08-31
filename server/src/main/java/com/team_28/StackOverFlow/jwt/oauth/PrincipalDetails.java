@@ -1,6 +1,6 @@
 package com.team_28.StackOverFlow.jwt.oauth;
 
-import com.team_28.StackOverFlow.jwt.model.Member;
+import com.team_28.StackOverFlow.jwt.entity.Member;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team_28.StackOverFlow.jwt.exception.ErrorResponse;
-import com.team_28.StackOverFlow.jwt.model.Member;
+import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +47,7 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
         String authorizationHeader = request.getHeader(ACCESS_TOKEN_HEADER);
 
         //로그인, 리프레시 요청이라면 토큰 검사X
-        if(servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout") ||servletPath.equals("/board") || servletPath.equals("/board/search")){
+        if(servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout") ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
             filterChain.doFilter(request,response);
             return;
         } else if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){

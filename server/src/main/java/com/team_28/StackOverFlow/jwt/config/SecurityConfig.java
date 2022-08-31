@@ -45,8 +45,8 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/regi/**","/board/**").permitAll()
-                .antMatchers("/questions/**","/answers/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/regi/**","/board/**","/questions/**").permitAll()
+                .antMatchers("/answers/**").access("hasRole('ROLE_USER')")
                 .anyRequest().authenticated();
         return http.build();
     }

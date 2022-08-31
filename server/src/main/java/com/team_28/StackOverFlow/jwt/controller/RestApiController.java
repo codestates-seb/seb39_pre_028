@@ -1,35 +1,21 @@
 package com.team_28.StackOverFlow.jwt.controller;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.team_28.StackOverFlow.jwt.dto.SigninDto;
-import com.team_28.StackOverFlow.jwt.dto.SignupDto;
-import com.team_28.StackOverFlow.jwt.model.Member;
-import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
+import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetailsService;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.jwt.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequestMapping("/regi")

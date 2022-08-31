@@ -1,6 +1,6 @@
 package com.team_28.StackOverFlow.jwt.dto;
 
-import com.team_28.StackOverFlow.jwt.model.Member;
+import com.team_28.StackOverFlow.jwt.entity.Member;
 import lombok.Getter;
 
 @Getter

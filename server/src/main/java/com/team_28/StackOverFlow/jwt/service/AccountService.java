@@ -1,9 +1,6 @@
 package com.team_28.StackOverFlow.jwt.service;
 
 import com.team_28.StackOverFlow.jwt.dto.SignupDto;
-import com.team_28.StackOverFlow.jwt.model.Member;
-
-import java.util.Map;
 
 public interface AccountService {
     Long saveAccount(SignupDto dto);
