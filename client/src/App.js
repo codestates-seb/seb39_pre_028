@@ -16,16 +16,19 @@ axios.defaults.withCredentials = true;
 
 const OutContainer = styled("div")`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: -8px;
+  border: 1px solid black;
 `;
 
 const InnerContainer = styled("div")`
   display: flex;
+  margin-top: 20px;
   justify-content: center;
   height: 100vh;
-  border: 1px solid red;
   width: 97vw;
+  border: 1px solid red;
 `;
 
 const MainContainer = styled("div")`
@@ -35,28 +38,26 @@ const MainContainer = styled("div")`
 
 function App() {
   return (
-    <div>
+    <OutContainer>
       <Header />
-      <OutContainer>
-        <InnerContainer>
-          <MainContainer>
-            <Routes>
-              <Route path="/" element={<Board />} />
-              <Route path="/questions" element={<Question />} />
-              <Route path="/questiondetail" element={<QuestionDetail />} />
-              <Route
-                path="/questiondetail/questionedit"
-                element={<QuestionEdit />}
-              />
-              <Route path="/authcheck" element={<AuthCheck />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signin/signup" element={<SignUp />} />
-              <Route path="/signin/signout" element={<SignOut />} />
-            </Routes>
-          </MainContainer>
-        </InnerContainer>
-      </OutContainer>
-    </div>
+      <InnerContainer>
+        <MainContainer>
+          <Routes>
+            <Route path="/" element={<Board />} />
+            <Route path="/questions" element={<Question />} />
+            <Route path="/questiondetail" element={<QuestionDetail />} />
+            <Route
+              path="/questiondetail/questionedit"
+              element={<QuestionEdit />}
+            />
+            <Route path="/authcheck" element={<AuthCheck />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signin/signup" element={<SignUp />} />
+            <Route path="/signin/signout" element={<SignOut />} />
+          </Routes>
+        </MainContainer>
+      </InnerContainer>
+    </OutContainer>
   );
 }
 

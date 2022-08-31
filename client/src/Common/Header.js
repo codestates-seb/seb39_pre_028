@@ -8,14 +8,13 @@ import { useRecoilValue } from "recoil";
 
 const Contaniner = styled("div")`
   display: flex;
-  margin-top: 0;
-  border: 2px solid red;
+  border-top: 2px solid orange;
   border-bottom: 1px solid black;
 `;
 
 const List = styled("li")`
   list-style: none;
-  height: 40px;
+  height: 45px;
   font-size: 20px;
   padding: 10px 20px;
   :hover {
