@@ -17,7 +17,7 @@ function QuestionSection() {
     console.log(ok);
     if (ok) {
       const res = await authAxios.delete(
-        `/questions?q=${questionInfo.questionid}`
+        `/questions?q=${questionInfo.questionId}`
       );
       console.log(res);
     }
@@ -27,10 +27,10 @@ function QuestionSection() {
     <>
       <div>제목:{questionInfo.questionTitle}</div>
       <span>내용:{questionInfo.questionContent}</span>
-      <div>작성자:{questionInfo.userid}</div>
+      <div>작성자:{questionInfo.userId}</div>
       <span>작성일시:{questionInfo.createdAt}</span>
       <section>
-        {userInfo.memberid === questionInfo.memberid ? (
+        {userInfo.memberid === questionInfo.memberId ? (
           <>
             <button onClick={editHandler}>수정</button>
             <button onClick={deleteHandler}>삭제</button>
