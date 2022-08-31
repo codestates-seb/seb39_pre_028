@@ -19,33 +19,31 @@ export const isLoginAtom = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+// export const questionAtom = atom({
+//   key: "questionAtom",
+//   default: {
+//     answerIds: "",
+//     answered: false,
+//     createdAt: "",
+//     memberId: "",
+//     modifiedAt: "",
+//     questionContent: "",
+//     questionId: "",
+//     questionTitle: "",
+//     userId: "",
+//   },
+// });
+
 export const questionAtom = atom({
   key: "questionAtom",
   default: {
-    memberid: "",
-    questionid: "",
-    userid: "",
-    questionTitle: "",
-    questionContent: "",
-    createdAt: "",
-    lastModifiedAt: "",
-    isAnswered: false,
+    answered: false,
   },
 });
 
 export const answerAtom = atom({
   key: "answerAtom",
   default: {
-    answer: [
-      {
-        answerid: "",
-        questionid: "",
-        memberid: "",
-        userid: "",
-        answerContent: "",
-        createdAt: "",
-        lastModifiedAt: "",
-      },
-    ],
+    answer: [],
   },
 });

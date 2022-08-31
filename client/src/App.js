@@ -38,26 +38,28 @@ const MainContainer = styled("div")`
 
 function App() {
   return (
-    <OutContainer>
-      <Header />
-      <InnerContainer>
-        <MainContainer>
-          <Routes>
-            <Route path="/" element={<Board />} />
-            <Route path="/questions" element={<Question />} />
-            <Route path="/questiondetail" element={<QuestionDetail />} />
-            <Route
-              path="/questiondetail/questionedit"
-              element={<QuestionEdit />}
-            />
-            <Route path="/authcheck" element={<AuthCheck />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signin/signup" element={<SignUp />} />
-            <Route path="/signin/signout" element={<SignOut />} />
-          </Routes>
-        </MainContainer>
-      </InnerContainer>
-    </OutContainer>
+    <div>
+      {/* <Header /> */}
+      <OutContainer>
+        <InnerContainer>
+          <MainContainer>
+            <Routes>
+              <Route path="/" element={<Board />} />
+              <Route path="/questions" element={<Question />} />
+              <Route path="/questiondetail" element={<QuestionDetail />} />
+              <Route
+                path="/questiondetail/questionedit"
+                element={<QuestionEdit />}
+              />
+              <Route path="/authcheck" element={<AuthCheck />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signin/signup" element={<SignUp />} />
+              <Route path="/signin/signout" element={<SignOut />} />
+            </Routes>
+          </MainContainer>
+        </InnerContainer>
+      </OutContainer>
+    </div>
   );
 }
 

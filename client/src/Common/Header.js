@@ -8,19 +8,64 @@ import { useRecoilValue } from "recoil";
 
 const Contaniner = styled("div")`
   display: flex;
-  border-top: 2px solid orange;
-  border-bottom: 1px solid black;
+  position: fixed;
+  align-items: center;
+  top: 0;
+  left: -1px;
+  width: 100%;
+  height: 10vh;
+  z-index: 1;
+  background-color: #f8f9f9;
+  border-top: 4px solid #f48225;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+`;
+
+const Logo = styled("li")`
+  list-style: none;
+  padding: 15px 10px;
+  transition: all 0.2s;
+
+  :hover {
+    cursor: pointer;
+    background-color: #e3e6e8;
+  }
+
+  .logo_icon {
+    font-size: 30px;
+    margin: 0 5px;
+    color: #f38630;
+  }
+
+  .logo_text {
+    font-size: 23px;
+  }
+
+  .first {
+    font-weight: 300;
+  }
+
+  .second {
+    font-weight: 700;
+  }
 `;
 
 const List = styled("li")`
   list-style: none;
-  height: 45px;
-  font-size: 20px;
-  padding: 10px 20px;
+  color: #6c6e70;
+  margin: 0 9px;
+  padding: 9px 10px 12px 10px;
+  font-size: 16px;
+  border-radius: 50px;
+  transition: all 0.2s;
+
   :hover {
     cursor: pointer;
+    color: black;
+    background-color: #e3e6e8;
   }
 `;
+
 
 function Header() {
   const isLogin = useRecoilValue(isLoginAtom);
@@ -28,10 +73,11 @@ function Header() {
 
   return (
     <Contaniner>
-      <List onClick={() => navigate("/")}>
-        <FontAwesomeIcon icon={faStackOverflow} />
-        stack overflow
-      </List>
+      <Logo onClick={() => navigate("/")}>
+        <FontAwesomeIcon className="logo_icon" icon={faStackOverflow} />
+        <span className="logo_text first">stack </span>
+        <span className="logo_text second">overflow</span>
+      </Logo>
 
       <List onClick={() => navigate("/")}>Board</List>
 

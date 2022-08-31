@@ -15,11 +15,7 @@ function QuestionDetail() {
       <QuestionSection />
       <AnswerInput />
       <div>
-        {questionInfo.isAnswered ? (
-          <AnswerSecion />
-        ) : (
-          <div>답변이 없습니다</div>
-        )}
+        {questionInfo.answered ? <AnswerSecion /> : <div>답변이 없습니다</div>}
       </div>
     </div>
   );
