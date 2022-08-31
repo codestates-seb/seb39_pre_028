@@ -9,22 +9,25 @@ const AnswerContainer = styled("section")`
 `;
 function AnswerSecion() {
   const answerArr = useRecoilValue(answerAtom);
+
   return (
+
     <AnswerContainer>
-      <ul>
-        {answerArr.answer.map((item) => (
-          <li key={item.answerid}>
-            <AnswerItem //해당 객체 속성 쓸 거 다 여기서 줘야함.
-              creator={item.userid}
-              content={item.answerContent}
-              date={item.createdAt}
-              creatorMemberid={item.memberid}
-              answerid={item.answerid}
-            />
-          </li>
-        ))}
-      </ul>
-    </AnswerContainer>
+
+    <ul>
+      {answerArr.map((item) => (
+        <li key={item.answerId}>
+          <AnswerItem //해당 객체 속성 쓸 거 다 여기서 줘야함.
+            creator={item.userId}
+            content={item.content}
+            date={item.created_at}
+            creatorMemberid={item.memberId}
+            answerid={item.answerId}
+          />
+        </li>
+      ))}
+    </ul>
+     </AnswerContainer>
   );
 }
 

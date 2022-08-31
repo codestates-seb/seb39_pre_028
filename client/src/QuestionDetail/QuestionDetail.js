@@ -36,13 +36,14 @@ function QuestionDetail() {
       <QuestionSection />
       <AnswerInput />
       <div>
-        {questionInfo.isAnswered ? (
+        {questionInfo.answered ? (
           <AnswerSecion />
         ) : (
           <NoAnswer>
             <div>There is no answer yet</div>
           </NoAnswer>
         )}
+
       </div>
     </QuestionContainer>
   );

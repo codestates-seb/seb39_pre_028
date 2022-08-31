@@ -47,7 +47,7 @@ function QuestionSection() {
     console.log(ok);
     if (ok) {
       const res = await authAxios.delete(
-        `/questions?q=${questionInfo.questionid}`
+        `/questions?q=${questionInfo.questionId}`
       );
       console.log(res);
     }
@@ -58,11 +58,11 @@ function QuestionSection() {
       <InfoSection>
         <Title>제목{questionInfo.questionTitle}</Title>
         <ExceptTitle>
-          <div>Writer {questionInfo.userid}</div>
+          <div>Writer {questionInfo.userId}</div>
           <div>Asked {questionInfo.createdAt}</div>
-          <div>Modified {questionInfo.lastModifiedAt}</div>
+          <div>Modified {questionInfo.modifiedAt}</div>
           <section>
-            {userInfo.memberid === questionInfo.memberid ? (
+            {userInfo.memberid === questionInfo.memberId ? (
               <>
                 <button onClick={editHandler}>Edit</button>
                 <button onClick={deleteHandler}>Delete</button>
