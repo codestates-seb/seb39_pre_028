@@ -3,6 +3,53 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userStateAtom, questionAtom } from "../../Atom/atom";
 import authAxios from "../../Common/interceptor";
+import styled from "styled-components";
+
+const InfoSection = styled("section")`
+  padding-bottom: 10px;
+  border-bottom: solid 1px gray;
+  font-size: 30px;
+  margin-bottom: 30px;
+  margin-top: 5px;
+`;
+
+const QuestionContainer = styled("div")`
+  /* border: 1px solid red; */
+  margin: 40px;
+  height: 700px;
+`;
+
+const EditText = styled("div")`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* background-color: aquamarine; */
+  height: 500px;
+  input {
+    font-size: 20px;
+  }
+  textarea {
+    font-size: 20px;
+    height: 400px;
+  }
+`;
+
+const Buttons = styled.div`
+  /* background-color: gray; */
+  height: 50px;
+  button {
+    font-size: 17px;
+    color: white;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #44b1ff;
+    :hover {
+      background-color: #0074cc;
+    }
+  }
+`;
 
 function QuestionEdit() {
   const [questionInfo, setQuestionInfo] = useState({});
@@ -48,33 +95,33 @@ function QuestionEdit() {
   };
 
   return (
-    <div>
-      <div>질문 수정하기</div>
+    <QuestionContainer>
+      <InfoSection>Editting Question</InfoSection>
       <form>
-        <div>
+        <EditText>
           <input
             type="text"
             name="title"
             value={editTitle}
             onChange={setTitleHandler}
+            required
           />
-        </div>
-        <div>
           <textarea
             type="text"
             name="content"
             value={editContent}
             onChange={setContentHandler}
+            required
           />
-        </div>
-        <div>
-          <button onClick={cancleEdit}>수정 취소</button>
+        </EditText>
+        <Buttons>
+          <button onClick={cancleEdit}>Cancle</button>
           <button type="submit" onClick={editQuestion}>
-            수정 하기
+            Edit Your AnSwer
           </button>
-        </div>
+        </Buttons>
       </form>
-    </div>
+    </QuestionContainer>
   );
 }
 
