@@ -14,7 +14,7 @@ export const userStateAtom = atom({
 
 export const isLoginAtom = atom({
   key: "isLoginAtom",
-  default: false,
+  default: true,
 
   effects_UNSTABLE: [persistAtom],
 });

@@ -14,11 +14,11 @@ function Question() {
   const navigate = useNavigate();
 
   // 일단 로그인 안한 상태일 경우 authcheck로
-  useEffect(() => {
-    if (!isLogin) {
-      navigate("/authcheck");
-    }
-  });
+  // useEffect(() => {
+  //   if (!isLogin) {
+  //     navigate("/authcheck");
+  //   }
+  // });
 
   const setTitleHandler = (event) => setTitle(event.currentTarget.value);
 

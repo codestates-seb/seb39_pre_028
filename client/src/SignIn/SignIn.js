@@ -1,8 +1,19 @@
 import axios from "axios";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { userStateAtom, isLoginAtom } from "../Atom/atom";
 import { useNavigate } from "react-router-dom";
+
+const SignInOuterContainer = styled("div")`
+  display: flex;
+`;
+
+const SignInInnerContainer = styled("div")`
+  border: 1px solid pink;
+`;
 
 function SignIn() {
   const [id, setId] = useState("");
@@ -49,10 +60,12 @@ function SignIn() {
   };
 
   return (
-    <div>
-      <div>
-        <form>
-          <div>
+    <SignInOuterContainer>
+      <FontAwesomeIcon className="logo_icon" icon={faStackOverflow} />
+      <SignInInnerContainer>
+        <form className="signin_form">
+          <div className="input_id">
+            <div>ID</div>
             <input
               type="text"
               name="id"
@@ -61,7 +74,8 @@ function SignIn() {
               onChange={handleIdChange}
             />
           </div>
-          <div>
+          <div className="input_password">
+            <div>Password</div>
             <input
               type="password"
               name="password"
@@ -70,20 +84,20 @@ function SignIn() {
               onChange={handlePasswordChange}
             />
           </div>
-          <div>
+          <div className="signin_button">
             <button type="submit" onClick={LoginHandler}>
               로그인
             </button>
           </div>
         </form>
-      </div>
-
-      <div>
-        <button type="submit" onClick={() => navigate("/signin/signup")}>
-          회원가입
-        </button>
-      </div>
-    </div>
+        <div>
+          <div className="signup_link">
+            <span>Don't have an accout? </span>
+            <span onClick={() => navigate("/signin/signup")}>Sign up</span>
+          </div>
+        </div>
+      </SignInInnerContainer>
+    </SignInOuterContainer>
   );
 }
 

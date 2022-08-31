@@ -15,6 +15,7 @@ import styled from "styled-components";
 axios.defaults.withCredentials = true;
 
 const OutContainer = styled("div")`
+  padding-top: 90px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +25,6 @@ const OutContainer = styled("div")`
 
 const InnerContainer = styled("div")`
   display: flex;
-  margin-top: 20px;
   justify-content: center;
   height: 100vh;
   width: 97vw;
