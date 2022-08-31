@@ -8,23 +8,26 @@ function AnswerInput() {
   const [answerContent, setAnswerContent] = useState("");
   const questionInfo = useRecoilValue(questionAtom);
   const isLogin = useRecoilValue(isLoginAtom);
+  const userInfo = useRecoilValue(userStateAtom);
   const navigate = useNavigate();
 
   const contentHandler = (e) => {
+    if (isLogin === false) return navigate("/authcheck");
     setAnswerContent(e.target.value);
   };
   const answerInfo = {
-    answerContent, //답변 보낼 때 이것만 보내면 될까??
+    answerContent,
+    memberid: `${userInfo.memberid}`,
   };
   const addAnswerHandler = (e) => {
     e.preventDefault();
-    if (isLogin === false) return navigate("/authcheck");
-    return authAxios.post(`/answers?q=${questionInfo.questionId}`, answerInfo);
+
+    return authAxios.post(`/answers?q=${questionInfo.questionid}`, answerInfo);
   };
 
   return (
     <>
-      <input
+      <textarea
         placeholder="답변을 입력해주세요"
         value={answerContent}
         onChange={contentHandler}
