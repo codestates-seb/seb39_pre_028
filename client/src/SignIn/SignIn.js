@@ -31,7 +31,7 @@ function SignIn() {
     event.preventDefault();
 
     return axios
-      .post("regi/signin-process", signInfo)
+      .post("signin-process", signInfo)
       .then((res) => {
         console.log(res.headers.accesstoken);
 

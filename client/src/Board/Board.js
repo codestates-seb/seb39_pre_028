@@ -34,7 +34,7 @@ function Board() {
   const clickHandler = (question) => {
     setIsClick(!isClick);
     return axios
-      .get(`/questions?q=${question.questionId}`)
+      .get(`/questions/${question.questionId}`)
       .then((res) => {
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
@@ -56,7 +56,7 @@ function Board() {
         {Array.isArray(questions) &&
           questions.map((question, idx) => (
             <div key={idx} onClick={() => clickHandler(question)}>
-              <Link to={`/questiondetail/${question.questionId}`}>
+              <Link to={`/questions/${question.questionId}`}>
                 <Questions question={question} />
               </Link>
             </div>

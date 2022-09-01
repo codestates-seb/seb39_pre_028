@@ -11,6 +11,7 @@ import { Routes, Route } from "react-router-dom";
 import QuestionDetail from "./QuestionDetail/QuestionDetail";
 import QuestionEdit from "./QuestionDetail/Edit/QuestionEdit";
 import styled from "styled-components";
+// import SideBar from "./Common/SideBar";
 
 axios.defaults.withCredentials = true;
 
@@ -41,6 +42,7 @@ function App() {
   return (
     <div>
       {/* <Header /> */}
+      {/* <SideBar /> */}
       <OutContainer>
         <InnerContainer>
           <MainContainer>
@@ -48,10 +50,13 @@ function App() {
               <Route path="/" element={<Board />} />
               <Route path="/board" element={<Board />} />
               <Route path="/questions" element={<Question />} />
-              <Route path="/questiondetail" element={<QuestionDetail />} />
+              <Route
+                path="/questions/:questionId"
+                element={<QuestionDetail />}
+              />
               {/* path="/questions/:questionId" */}
               <Route
-                path="/questiondetail/edit"
+                path="/questions/edit/:questionId"
                 // path="/questions/edit/:questionId"
                 element={<QuestionEdit />}
               />
