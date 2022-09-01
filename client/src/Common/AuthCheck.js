@@ -6,9 +6,7 @@ function AuthCheck() {
   return (
     <div>
       <div>권한이 없습니다</div>
-      <button onClick={() => navigate("/regi/signin-process")}>
-        로그인 버튼
-      </button>
+      <button onClick={() => navigate("/regi/signin")}>로그인 버튼</button>
       <button onClick={() => navigate(-2)}>뒤로가기</button>
     </div>
   );

@@ -31,6 +31,7 @@ function SignUp() {
 
   const signInHandler = (event) => {
     event.preventDefault();
+
     return axios // 회원가입 요청
       .post("/regi/signup", signInfo)
       .then((res) => {

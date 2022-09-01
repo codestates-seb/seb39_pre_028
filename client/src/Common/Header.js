@@ -82,9 +82,9 @@ function Header() {
       <List onClick={() => navigate("/questions")}>Questions </List>
 
       {isLogin ? (
-        <List onClick={() => navigate("/regi/signout")}>SignOut</List>
+        <List onClick={() => navigate("regi/signout")}>SignOut</List>
       ) : (
-        <List onClick={() => navigate("/regi/signin")}>SignIn</List>
+        <List onClick={() => navigate("regi/signin")}>SignIn</List>
       )}
     </Contaniner>
   );

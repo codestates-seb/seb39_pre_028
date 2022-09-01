@@ -1,5 +1,6 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";\
+// import { useParams } from "react-router-dom";
 import QuestionSection from "./QuestionSection";
 import { useRecoilValue } from "recoil";
 import { questionAtom } from "../Atom/atom";
@@ -43,7 +44,6 @@ function QuestionDetail() {
             <div>There is no answer yet</div>
           </NoAnswer>
         )}
-
       </div>
     </QuestionContainer>
   );

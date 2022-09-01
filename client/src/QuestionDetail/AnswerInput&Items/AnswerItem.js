@@ -47,7 +47,7 @@ function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
           <div>작성일시:{date}</div>
           {userInfo.memberid === creatorMemberid ? (
             <>
-              <button onClick={() => setIsEditorOpen(true)}>Edit</button>
+              <button onClick={() => setIsEditorOpen(true)}>Edit</button>{" "}
               <button onClick={deleteHandler}>Delete</button>
             </>
           ) : null}
