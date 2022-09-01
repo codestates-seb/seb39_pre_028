@@ -62,7 +62,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception{
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,memberRepository,mapper);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/regi/signin");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/regi/signin-process");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
             jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
 

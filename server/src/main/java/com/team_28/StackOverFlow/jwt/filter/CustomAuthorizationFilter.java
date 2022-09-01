@@ -47,7 +47,10 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
         String authorizationHeader = request.getHeader(ACCESS_TOKEN_HEADER);
 
         //로그인, 리프레시 요청이라면 토큰 검사X
-        if(servletPath.equals("/h2")||servletPath.equals("/regi/signin")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout") ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
+        if(servletPath.equals("/h2")
+                || servletPath.equals("/regi/signin")|| servletPath.equals("/regi/signin-process")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout")
+                ||servletPath.equals("/board") || servletPath.equals("/board/search")
+                || servletPath.equals("/questions") ||servletPath.equals("/questions/1")||servletPath.equals("/questions/2")){
             filterChain.doFilter(request,response);
             return;
         } else if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
@@ -62,7 +65,6 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
             try{
                 //Access Token만 꺼내옴
                 String accessToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
-
                 //Access Token 검증
                 JWTVerifier verifier = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build();
                 DecodedJWT decodedJWT = verifier.verify(accessToken);

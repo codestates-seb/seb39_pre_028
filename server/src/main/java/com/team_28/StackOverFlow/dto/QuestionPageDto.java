@@ -8,10 +8,17 @@ import java.util.List;
 
 
 @Getter
-@AllArgsConstructor
 public class QuestionPageDto<T> {
     private QuestionResponseDto question;
     private T answer;
 
+    public QuestionPageDto(QuestionResponseDto question) {
+        this.question = question;
     }
+
+    public QuestionPageDto(QuestionResponseDto question, T answer) {
+        this.question = question;
+        this.answer = answer;
+    }
+}
 

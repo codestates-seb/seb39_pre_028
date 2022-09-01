@@ -37,6 +37,16 @@ public class RestApiController {
         memberRepository.save(member);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @GetMapping("/signup")
+    public ResponseEntity getSignup(){
+        System.out.println("회원가입 페이지");
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @GetMapping("/signin")
+    public ResponseEntity getSignin(){
+        System.out.println("로그인 페이지");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 //    @GetMapping("/refresh")
 //    public ResponseEntity<Map<String, String>> refresh(HttpServletRequest request, HttpServletResponse response) {
@@ -63,6 +73,11 @@ public class RestApiController {
         String accessToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
         System.out.println(accessToken);
         return principalDetailsService.logout(accessToken);
+    }
+    @GetMapping("/signout")
+    public ResponseEntity GetLogout(){
+        System.out.println("로그아웃 페이지");
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

@@ -29,7 +29,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
         System.out.println(principalDetails.getPassword());
         System.out.println(password);
 
-        //PW 검사
+        //PW 검사 오류 수정 : 둘 다 암호화된 비밀번호로 비교하게 되어서 matches에서 오류가 발생했음. equals비교도 넣어줘서 해결
         if((!password.equals(principalDetails.getPassword())) && (!passwordEncoder.matches(password, principalDetails.getPassword()))){
             System.out.println("password 검증 실패");
             throw new BadCredentialsException("Provider - authenticate() : 비밀번호가 일치하지 않습니다.");
