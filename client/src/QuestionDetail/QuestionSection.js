@@ -3,13 +3,15 @@ import { useRecoilValue } from "recoil";
 import { userStateAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 import styled from "styled-components";
+import Vote from "../Common/Vote";
 
 const InfoSection = styled("section")`
   padding-bottom: 10px;
   border-bottom: solid 1px gray;
+  color: #222323;
 `;
 const Title = styled("div")`
-  font-size: 40px;
+  font-size: 35px;
   margin-bottom: 5px;
   margin-top: 5px;
 `;
@@ -17,20 +19,29 @@ const ExceptTitle = styled("div")`
   display: inline-flex;
   justify-content: space-between;
   div {
-    margin-right: 10px;
-    font-size: 15px;
+    margin-right: 20px;
+    font-size: 13px;
   }
   button {
     margin-right: 10px;
     font-size: 13px;
   }
+  span {
+    color: gray;
+  }
 `;
 const Content = styled("div")`
-  border: solid 1px green;
+  border-bottom: solid 0.5px rgb(224, 224, 224);
   height: 250px;
-  padding: 15px 15px;
+  width: 889px;
+  padding: 0px 15px 15px 15px;
   word-break: break-all;
   font-size: 17px;
+`;
+
+const VoteContent = styled.section`
+  display: flex;
+  padding-top: 15px;
 `;
 
 function QuestionSection() {
@@ -51,11 +62,17 @@ function QuestionSection() {
   return (
     <>
       <InfoSection>
-        <Title>제목{questionInfo.questionTitle}</Title>
+        <Title>{questionInfo.questionTitle}</Title>
         <ExceptTitle>
-          <div>Writer {questionInfo.userId}</div>
-          <div>Asked {questionInfo.createdAt}</div>
-          <div>Modified {questionInfo.modifiedAt}</div>
+          <div>
+            <span>Writer</span> {questionInfo.userId}
+          </div>
+          <div>
+            <span>Asked</span> {questionInfo.createdAt}
+          </div>
+          <div>
+            <span>Modified</span> {questionInfo.modifiedAt}
+          </div>
           <section>
             {userInfo.memberId === questionInfo.memberId ? (
               <>
@@ -68,7 +85,10 @@ function QuestionSection() {
           </section>
         </ExceptTitle>
       </InfoSection>
-      <Content>질문내용{questionInfo.questionContent}</Content>
+      <VoteContent>
+        <Vote />
+        <Content>{questionInfo.questionContent}</Content>
+      </VoteContent>
     </>
   );
 }

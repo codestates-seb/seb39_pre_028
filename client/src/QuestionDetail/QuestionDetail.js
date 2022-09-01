@@ -9,8 +9,8 @@ import AnswerInput from "./AnswerInput&Items/AnswerInput";
 import styled from "styled-components";
 
 const QuestionContainer = styled("div")`
-  border: 1px solid red;
-  margin: 40px;
+  /* border: 1px solid red; */
+  margin: 10px 35px 10px 35px;
   height: auto;
 `;
 
