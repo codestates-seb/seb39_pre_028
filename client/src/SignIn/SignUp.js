@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -21,19 +21,22 @@ function SignUp() {
     setPassword(event.currentTarget.value);
   };
 
-  const signInHandler = (event) => {
-    event.preventDefault();
+  useEffect(() => {
     setSignInfo({
       username: username,
       userid: id,
       password: password,
     });
+  }, [username, id, password]);
+  const signInHandler = (event) => {
+    event.preventDefault();
+
     return axios // 회원가입 요청
       .post("/regi/signup", signInfo)
       .then((res) => {
         console.log(res.data);
         console.log("회원가입 성공");
-        navigate("/signin");
+        navigate("/regi/signin");
       })
       .catch((err) => {
         console.log(err.response.data);

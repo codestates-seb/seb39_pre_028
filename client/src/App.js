@@ -11,6 +11,7 @@ import { Routes, Route } from "react-router-dom";
 import QuestionDetail from "./QuestionDetail/QuestionDetail";
 import QuestionEdit from "./QuestionDetail/Edit/QuestionEdit";
 import styled from "styled-components";
+// import SideBar from "./Common/SideBar";
 
 axios.defaults.withCredentials = true;
 
@@ -33,6 +34,7 @@ const InnerContainer = styled("div")`
 
 const MainContainer = styled("div")`
   border: 1px solid green;
+  background-color: #ffff;
   width: 70vw;
 `;
 
@@ -40,21 +42,28 @@ function App() {
   return (
     <div>
       {/* <Header /> */}
+      {/* <SideBar /> */}
       <OutContainer>
         <InnerContainer>
           <MainContainer>
             <Routes>
               <Route path="/" element={<Board />} />
+              <Route path="/board" element={<Board />} />
               <Route path="/questions" element={<Question />} />
-              <Route path="/questiondetail" element={<QuestionDetail />} />
               <Route
-                path="/questiondetail/questionedit"
+                path="/questions/:questionId"
+                element={<QuestionDetail />}
+              />
+              {/* path="/questions/:questionId" */}
+              <Route
+                path="/questions/edit/:questionId"
+                // path="/questions/edit/:questionId"
                 element={<QuestionEdit />}
               />
               <Route path="/authcheck" element={<AuthCheck />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signin/signup" element={<SignUp />} />
-              <Route path="/signin/signout" element={<SignOut />} />
+              <Route path="/regi/signin" element={<SignIn />} />
+              <Route path="/regi/signup" element={<SignUp />} />
+              <Route path="/regi/signout" element={<SignOut />} />
             </Routes>
           </MainContainer>
         </InnerContainer>

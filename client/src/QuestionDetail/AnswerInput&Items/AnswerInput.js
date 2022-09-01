@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const WriteAnswer = styled("section")`
   div {
-    font-size: 23px;
+    font-size: 20px;
     margin: 15px 0px;
   }
   button {
@@ -27,7 +27,7 @@ const TextareaSection = styled("section")`
   margin-bottom: 10px;
   textarea {
     width: 99%;
-    height: 250px;
+    height: 130px;
     font-size: 15px;
   }
 `;
