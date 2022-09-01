@@ -3,7 +3,34 @@ import { useRecoilValue } from "recoil";
 import { useState } from "react";
 import authAxios from "../../Common/interceptor";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
+const WriteAnswer = styled("section")`
+  div {
+    font-size: 23px;
+    margin: 15px 0px;
+  }
+  button {
+    font-size: 17px;
+    color: white;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #44b1ff;
+    :hover {
+      background-color: #0074cc;
+    }
+  }
+`;
+const TextareaSection = styled("section")`
+  margin-bottom: 10px;
+  textarea {
+    width: 99%;
+    height: 250px;
+    font-size: 15px;
+  }
+`;
 function AnswerInput() {
   const [answerContent, setAnswerContent] = useState("");
   const questionInfo = useRecoilValue(questionAtom);
@@ -26,14 +53,19 @@ function AnswerInput() {
   };
 
   return (
-    <>
-      <textarea
-        placeholder="답변을 입력해주세요"
-        value={answerContent}
-        onChange={contentHandler}
-      />
-      <button onClick={addAnswerHandler}>답변 등록</button>
-    </>
+    <WriteAnswer>
+      <div>Your Answer</div>
+      <TextareaSection>
+        <textarea
+          placeholder="답변을 입력해주세요"
+          value={answerContent}
+          onChange={contentHandler}
+        />
+        Know someone who can answer? Share a link to this question via email,
+        Twitter, or Facebook.
+      </TextareaSection>
+      <button onClick={addAnswerHandler}>Post Your Answer</button>
+    </WriteAnswer>
   );
 }
 export default AnswerInput;

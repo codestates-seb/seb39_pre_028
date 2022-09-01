@@ -10,7 +10,7 @@ function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
   const [IsEditorOpen, setIsEditorOpen] = useState(false);
   const [editText, setEditText] = useState(content);
 
-  const questionID = questionInfo.questionid;
+  const questionID = questionInfo.questionId;
   const answerID = answerid;
 
   const deleteHandler = async () => {
