@@ -20,7 +20,7 @@ function SignOut() {
         localStorage.removeItem("accessToken");
         setIsLoginState(false);
         resetState();
-        navigate("/");
+        navigate("/board");
         console.log(res.data);
         console.log("로그아웃 성공");
       })

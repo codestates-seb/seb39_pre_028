@@ -1,4 +1,3 @@
-import axios from "axios";
 import authAxios from "../Common/interceptor";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -11,14 +10,12 @@ function Board() {
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
   const navigate = useNavigate();
-  const [isClick, setIsClick] = useState(false);
 
-  const getQuestion = async () => {
+  const getQuestion = () => {
     return authAxios
       .get("/board")
       .then((res) => {
-        // console.log(res.data);
-        // console.log(res.data.question);
+        console.log(res.data);
         setQuestions(res.data.question);
       })
       .catch((err) => {
@@ -31,9 +28,8 @@ function Board() {
   }, []);
 
   const clickHandler = (question) => {
-    setIsClick(!isClick);
-    return axios
-      .get(`/questions?q=${question.questionId}`)
+    return authAxios
+      .get(`/questions/${question.questionId}`)
       .then((res) => {
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
@@ -58,7 +54,6 @@ function Board() {
             </div>
           ))}
       </ul>
-      <div>{`${isClick}`}</div>
     </section>
   );
 }

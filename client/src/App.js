@@ -17,14 +17,14 @@ axios.defaults.withCredentials = true;
 const OutContainer = styled("div")`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: -8px;
   border: 1px solid black;
 `;
 
 const InnerContainer = styled("div")`
   display: flex;
-  margin-top: 20px;
+  position: absolute;
+  top: 70px;
+  margin-top: 18px;
   justify-content: center;
   height: 100vh;
   width: 97vw;
@@ -38,28 +38,26 @@ const MainContainer = styled("div")`
 
 function App() {
   return (
-    <div>
-      {/* <Header /> */}
-      <OutContainer>
-        <InnerContainer>
-          <MainContainer>
-            <Routes>
-              <Route path="/" element={<Board />} />
-              <Route path="/questions" element={<Question />} />
-              <Route path="/questiondetail" element={<QuestionDetail />} />
-              <Route
-                path="/questiondetail/questionedit"
-                element={<QuestionEdit />}
-              />
-              <Route path="/authcheck" element={<AuthCheck />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signin/signup" element={<SignUp />} />
-              <Route path="/signin/signout" element={<SignOut />} />
-            </Routes>
-          </MainContainer>
-        </InnerContainer>
-      </OutContainer>
-    </div>
+    <OutContainer>
+      <Header />
+      <InnerContainer>
+        <MainContainer>
+          <Routes>
+            <Route path="/board" element={<Board />} />
+            <Route path="/questions" element={<Question />} />
+            <Route path="/questiondetail" element={<QuestionDetail />} />
+            <Route
+              path="/questiondetail/questionedit"
+              element={<QuestionEdit />}
+            />
+            <Route path="/authcheck" element={<AuthCheck />} />
+            <Route path="/regi/signin" element={<SignIn />} />
+            <Route path="/regi/signup" element={<SignUp />} />
+            <Route path="/regi/signout" element={<SignOut />} />
+          </Routes>
+        </MainContainer>
+      </InnerContainer>
+    </OutContainer>
   );
 }
 
