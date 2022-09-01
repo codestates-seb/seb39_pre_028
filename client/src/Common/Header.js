@@ -13,7 +13,6 @@ const Contaniner = styled("div")`
   top: 0;
   left: -1px;
   width: 100%;
-  height: 10vh;
   z-index: 1;
   background-color: #f8f9f9;
   border-top: 4px solid #f48225;
@@ -72,7 +71,7 @@ function Header() {
 
   return (
     <Contaniner>
-      <Logo onClick={() => navigate("/")}>
+      <Logo onClick={() => navigate("/board")}>
         <FontAwesomeIcon className="logo_icon" icon={faStackOverflow} />
         <span className="logo_text first">stack </span>
         <span className="logo_text second">overflow</span>

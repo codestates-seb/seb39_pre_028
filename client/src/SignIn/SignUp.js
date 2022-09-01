@@ -28,6 +28,7 @@ function SignUp() {
       password: password,
     });
   }, [username, id, password]);
+
   const signInHandler = (event) => {
     event.preventDefault();
 

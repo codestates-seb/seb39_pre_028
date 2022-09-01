@@ -18,14 +18,14 @@ axios.defaults.withCredentials = true;
 const OutContainer = styled("div")`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: -8px;
   border: 1px solid black;
 `;
 
 const InnerContainer = styled("div")`
   display: flex;
-  margin-top: 20px;
+  position: absolute;
+  top: 70px;
+  margin-top: 18px;
   justify-content: center;
   height: 100vh;
   width: 97vw;
@@ -41,9 +41,9 @@ const MainContainer = styled("div")`
 function App() {
   return (
     <div>
-      {/* <Header /> */}
       {/* <SideBar /> */}
       <OutContainer>
+       <Header />
         <InnerContainer>
           <MainContainer>
             <Routes>
