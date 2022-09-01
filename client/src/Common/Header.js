@@ -66,7 +66,6 @@ const List = styled("li")`
   }
 `;
 
-
 function Header() {
   const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
@@ -79,14 +78,14 @@ function Header() {
         <span className="logo_text second">overflow</span>
       </Logo>
 
-      <List onClick={() => navigate("/")}>Board</List>
+      <List onClick={() => navigate("/board")}>Board</List>
 
       <List onClick={() => navigate("/questions")}>Questions </List>
 
       {isLogin ? (
-        <List onClick={() => navigate("/signin/signout")}>SignOut</List>
+        <List onClick={() => navigate("regi/signout")}>SignOut</List>
       ) : (
-        <List onClick={() => navigate("/signin")}>SignIn</List>
+        <List onClick={() => navigate("regi/signin")}>SignIn</List>
       )}
     </Contaniner>
   );

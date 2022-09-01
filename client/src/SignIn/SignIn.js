@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { userStateAtom, isLoginAtom } from "../Atom/atom";
 import { useNavigate } from "react-router-dom";
@@ -20,14 +20,18 @@ function SignIn() {
     setPassword(event.currentTarget.value);
   };
 
-  const LoginHandler = (event) => {
-    event.preventDefault();
+  useEffect(() => {
     setSignInfo({
       userid: id,
       password: password,
     });
+  }, [id, password]);
+
+  const LoginHandler = (event) => {
+    event.preventDefault();
+
     return axios
-      .post("/regi/signin", signInfo)
+      .post("regi/signin-process", signInfo)
       .then((res) => {
         console.log(res.headers.accesstoken);
 
@@ -37,7 +41,7 @@ function SignIn() {
 
         setIsLogin(true);
         setUserInfo(res.data.userInfo);
-        navigate("/");
+        navigate("/board");
 
         console.log("로그인 성공");
         console.log(res);
@@ -79,7 +83,7 @@ function SignIn() {
       </div>
 
       <div>
-        <button type="submit" onClick={() => navigate("/signin/signup")}>
+        <button type="submit" onClick={() => navigate("/regi/signup")}>
           회원가입
         </button>
       </div>

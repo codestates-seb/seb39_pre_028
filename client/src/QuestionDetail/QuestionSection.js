@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userStateAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
@@ -9,7 +9,7 @@ const InfoSection = styled("section")`
   border-bottom: solid 1px gray;
 `;
 const Title = styled("div")`
-  font-size: 47px;
+  font-size: 40px;
   margin-bottom: 5px;
   margin-top: 5px;
 `;
@@ -18,29 +18,24 @@ const ExceptTitle = styled("div")`
   justify-content: space-between;
   div {
     margin-right: 10px;
-    font-size: 17px;
+    font-size: 15px;
   }
   button {
     margin-right: 10px;
-    font-size: 17px;
+    font-size: 13px;
   }
 `;
 const Content = styled("div")`
   border: solid 1px green;
-  height: auto;
+  height: 250px;
   padding: 15px 15px;
   word-break: break-all;
-  font-size: 20px;
+  font-size: 17px;
 `;
 
 function QuestionSection() {
   const userInfo = useRecoilValue(userStateAtom);
   const questionInfo = useRecoilValue(questionAtom);
-  const navigate = useNavigate();
-
-  const editHandler = () => {
-    navigate("/questiondetail/questionedit");
-  };
 
   const deleteHandler = async () => {
     const ok = window.confirm("질문을 삭제하시겠습니까?");
@@ -62,16 +57,18 @@ function QuestionSection() {
           <div>Asked {questionInfo.createdAt}</div>
           <div>Modified {questionInfo.modifiedAt}</div>
           <section>
-            {userInfo.memberid === questionInfo.memberId ? (
+            {userInfo.memberId === questionInfo.memberId ? (
               <>
-                <button onClick={editHandler}>Edit</button>
+                <Link to={`/questions/edit/${questionInfo.questionId}`}>
+                  <button>Edit</button>
+                </Link>
                 <button onClick={deleteHandler}>Delete</button>
               </>
             ) : null}
           </section>
         </ExceptTitle>
       </InfoSection>
-      <Content>내용{questionInfo.questionContent}</Content>
+      <Content>질문내용{questionInfo.questionContent}</Content>
     </>
   );
 }
