@@ -92,6 +92,9 @@ public class QuestionService {
     }
     private Member findMember(long memberId){
         System.out.println("memberId 로 멤버 찾기 : service method");
+        Member member = memberRepository.findByMemberid(memberId);
+        if(member == null) throw new CustomLogicException(MEMBER_NOT_FOUND);
+        System.out.println(member.getMemberid()+" member 존재");
         return memberRepository.findByMemberid(memberId);
     }
 }
