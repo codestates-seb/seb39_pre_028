@@ -6,10 +6,12 @@ const NavContainer = styled("div")`
   text-align: center;
   font-size: 15px;
   font-weight: 300;
+
   span {
     color: #0a95ff;
     font-weight: 400;
   }
+
   span:hover {
     cursor: pointer;
     color: #0074cc;

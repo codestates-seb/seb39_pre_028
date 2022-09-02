@@ -1,5 +1,6 @@
 import authAxios from "../Common/interceptor";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
@@ -9,14 +10,12 @@ function Board() {
   const [questions, setQuestions] = useState([]);
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
-  const navigate = useNavigate();
 
-  const getQuestion = async () => {
+  const getQuestion = () => {
     return authAxios
       .get("/board")
       .then((res) => {
-        // console.log(res.data);
-        // console.log(res.data.question);
+        console.log(res.data);
         setQuestions(res.data.question);
       })
       .catch((err) => {
@@ -29,14 +28,15 @@ function Board() {
   }, []);
 
   const clickHandler = (question) => {
-    return authAxios
-      .get(`/questions?q=${question.questionId}`)
+    return axios
+      .get(`/questions/${question.questionId}`)
       .then((res) => {
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
         setAnswersAtom(res.data.answer);
         console.log(answersAtom);
-        navigate("/questiondetail");
+
+        // navigate("/questiondetail");
       })
       .catch((err) => {
         console.log("실패");
@@ -51,7 +51,9 @@ function Board() {
         {Array.isArray(questions) &&
           questions.map((question, idx) => (
             <div key={idx} onClick={() => clickHandler(question)}>
-              <Questions question={question} />
+              <Link to={`/questions/${question.questionId}`}>
+                <Questions question={question} />
+              </Link>
             </div>
           ))}
       </ul>

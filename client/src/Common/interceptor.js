@@ -33,7 +33,7 @@ authAxios.interceptors.response.use(
       response: { status },
     } = error;
     if (status === 401) {
-      if (error.message === "Request failed with status code 401") {
+      if (error.message === "Unauthorized") {
         console.log(error);
         const setIsLogin = useSetRecoilState(isLoginAtom);
         const navigate = useNavigate();

@@ -9,7 +9,7 @@ const InfoSection = styled("section")`
   padding-bottom: 10px;
   border-bottom: solid 1px gray;
   font-size: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-top: 5px;
 `;
 
@@ -27,9 +27,10 @@ const EditText = styled("div")`
   height: 500px;
   input {
     font-size: 20px;
+    height: 35px;
   }
   textarea {
-    font-size: 20px;
+    font-size: 15px;
     height: 400px;
   }
 `;
@@ -60,7 +61,7 @@ function QuestionEdit() {
   const navigate = useNavigate();
 
   const cancleEdit = () => {
-    navigate("/questionDetail");
+    navigate(`/questions/${questionsAtom.questionId}`);
   };
   const setTitleHandler = (event) => setEditTitle(event.currentTarget.value);
   const setContentHandler = (event) =>
@@ -86,7 +87,7 @@ function QuestionEdit() {
         .then(() => {
           setQuestionsAtom(questionInfo);
           console.log(questionsAtom);
-          navigate("/questionDetail");
+          navigate(`/questions/${questionsAtom.questionId}`);
         })
         .catch((err) => {
           console.log(err.message);
@@ -96,7 +97,7 @@ function QuestionEdit() {
 
   return (
     <QuestionContainer>
-      <InfoSection>Editting Question</InfoSection>
+      <InfoSection>Edit Your Question</InfoSection>
       <form>
         <EditText>
           <input
@@ -117,7 +118,7 @@ function QuestionEdit() {
         <Buttons>
           <button onClick={cancleEdit}>Cancle</button>
           <button type="submit" onClick={editQuestion}>
-            Edit Your AnSwer
+            Edit Your Question
           </button>
         </Buttons>
       </form>

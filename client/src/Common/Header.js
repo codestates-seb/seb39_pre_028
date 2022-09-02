@@ -13,7 +13,6 @@ const Contaniner = styled("div")`
   top: 0;
   left: -1px;
   width: 100%;
-  height: 10vh;
   z-index: 1;
   background-color: #f8f9f9;
   border-top: 4px solid #f48225;
@@ -25,26 +24,21 @@ const Logo = styled("li")`
   list-style: none;
   padding: 15px 10px;
   transition: all 0.2s;
-
   :hover {
     cursor: pointer;
     background-color: #e3e6e8;
   }
-
   .logo_icon {
     font-size: 30px;
     margin: 0 5px;
     color: #f38630;
   }
-
   .logo_text {
     font-size: 23px;
   }
-
   .first {
     font-weight: 300;
   }
-
   .second {
     font-weight: 700;
   }
@@ -58,7 +52,6 @@ const List = styled("li")`
   font-size: 16px;
   border-radius: 50px;
   transition: all 0.2s;
-
   :hover {
     cursor: pointer;
     color: black;
@@ -66,27 +59,26 @@ const List = styled("li")`
   }
 `;
 
-
 function Header() {
   const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
 
   return (
     <Contaniner>
-      <Logo onClick={() => navigate("/")}>
+      <Logo onClick={() => navigate("/board")}>
         <FontAwesomeIcon className="logo_icon" icon={faStackOverflow} />
         <span className="logo_text first">stack </span>
         <span className="logo_text second">overflow</span>
       </Logo>
 
-      <List onClick={() => navigate("/")}>Board</List>
+      <List onClick={() => navigate("/board")}>Board</List>
 
       <List onClick={() => navigate("/questions")}>Questions </List>
 
       {isLogin ? (
-        <List onClick={() => navigate("/signin/signout")}>SignOut</List>
+        <List onClick={() => navigate("regi/signout")}>SignOut</List>
       ) : (
-        <List onClick={() => navigate("/signin")}>SignIn</List>
+        <List onClick={() => navigate("regi/signin")}>SignIn</List>
       )}
     </Contaniner>
   );
