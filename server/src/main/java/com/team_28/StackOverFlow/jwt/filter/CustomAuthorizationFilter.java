@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team_28.StackOverFlow.exception.CustomLogicException;
+import com.team_28.StackOverFlow.exception.ExceptionCode;
 import com.team_28.StackOverFlow.jwt.exception.ErrorResponse;
 import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
@@ -49,56 +51,62 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
         //로그인, 리프레시 요청이라면 토큰 검사X
         if(servletPath.equals("/h2")
                 || servletPath.equals("/regi/signin")|| servletPath.equals("/regi/signin-process")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout")
-                ||servletPath.equals("/board") || servletPath.equals("/board/search")
-                || servletPath.equals("/questions") ||servletPath.equals("/questions/1")||servletPath.equals("/questions/2")){
+                ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
             filterChain.doFilter(request,response);
             return;
-        } else if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
+        }
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
             //토큰값이 없거나 정상적이지 않다면 401 오류
             logger.info("CustomAuthorizationFilter : JWT Token이 존재하지 않습니다.");
             response.setStatus(401);
-            response.setContentType(APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding("utf-8");
-            ErrorResponse errorResponse = new ErrorResponse(401, "JWT Token이 존재하지 않습니다.");
-            new ObjectMapper().writeValue(response.getWriter(), errorResponse);
-        } else {
-            try{
+//            response.setContentType(APPLICATION_JSON_VALUE);
+//            response.setCharacterEncoding("utf-8");
+//            ErrorResponse errorResponse = new ErrorResponse(401, "JWT Token이 존재하지 않습니다.");
+//            new ObjectMapper().writeValue(response.getWriter(), errorResponse);
+            throw new CustomLogicException(ExceptionCode.UNAUTHORIZED_NO_TOKEN);
+        }
+
                 //Access Token만 꺼내옴
                 String accessToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
                 //Access Token 검증
-                JWTVerifier verifier = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build();
-                DecodedJWT decodedJWT = verifier.verify(accessToken);
-                String userId = decodedJWT.getClaim("userId").asString();
+                String userId = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build().verify(accessToken).getClaim("userId").asString();
                 if(userId != null) {
+                    Member member = memberRepository.findByUserid(userId);
+                    PrincipalDetails principalDetails = new PrincipalDetails(member);
                     //(추가) Redis 에 해당 accessToken logout 여부 확인
                     String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
                     if (ObjectUtils.isEmpty(isLogout)) {
                         //Access Token 내 Claim에서 userId꺼내 Authentication 객체 생성 & SecurityContext에 저장
-                        Member member = memberRepository.findByUserid(userId);
-                        PrincipalDetails principalDetails = new PrincipalDetails(member);
+
                         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
                         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     }
+                    System.out.println("인가 성공");
                     filterChain.doFilter(request, response);
-                }
+                    System.out.println("필터 다음");
+                } else {
+                    System.out.println("슈퍼 필터 전");
                     super.doFilterInternal(request, response, filterChain);
+                    System.out.println("슈퍼 필터 후");
                 }
-             catch (TokenExpiredException e) {
-                log.info("CustomAuthorizationfilter : Access Token이 만료되었습니다.");
-                response.setStatus(401);
-                response.setContentType(APPLICATION_JSON_VALUE);
-                response.setCharacterEncoding("utf-8");
-                ErrorResponse errorResponse = new ErrorResponse(401, "Access Token이 만료되었습니다.");
-                new ObjectMapper().writeValue(response.getWriter(), errorResponse);
-            } catch (Exception e) {
-                log.info("CustomAuthorizationFilter : JWT 토큰이 잘못되었습니다. message : {}", e.getMessage());
-                response.setStatus(400);
-                response.setContentType(APPLICATION_JSON_VALUE);
-                response.setCharacterEncoding("utf-8");
-                ErrorResponse errorResponse = new ErrorResponse(400, "잘못된 JWT Token 입니다.");
-                new ObjectMapper().writeValue(response.getWriter(), errorResponse);
-            }
+                }
+//             catch (TokenExpiredException e) {
+//                log.info("CustomAuthorizationfilter : Access Token이 만료되었습니다.");
+//                response.setStatus(401);
+////                response.setContentType(APPLICATION_JSON_VALUE);
+////                response.setCharacterEncoding("utf-8");
+////                ErrorResponse errorResponse = new ErrorResponse(401, "Access Token이 만료되었습니다.");
+////                new ObjectMapper().writeValue(response.getWriter(), errorResponse);
+//                 throw new CustomLogicException(ExceptionCode.UNAUTHORIZED_EXPIRED_TOKEN);
+//            } catch (Exception e) {
+//                log.info("CustomAuthorizationFilter : JWT 토큰이 잘못되었습니다. message : {}", e.getMessage());
+//                response.setStatus(400);
+////                response.setContentType(APPLICATION_JSON_VALUE);
+////                response.setCharacterEncoding("utf-8");
+////                ErrorResponse errorResponse = new ErrorResponse(400, "잘못된 JWT Token 입니다.");
+////                new ObjectMapper().writeValue(response.getWriter(), errorResponse);
+//                throw new CustomLogicException(ExceptionCode.BAD_REQUEST_TOKEN);
+//            }
 
         }
-    }
-}
+

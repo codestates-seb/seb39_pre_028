@@ -3,10 +3,7 @@ package com.team_28.StackOverFlow.question.entity;
 import com.team_28.StackOverFlow.answer.entity.Answer;
 import com.team_28.StackOverFlow.audit.Auditable;
 import com.team_28.StackOverFlow.jwt.entity.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,17 +13,20 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
     @ManyToOne
+    @JoinColumn(name = "MEMBERID")
     private Member member;
-    @OneToMany
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
-    @Column(nullable = false)
+    @Column
     private String questionTitle;
-    @Column(nullable = false)
+    @Column
     private String questionContent;
     @Column
     private boolean isAnswered;
@@ -41,4 +41,5 @@ public class Question extends Auditable {
             answer.setQuestion(this);
         }
     }
+
 }

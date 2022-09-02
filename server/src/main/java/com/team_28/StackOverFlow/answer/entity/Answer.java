@@ -22,7 +22,7 @@ public class Answer extends Auditable {
     private Question question;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBERID")
     private Member member;
 
     @Column(nullable = false)
