@@ -25,6 +25,7 @@ public class BoardController {
     @GetMapping("/search")
     public ResponseEntity testBoard(){
         List<Question> questions = questionService.findQuestions();
+        System.out.println("board controller 에서 서비스 성공");
         return new ResponseEntity<>(new BoardResponseDto<>(questionMapper.questionsToQuestionResponses(questions)),HttpStatus.OK);
     }
 
@@ -32,10 +33,9 @@ public class BoardController {
     public ResponseEntity getQuestionsPage(@Positive @RequestParam int page,
                                        @Positive @RequestParam int size){
         Page<Question> pageQuestions = questionService.findQuestionsPage(page -1, size);
-        System.out.println("서비스 완료");
+        System.out.println("board controller 에서 서비스 성공 / 페이지네이션");
         List<Question> questions = pageQuestions.getContent();
-        System.out.println("페이지네이션");
-
+        System.out.println("리스트 생성 완료");
         return new ResponseEntity<>(new BoardResponseDto<>(questionMapper.questionsToQuestionResponses(questions),pageQuestions),
                 HttpStatus.OK);
     }

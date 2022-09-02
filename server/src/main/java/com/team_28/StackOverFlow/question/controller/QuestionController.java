@@ -26,6 +26,7 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionRequestDto requestDto){
+        System.out.println("/questions POST 시작");
         Question question = questionService.createQuestion(questionMapper.questionRequestDtoToQuestion(requestDto));
         System.out.println(question.getQuestionContent());
         if(!question.isAnswered()){
@@ -40,10 +41,10 @@ public class QuestionController {
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
                                         @Valid @RequestBody QuestionRequestDto requestDto){
+        System.out.println("/questions/{question-id} PATCH 시작");
         requestDto.setQuestionId(questionId);
         System.out.println(requestDto.getQuestionId());
         Question question = questionService.updateQuestion(questionMapper.questionRequestDtoToQuestionPatch(requestDto));
-
         if(!question.isAnswered()){
             return new ResponseEntity(
                     new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question)),
@@ -56,6 +57,7 @@ public class QuestionController {
 
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") long questionId){
+        System.out.println("/questions/{question-id} GET 시작");
         Question question = questionService.findQuestion(questionId);
         if(!question.isAnswered()){
             return new ResponseEntity(
@@ -69,6 +71,7 @@ public class QuestionController {
 
     @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(@PathVariable("question-id") long questionId){
+        System.out.println("/questions/{question-id} DELETE 시작");
         questionService.deleteQuestion(questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
