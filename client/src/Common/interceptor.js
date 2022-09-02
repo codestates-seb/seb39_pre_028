@@ -33,7 +33,7 @@ authAxios.interceptors.response.use(
       response: { status },
     } = error;
     if (status === 401) {
-      if (error.message === "Unauthorized") {
+      if (error.message === "access 토큰이 만료되었습니다.") {
         console.log(error);
         const setIsLogin = useSetRecoilState(isLoginAtom);
         const navigate = useNavigate();

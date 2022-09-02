@@ -36,7 +36,6 @@ const EditText = styled("div")`
 `;
 
 const Buttons = styled.div`
-  /* background-color: gray; */
   height: 50px;
   button {
     font-size: 17px;
