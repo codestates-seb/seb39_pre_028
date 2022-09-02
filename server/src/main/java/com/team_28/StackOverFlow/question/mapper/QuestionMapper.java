@@ -22,6 +22,8 @@ public interface QuestionMapper {
                 .questionTitle(question.getQuestionTitle())
                 .questionContent(question.getQuestionContent())
                 .isAnswered(question.isAnswered())
+                .createdAt(question.getCreatedAt())
+                .modifiedAt(question.getModifiedAt())
                 .build();
         return questionResponseDto;
     }
@@ -35,7 +37,7 @@ public interface QuestionMapper {
                 .member(member)
                 .questionTitle(questionRequestDto.getQuestionTitle())
                 .questionContent(questionRequestDto.getQuestionContent())
-                .isAnswered(questionRequestDto.isAnswered())
+                .createdAt(questionRequestDto.getCreatedAt())
                 .build();
 
         return question;
@@ -50,6 +52,7 @@ public interface QuestionMapper {
                 .questionTitle(questionRequestDto.getQuestionTitle())
                 .questionContent(questionRequestDto.getQuestionContent())
                 .isAnswered(questionRequestDto.isAnswered())
+                .modifiedAt(questionRequestDto.getModifiedAt())
                 .build();
 
         return question;

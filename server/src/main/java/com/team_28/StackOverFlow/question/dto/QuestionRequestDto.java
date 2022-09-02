@@ -20,7 +20,9 @@ public class QuestionRequestDto {
     private String questionContent;
     @NotNull
     private long memberId;
-    @NotNull
+
+    private String createdAt;
+    private String modifiedAt;
     private boolean isAnswered;
 
     public Member getMember(){

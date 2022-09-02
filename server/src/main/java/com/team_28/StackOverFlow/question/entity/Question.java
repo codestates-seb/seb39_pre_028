@@ -6,6 +6,7 @@ import com.team_28.StackOverFlow.jwt.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class Question extends Auditable {
     private String questionContent;
     @Column
     private boolean isAnswered;
+    @Column(name = "CREATED_AT", updatable = false)
+    private String createdAt;
+    @Column(name = "LAST_MODIFIED_AT")
+    private String modifiedAt;
 
     public void setMember(Member member){
         this.member = member;
