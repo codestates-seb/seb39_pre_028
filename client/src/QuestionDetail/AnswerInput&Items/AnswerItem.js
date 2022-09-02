@@ -34,6 +34,53 @@ const CreatorDate = styled.div`
   }
 `;
 
+const Info = styled.section`
+  button {
+    margin-right: 7px;
+    font-size: 12px;
+    color: #ffff;
+    background-color: #44b1ff;
+    padding: 3px;
+    width: 50px;
+    border-style: none;
+    border-radius: 3px;
+    :hover {
+      background-color: #0074cc;
+    }
+  }
+`;
+
+const EditorContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  textarea {
+    width: 990px;
+    height: 200px;
+    font-size: large;
+    :overflow {
+      overflow: scroll;
+    }
+  }
+`;
+
+const Buttons = styled.section`
+  margin-top: 10px;
+  button {
+    margin-left: 7px;
+    font-size: 13px;
+    font-weight: 520;
+    color: #ffff;
+    background-color: #44b1ff;
+    padding: 5px;
+    width: 90px;
+    border-style: none;
+    border-radius: 3px;
+    :hover {
+      background-color: #0074cc;
+    }
+  }
+`;
 function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
   // const answerInfo = useRecoilValue(answerAtom); //배열인 상태라서 사용하지 못함. props로 받아온 속성 직접 사용
   const userInfo = useRecoilValue(userStateAtom);
@@ -74,29 +121,33 @@ function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
         {!IsEditorOpen ? (
           <ContentCreateInfo>
             <Content>{content}</Content>
-            <CreatorDate>
-              <div>
-                <span>Answered by</span>
-                {creator}
-              </div>
-              <div>
-                <span>Answered</span>
-                {date}
-              </div>
-            </CreatorDate>
-            {userInfo.memberid === creatorMemberid ? (
-              <>
-                <button onClick={() => setIsEditorOpen(true)}>Edit</button>{" "}
-                <button onClick={deleteHandler}>Delete</button>
-              </>
-            ) : null}
+            <Info>
+              <CreatorDate>
+                <div>
+                  <span>Answered by</span>
+                  {creator}
+                </div>
+                <div>
+                  <span>Answered</span>
+                  {date}
+                </div>
+              </CreatorDate>
+              {userInfo.memberid === creatorMemberid ? (
+                <>
+                  <button onClick={() => setIsEditorOpen(true)}>Edit</button>{" "}
+                  <button onClick={deleteHandler}>Delete</button>
+                </>
+              ) : null}
+            </Info>
           </ContentCreateInfo>
         ) : (
-          <>
+          <EditorContainer>
             <textarea value={editText} onChange={contentHandler} required />
-            <button onClick={() => setIsEditorOpen(false)}>취소</button>
-            <button onClick={editAnswerHandler}>답변 수정</button>
-          </>
+            <Buttons>
+              <button onClick={() => setIsEditorOpen(false)}>Cancle</button>
+              <button onClick={editAnswerHandler}>Edit Answer</button>
+            </Buttons>
+          </EditorContainer>
         )}
       </div>
     </Container>

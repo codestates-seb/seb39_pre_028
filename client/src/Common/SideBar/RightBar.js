@@ -28,9 +28,8 @@ const Board = styled.section`
 const ItemHeader = styled.div`
   height: 32px;
   font-size: 14px;
-  padding: 0px 0px 0px 6px;
+  padding: 15px 0px 0px 6px;
   text-align: left;
-  padding-top: 7%;
   font-weight: 500;
   color: #3a3a3a;
   border-bottom: solid 1px #eadcaf;
@@ -42,17 +41,21 @@ const ItemHeader = styled.div`
 
 const Item = styled.div`
   font-size: 12px;
-  margin: 10px 0px 0px 5px;
+  margin: 10px 0px 3px 5px;
 
   &.last {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   &.whitelast {
     height: 32px;
   }
 `;
 
-// s
+const ItemBody = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+`;
 
 function RightBar() {
   return (
@@ -60,38 +63,39 @@ function RightBar() {
       <Inner>
         <Board className="first">
           <ItemHeader className="first">The Overflow Blog</ItemHeader>
-          <Item>
+          <ItemBody>
             <FontAwesomeIcon icon={faPen} color="gray" />
-            &nbsp;&nbsp;What companies lose when they track worker productivity
-            (Ep. 478)
-          </Item>
-          <Item className="last">
+            <Item>
+              What companies lose when they track worker productivity (Ep. 478)
+            </Item>
+          </ItemBody>
+          <ItemBody>
             <FontAwesomeIcon icon={faPen} color="gray" />
-            &nbsp;&nbsp; Functional programming is an ideal fit for developing
-            blockchains
-          </Item>
+            <Item className="last">
+              Functional programming is an ideal fit for developing blockchains
+            </Item>
+          </ItemBody>
           <ItemHeader className="first">Featured on Meta</ItemHeader>
-          <Item>
+          <ItemBody>
             <FontAwesomeIcon icon={faMessage} color="#44b1ff" />
-            &nbsp;&nbsp;Announcing the Stack Overflow Student Ambassador Program
-          </Item>
-
-          <Item>
+            <Item>
+              Announcing the Stack Overflow Student Ambassador Program
+            </Item>
+          </ItemBody>
+          <ItemBody>
             <FontAwesomeIcon icon={faMessage} color="#44b1ff" />
-            &nbsp;&nbsp;Google Analytics 4 (GA4) upgrade
-          </Item>
-
-          <Item>
+            <Item>Google Analytics 4 (GA4) upgrade</Item>
+          </ItemBody>
+          <ItemBody>
             <FontAwesomeIcon icon={faStackOverflow} />
-            &nbsp;&nbsp;Staging Ground Workflow: Question Lifecycle{" "}
-          </Item>
-          <Item className="last">
+            <Item>Staging Ground Workflow: Question Lifecycle </Item>
+          </ItemBody>
+          <ItemBody>
             <FontAwesomeIcon icon={faStackOverflow} />
-            &nbsp;&nbsp;The [option] tag is being burninated{" "}
-          </Item>
+            <Item className="last">The [option] tag is being burninated </Item>
+          </ItemBody>
           <ItemHeader className="first">The Overflow Blog</ItemHeader>
           <Item className="last">
-            {" "}
             17 &nbsp;&nbsp;Consolidating Python version-specific tags
           </Item>
         </Board>

@@ -23,8 +23,18 @@ const ExceptTitle = styled("div")`
     font-size: 13px;
   }
   button {
-    margin-right: 10px;
-    font-size: 13px;
+    margin-right: 7px;
+    font-size: 12px;
+    color: #ffff;
+    background-color: #44b1ff;
+    padding: 5px;
+    width: 55px;
+    border-style: none;
+    border-radius: 3px;
+
+    :hover {
+      background-color: #0074cc;
+    }
   }
   span {
     color: gray;
