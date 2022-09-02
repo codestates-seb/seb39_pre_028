@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { isLoginAtom, userStateAtom } from "../Atom/atom";
+import { isLoginAtom, userStateAtom } from "../../Atom/atom";
 import { useSetRecoilState, useResetRecoilState } from "recoil";
-import authAxios from "../Common/interceptor";
+import authAxios from "../../Common/interceptor";
 import SignoutDomains from "./SignoutDomains";
 
 const SignOutContainer = styled("div")`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
