@@ -8,7 +8,7 @@ import NavSignin from "./NavSignin";
 const SignUpContainer = styled("div")`
   position: absolute;
   display: flex;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;

@@ -25,14 +25,18 @@ function Question() {
 
   const setContentHandler = (event) => setContent(event.currentTarget.value);
 
-  const addQuestion = async (event) => {
-    event.preventDefault();
+  useEffect(() => {
     setQuestionInfo({
       questionTitle: title,
       questionContent: content,
-      createdAt: new Date(),
+      createdAt: new Date().toLocaleDateString(),
       memberid: userInfo.memberid,
     });
+  }, [title, content, userInfo.memberid]);
+
+  const addQuestion = (event) => {
+    event.preventDefault();
+
     return authAxios
       .post("/questions", questionInfo)
       .then(() => {

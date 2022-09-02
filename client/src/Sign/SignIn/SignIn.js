@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { userStateAtom, isLoginAtom } from "../Atom/atom";
+import { userStateAtom, isLoginAtom } from "../../Atom/atom";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
@@ -13,11 +13,10 @@ const SignInContainer = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-
   .logo_icon {
     text-align: center;
     font-size: 50px;
@@ -36,18 +35,15 @@ const SigninForm = styled("form")`
   font-weight: 550;
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
   div {
     margin-bottom: 6px;
   }
-
   input {
     height: 35px;
     margin-bottom: 30px;
     border: 0.5px solid #d3d3d3;
     border-radius: 5px;
   }
-
   button {
     height: 35px;
     color: #ffffff;
@@ -55,7 +51,6 @@ const SigninForm = styled("form")`
     border: 0;
     border-radius: 3px;
   }
-
   button:hover {
     background-color: #0074cc;
   }
