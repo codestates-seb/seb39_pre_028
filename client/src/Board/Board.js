@@ -1,5 +1,6 @@
 import authAxios from "../Common/interceptor";
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+//import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -10,7 +11,7 @@ function Board() {
   const [questions, setQuestions] = useState([]);
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const getQuestion = () => {
     return authAxios

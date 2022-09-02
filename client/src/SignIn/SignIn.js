@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
 import styled from "styled-components";
+import NavSignup from "./NavSignup";
 
 const SignInContainer = styled("div")`
-  border: 1px solid red;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -17,34 +17,47 @@ const SignInContainer = styled("div")`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  font-size: 25px;
 
   .logo_icon {
     text-align: center;
-    font-size: 30px;
+    font-size: 50px;
     color: #f38630;
   }
 `;
 
 const SigninForm = styled("form")`
-  border: 1px solid green;
-  background-color: #f1f2f3;
-  padding: 25px;
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
-`;
+  background-color: #f8f9f9;
+  padding: 45px 30px;
+  margin: 40px 0;
+  width: 20rem;
+  font-size: 18px;
+  font-weight: 550;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
-const NavSignup = styled("div")`
-  border: 1px solid orange;
-  text-align: center;
-
-  span {
-    color: #0a95ff;
+  div {
+    margin-bottom: 6px;
   }
 
-  span:hover {
-    cursor: pointer;
+  input {
+    height: 35px;
+    margin-bottom: 30px;
+    border: 0.5px solid #d3d3d3;
+    border-radius: 5px;
+  }
+
+  button {
+    height: 35px;
+    color: #ffffff;
+    background-color: #0a95ff;
+    border: 0;
+    border-radius: 3px;
+  }
+
+  button:hover {
+    background-color: #0074cc;
   }
 `;
 
@@ -73,7 +86,7 @@ function SignIn() {
 
   const LoginHandler = (event) => {
     event.preventDefault();
-    
+
     return axios
       .post("signin-process", signInfo)
       .then((res) => {
@@ -97,22 +110,15 @@ function SignIn() {
   };
 
   return (
- <SignInContainer>
+    <SignInContainer>
       <FontAwesomeIcon className="logo_icon" icon={faStackOverflow} />
       <SigninForm>
         <div>ID</div>
-        <input
-          type="text"
-          name="id"
-          placeholder="id"
-          value={id}
-          onChange={handleIdChange}
-        />
+        <input type="text" name="id" value={id} onChange={handleIdChange} />
         <div>Password</div>
         <input
           type="password"
           name="password"
-          placeholder="password"
           value={password}
           onChange={handlePasswordChange}
         />
@@ -120,10 +126,7 @@ function SignIn() {
           Log in
         </button>
       </SigninForm>
-      <NavSignup>
-        Dont't have an account?{" "}
-        <span onClick={() => navigate("/regi/signup")}>Sign up</span>
-      </NavSignup>
+      <NavSignup />
     </SignInContainer>
   );
 }

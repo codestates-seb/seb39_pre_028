@@ -3,8 +3,8 @@ import axios from "axios";
 import Board from "./Board/Board";
 import Question from "./Question/Question";
 import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignIn/SignUp";
-import SignOut from "./SignIn/SignOut";
+import SignUp from "./SignUp/SignUp";
+import SignOut from "./SignOut/SignOut";
 import Header from "./Common/Header";
 import AuthCheck from "./Common/AuthCheck";
 import { Routes, Route } from "react-router-dom";
@@ -43,7 +43,7 @@ function App() {
     <div>
       {/* <SideBar /> */}
       <OutContainer>
-       <Header />
+        <Header />
         <InnerContainer>
           <MainContainer>
             <Routes>
