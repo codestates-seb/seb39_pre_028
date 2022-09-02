@@ -1,11 +1,17 @@
 import authAxios from "../Common/interceptor";
-import axios from "axios";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { questionAtom, answerAtom } from "../Atom/atom";
-import Questions from "./Questions";
+import { Link } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  questionAtom,
+  answerAtom,
+  filteredArrAtom,
+  searchTextAtom,
+} from "../Atom/atom";
+import QuestionItem from "./QuestionItem";
+import SearchBar from "./SearchBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const BoardContainer = styled("section")`
   margin: 8px 30px;
@@ -37,6 +43,10 @@ const BoardHeader = styled("div")`
     border: 0;
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    &.searchbar {
+      height: 35px;
+      margin-left: 5px;
+    }
   }
 
   button:hover {
@@ -55,69 +65,69 @@ const BoardBox = styled("ul")`
   }
 `;
 
-const TotalNSearchContainer = styled.div`
+const NoResult = styled.div`
+  margin-top: 200px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  b {
+    margin-left: 10px;
+    font-size: x-large;
+  }
+  span {
+    font-size: smaller;
+    &.margin {
+      margin-top: 5px;
+    }
+  }
 `;
 
-function Board() {
-  const [questions, setQuestions] = useState([]);
+function Search() {
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
-  const navigate = useNavigate();
-
-  const getQuestion = () => {
-    return authAxios
-      .get("/board")
-      .then((res) => {
-        console.log(res.data);
-        setQuestions(res.data.question);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
-
-  useEffect(() => {
-    getQuestion();
-  }, []);
-
+  const searchResult = useRecoilValue(filteredArrAtom);
+  const searchedText = useRecoilValue(searchTextAtom);
   const clickHandler = (question) => {
-    return axios
+    return authAxios
       .get(`/questions/${question.questionId}`)
       .then((res) => {
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
         setAnswersAtom(res.data.answer);
         console.log(answersAtom);
-
-        // navigate("/questiondetail");
       })
       .catch((err) => {
         console.log("실패");
         console.log(err.message);
       });
   };
-
   return (
     <BoardContainer>
       <BoardHeader>
-        <h1>All Questions</h1>
+        <h1>Search for Questions</h1>
 
-        <button type="submit" onClick={() => navigate("/questions")}>
-          Ask Question
-        </button>
+        <SearchBar />
       </BoardHeader>
-      <TotalNSearchContainer>
-        <div className="question_length">{questions.length} questions</div>
-        <div>검색창</div>
-      </TotalNSearchContainer>
+      <div className="question_length">{searchResult.length} results</div>
+
       <BoardBox>
-        {Array.isArray(questions) &&
-          questions.map((question, idx) => (
+        {searchResult.length < 1 && (
+          <NoResult>
+            <FontAwesomeIcon icon={faSearch} size="7x" color="#E3E6E8" />
+            <div>
+              We couldn't find anything for <b>{searchedText}</b>
+            </div>
+            <span className="margin">Search options: not deleted</span>
+            <span> Try different or less specific keywords.</span>
+          </NoResult>
+        )}
+
+        {Array.isArray(searchResult) &&
+          searchResult.map((question, idx) => (
             <div key={idx} onClick={() => clickHandler(question)}>
               <Link to={`/questions/${question.questionId}`}>
-                <Questions question={question} />
+                <QuestionItem question={question} />
               </Link>
             </div>
           ))}
@@ -126,4 +136,4 @@ function Board() {
   );
 }
 
-export default Board;
+export default Search;

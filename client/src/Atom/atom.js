@@ -47,3 +47,17 @@ export const answerAtom = atom({
     answer: [],
   },
 });
+
+export const filteredArrAtom = atom({
+  key: "filteredArrAtom",
+  default: {
+    arr: [],
+  },
+});
+
+export const searchTextAtom = atom({
+  key: "searchTextAtom",
+  default: {
+    word: {},
+  },
+});
