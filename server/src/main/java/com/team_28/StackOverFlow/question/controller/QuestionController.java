@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -74,6 +75,12 @@ public class QuestionController {
         System.out.println("/questions/{question-id} DELETE 시작");
         questionService.deleteQuestion(questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/edit/{question-id}")
+    public ResponseEntity getEditPage(@PathVariable("question-id") @Positive long questionId){
+        System.out.println("수정 페이지 질문 번호 : "+questionId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

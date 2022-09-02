@@ -39,4 +39,8 @@ public class BoardController {
         return new ResponseEntity<>(new BoardResponseDto<>(questionMapper.questionsToQuestionResponses(questions),pageQuestions),
                 HttpStatus.OK);
     }
+    @GetMapping("/home")
+    public ResponseEntity getBoard(){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

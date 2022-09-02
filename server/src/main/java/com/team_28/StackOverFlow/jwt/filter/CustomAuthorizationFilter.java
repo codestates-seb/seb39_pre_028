@@ -51,7 +51,8 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
         //로그인, 리프레시 요청이라면 토큰 검사X
         if(servletPath.equals("/h2")
                 || servletPath.equals("/regi/signin")|| servletPath.equals("/regi/signin-process")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout")
-                ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
+                ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")
+        ||request.getRequestURI().equals("http://localhost:3000/authcheck")){
             filterChain.doFilter(request,response);
             return;
         }
