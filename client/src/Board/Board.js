@@ -1,6 +1,5 @@
 import authAxios from "../Common/interceptor";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
