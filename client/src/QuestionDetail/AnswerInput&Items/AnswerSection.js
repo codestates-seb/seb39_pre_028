@@ -5,12 +5,17 @@ import styled from "styled-components";
 
 const AnswerContainer = styled("section")`
   height: auto;
-  padding: 10px;
+  padding-top: 30px;
+  ul {
+    padding: 0%;
+  }
 `;
 
 const ItemContainer = styled.li`
-  border-bottom: solid 1px gray;
-  margin-bottom: 10px;
+  border-bottom: solid 1px rgb(224, 224, 224);
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  list-style: none;
 `;
 
 function AnswerSecion() {
