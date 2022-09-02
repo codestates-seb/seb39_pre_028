@@ -24,7 +24,7 @@ const WriteAnswer = styled("section")`
   }
 `;
 const TextareaSection = styled("section")`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   textarea {
     width: 99%;
     height: 130px;

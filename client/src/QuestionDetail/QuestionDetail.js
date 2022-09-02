@@ -7,10 +7,12 @@ import { questionAtom } from "../Atom/atom";
 import AnswerSecion from "./AnswerInput&Items/AnswerSection";
 import AnswerInput from "./AnswerInput&Items/AnswerInput";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 const QuestionContainer = styled("div")`
-  border: 1px solid red;
-  margin: 40px;
+  /* border: 1px solid red; */
+  margin: 10px 35px 10px 35px;
   height: auto;
 `;
 
@@ -20,10 +22,12 @@ const NoAnswer = styled("div")`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 
   div {
     font-size: 20px;
     color: gray;
+    margin-top: 15px;
   }
 `;
 
@@ -41,6 +45,11 @@ function QuestionDetail() {
           <AnswerSecion />
         ) : (
           <NoAnswer>
+            <FontAwesomeIcon
+              icon={faCircleExclamation}
+              size="3x"
+              color="gray"
+            ></FontAwesomeIcon>
             <div>There is no answer yet</div>
           </NoAnswer>
         )}
