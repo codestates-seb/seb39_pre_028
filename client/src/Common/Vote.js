@@ -17,13 +17,12 @@ function Vote() {
     <Container>
       <FontAwesomeIcon
         icon={faPlay}
-        rotation="270"
         size="2x"
         color="#BABFC4"
         hover="color:#ffff"
       />
       <Number>8</Number>
-      <FontAwesomeIcon icon={faPlay} rotation="90" size="2x" color="#BABFC4" />
+      <FontAwesomeIcon icon={faPlay} size="2x" color="#BABFC4" />
     </Container>
   );
 }

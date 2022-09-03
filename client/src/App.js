@@ -13,6 +13,7 @@ import QuestionEdit from "./QuestionDetail/Edit/QuestionEdit";
 import styled from "styled-components";
 import LeftBar from "./Common/SideBar/LeftBar";
 import RightBar from "./Common/SideBar/RightBar";
+import Footer from "./Common/Footer";
 
 axios.defaults.withCredentials = true;
 
@@ -70,6 +71,7 @@ function App() {
           </MainContainer>
           <RightBar />
         </InnerContainer>
+        <Footer />
       </OutContainer>
     </div>
   );

@@ -2,6 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
+import {
+  faInbox,
+  faCircleQuestion,
+  faTrophy,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { isLoginAtom } from "../Atom/atom";
 import { useRecoilValue } from "recoil";
@@ -65,6 +71,56 @@ const List = styled("li")`
   }
 `;
 
+const IconContainer = styled("div")`
+  display: flex;
+  position: absolute;
+  bottom: 10;
+  right: 0;
+  margin-right: 25px;
+
+  .logo {
+    color: #757575;
+    font-size: 22px;
+    margin: 12px;
+  }
+`;
+
+const ButtonContainer = styled("div")`
+  display: flex;
+  position: absolute;
+  bottom: 10;
+  right: 0;
+  margin-right: 25px;
+
+  button:first-child {
+    padding: 10px 12px;
+    margin-left: 8px;
+    background-color: #dceaf2;
+    color: #0074cc;
+    border: 1px solid #0a95ff;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+
+  button:first-child:hover {
+    /* background-color: #aaddff; */
+    background-color: transparent;
+  }
+
+  button:last-child {
+    padding: 10px;
+    margin-left: 12px;
+    color: #ffffff;
+    background-color: #0a95ff;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+  button:last-child:hover {
+    background-color: #0074cc;
+  }
+`;
+
 function Header() {
   const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
@@ -82,9 +138,25 @@ function Header() {
       <List onClick={() => navigate("/questions")}>Questions </List>
 
       {isLogin ? (
-        <List onClick={() => navigate("regi/signout")}>SignOut</List>
+        <IconContainer>
+          <FontAwesomeIcon className="signout logo" icon={faInbox} />
+          <FontAwesomeIcon className="signout logo" icon={faCircleQuestion} />
+          <FontAwesomeIcon className="signout logo" icon={faTrophy} />
+          <FontAwesomeIcon
+            icon={faRightFromBracket}
+            className="signout logo"
+            onClick={() => navigate("regi/signout")}
+          />
+        </IconContainer>
       ) : (
-        <List onClick={() => navigate("regi/signin")}>SignIn</List>
+        <ButtonContainer>
+          <button type="submit" onClick={() => navigate("regi/signin")}>
+            Log in
+          </button>
+          <button type="submit" onClick={() => navigate("regi/signup")}>
+            Sign up
+          </button>
+        </ButtonContainer>
       )}
     </Contaniner>
   );

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { userStateAtom, isLoginAtom } from "../../Atom/atom";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -61,6 +61,7 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [signInfo, setSignInfo] = useState({});
   const setUserInfo = useSetRecoilState(userStateAtom);
+  const userInfo = useRecoilValue(userStateAtom);
   const setIsLogin = useSetRecoilState(isLoginAtom);
   const navigate = useNavigate();
 
@@ -92,7 +93,8 @@ function SignIn() {
         }
 
         setIsLogin(true);
-        setUserInfo(res.data.userInfo);
+        setUserInfo(res.data);
+        console.log(userInfo);
         navigate("/board");
 
         console.log("로그인 성공");

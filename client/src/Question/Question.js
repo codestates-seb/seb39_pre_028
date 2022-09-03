@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userStateAtom, isLoginAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 import styled from "styled-components";
+
 const Buttons = styled.div`
   height: 50px;
   display: flex;
@@ -75,24 +76,26 @@ function Question() {
   const setTitleHandler = (event) => setTitle(event.currentTarget.value);
   const setContentHandler = (event) => setContent(event.currentTarget.value);
 
+  // userinfo atom 비워버림
   useEffect(() => {
     setQuestionInfo({
       questionTitle: title,
       questionContent: content,
       createdAt: new Date().toLocaleDateString(),
-      memberid: userInfo.memberid,
+      memberId: userInfo.memberid,
     });
-  }, [title, content, userInfo.memberid]);
+  }, [title, content]);
 
   const addQuestion = (event) => {
     event.preventDefault();
 
     return authAxios
       .post("/questions", questionInfo)
-      .then(() => {
+      .then((res) => {
         setQuestionsAtom(questionInfo);
-        console.log(questionsAtom);
-        navigate("/questiondetail");
+        // console.log(questionsAtom);
+        // navigate(`/questions/${questionAtom.questionId}`);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err.message);
