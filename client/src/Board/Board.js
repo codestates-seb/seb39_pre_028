@@ -3,11 +3,10 @@ import axios from "axios";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
 import Pagination from "./Pagination";
-
 
 const BoardContainer = styled("section")`
   margin: 8px 30px;
@@ -61,6 +60,7 @@ function Board() {
   const [questions, setQuestions] = useState([]);
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
+  const resetQuestionAtom = useResetRecoilState(questionAtom);
 
   //현재 페이지는 1로 기본 설정
   const [page, SetPage] = useState(1);
@@ -86,10 +86,10 @@ function Board() {
     return authAxios
       .get(`/board?page=${page}&size=${SIZE}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setQuestions(res.data.question);
         SetPageInfo(res.data.pageInfo);
-        console.log(pageInfo);
+        // console.log(pageInfo);
       })
       .catch((err) => {
         console.log(err.message);
@@ -101,17 +101,18 @@ function Board() {
   //   pageNumber.push(i);
   // }
 
-
   const clickHandler = (question) => {
-    return axios
-      .get(`/questions/4`)
+    return authAxios
+      .get(`/questions/${question.questionId}`)
       .then((res) => {
+        console.log(res);
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
         setAnswersAtom(res.data.answer);
         console.log(answersAtom);
       })
       .catch((err) => {
+        console.log(err);
         console.log("실패");
         console.log(err.message);
       });

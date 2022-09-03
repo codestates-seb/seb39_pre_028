@@ -52,7 +52,7 @@ function App() {
           <MainContainer>
             <Routes>
               <Route path="/" element={<Board />} />
-              <Route path="/board" element={<Board />} />
+              <Route path="/board/home" element={<Board />} />
               <Route path="/questions" element={<Question />} />
               <Route path="/questions/:id" element={<QuestionDetail />} />
               {/* path="/questions/:questionId" */}

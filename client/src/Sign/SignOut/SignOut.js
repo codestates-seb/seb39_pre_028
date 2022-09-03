@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { isLoginAtom, userStateAtom } from "../../Atom/atom";
+import { isLoginAtom, userStateAtom, questionAtom } from "../../Atom/atom";
 import { useSetRecoilState, useResetRecoilState } from "recoil";
 import authAxios from "../../Common/interceptor";
 import SignoutDomains from "./SignoutDomains";
@@ -84,6 +84,7 @@ function SignOut() {
       .post("/regi/signout")
       .then((res) => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("recoil-persist");
         setIsLoginState(false);
         resetState();
         navigate("/board");
@@ -91,7 +92,7 @@ function SignOut() {
         console.log("로그아웃 성공");
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
         console.log("로그아웃 실패");
       });
   };
