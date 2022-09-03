@@ -92,7 +92,7 @@ function SignIn() {
         }
 
         setIsLogin(true);
-        setUserInfo(res.data.userInfo);
+        setUserInfo(res.data);
         navigate("/board");
 
         console.log("로그인 성공");

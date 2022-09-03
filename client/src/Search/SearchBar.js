@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import authAxios from "../Common/interceptor";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { filteredArrAtom, searchTextAtom } from "../Atom/atom";
+import axios from "axios";
 
 const Container = styled.section`
   input {
@@ -28,7 +29,7 @@ function SearchBar() {
     e.preventDefault();
     if (searchText.length < 2) return alert("more letters required");
     return authAxios
-      .get("/board")
+      .get("/board/search")
       .then((res) => {
         console.log(res.data.question);
         let filteredArr = res.data.question.filter((question) => {

@@ -88,6 +88,7 @@ function Search() {
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
   const searchResult = useRecoilValue(filteredArrAtom);
   const searchedText = useRecoilValue(searchTextAtom);
+
   const clickHandler = (question) => {
     return authAxios
       .get(`/questions/${question.questionId}`)

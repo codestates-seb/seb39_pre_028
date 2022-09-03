@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
+// import Pagination from "./Pagenation";
 
 const BoardContainer = styled("section")`
   margin: 8px 30px;
@@ -55,41 +56,61 @@ const BoardBox = styled("ul")`
   }
 `;
 
-const TotalNSearchContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 function Board() {
   const [questions, setQuestions] = useState([]);
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
+
+  //현재 페이지는 1로 기본 설정
+  const [page, SetPage] = useState(1);
+  //한 페이지에 10개의 데이터 보여주기
+  const SIZE = 10;
+  // pageInfo 받아올 객체
+  const [pageInfo, SetPageInfo] = useState({});
+
+  //   PageInfo : {
+  //     int page
+  //      int size
+  //   long totalElements
+  //  int totalPages}}
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getQuestion();
+    console.log(page);
+  }, [page]);
 
   const getQuestion = () => {
     return authAxios
-      .get("/board")
+      .get(`/board?page=${page}&size=${SIZE}`)
       .then((res) => {
         console.log(res.data);
         setQuestions(res.data.question);
+        SetPageInfo(res.data.pageInfo);
+        console.log(pageInfo);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
 
-  useEffect(() => {
-    getQuestion();
-  }, []);
+  const pageNumber = [];
+  for (let i = 1; i <= pageInfo.totalPages; i++) {
+    pageNumber.push(i);
+  }
 
   const clickHandler = (question) => {
     return axios
-      .get(`/questions/${question.questionId}`)
+      .get(`/questions/4`)
       .then((res) => {
-        setQuestionsAtom(res.data.question);
-        console.log(questionsAtom);
-        setAnswersAtom(res.data.answer);
-        console.log(answersAtom);
+        // setQuestionsAtom(res.data.question);
+        console.log(res.data.question);
+        // console.log(questionsAtom);
+        // setAnswersAtom(res.data.answer);
+        // console.log(res.data.answer);
+
+        // console.log(answersAtom);
 
         // navigate("/questiondetail");
       })
@@ -103,15 +124,11 @@ function Board() {
     <BoardContainer>
       <BoardHeader>
         <h1>All Questions</h1>
-
         <button type="submit" onClick={() => navigate("/questions")}>
           Ask Question
         </button>
       </BoardHeader>
-      <TotalNSearchContainer>
-        <div className="question_length">{questions.length} questions</div>
-        <div>검색창</div>
-      </TotalNSearchContainer>
+      <div className="question_length">{questions.length} questions</div>
       <BoardBox>
         {Array.isArray(questions) &&
           questions.map((question, idx) => (
@@ -122,6 +139,14 @@ function Board() {
             </div>
           ))}
       </BoardBox>
+      <nav style={{ listStyleType: "none", display: "flex" }}>
+        {Array.isArray(pageNumber) &&
+          pageNumber.map((num, idx) => (
+            <li key={idx} onClick={() => SetPage(num)}>
+              <button>{num}</button>
+            </li>
+          ))}
+      </nav>
     </BoardContainer>
   );
 }

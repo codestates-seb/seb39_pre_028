@@ -84,7 +84,7 @@ function QuestionSection() {
             <span>Modified</span> {questionInfo.modifiedAt}
           </div>
           <section>
-            {userInfo.memberId === questionInfo.memberId ? (
+            {userInfo.memberid === questionInfo.memberId ? (
               <>
                 <Link to={`/questions/edit/${questionInfo.questionId}`}>
                   <button>Edit</button>
