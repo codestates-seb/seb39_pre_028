@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { userStateAtom, isLoginAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 import styled from "styled-components";
@@ -61,10 +60,10 @@ function Question() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [questionInfo, setQuestionInfo] = useState({});
-  const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const userInfo = useRecoilValue(userStateAtom);
   const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
+  const resetQuestionAtom = useResetRecoilState(questionAtom);
 
   // 일단 로그인 안한 상태일 경우 authcheck로
   useEffect(() => {
@@ -92,12 +91,12 @@ function Question() {
     return authAxios
       .post("/questions", questionInfo)
       .then((res) => {
-        setQuestionsAtom(questionInfo);
-        // console.log(questionsAtom);
-        // navigate(`/questions/${questionAtom.questionId}`);
-        console.log(res.data);
         console.log(res);
-
+        resetQuestionAtom();
+      })
+      .then((res) => {
+        navigate("/board");
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err.message);

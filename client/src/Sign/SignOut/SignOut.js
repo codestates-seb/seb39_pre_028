@@ -84,6 +84,7 @@ function SignOut() {
       .post("/regi/signout")
       .then((res) => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("recoil-persist");
         setIsLoginState(false);
         resetState();
         navigate("/board");

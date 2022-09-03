@@ -63,7 +63,7 @@ function QuestionSection() {
     console.log(ok);
     if (ok) {
       const res = await authAxios.delete(
-        `/questions?q=${questionInfo.questionId}`
+        `/questions/${questionInfo.questionId}`
       );
       console.log(res);
     }
