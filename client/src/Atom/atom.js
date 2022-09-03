@@ -5,10 +5,7 @@ const { persistAtom } = recoilPersist();
 
 export const userStateAtom = atom({
   key: "userStateAtom",
-  default: {
-    memberId: "",
-    userid: "",
-  },
+  default: {},
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -18,21 +15,6 @@ export const isLoginAtom = atom({
 
   effects_UNSTABLE: [persistAtom],
 });
-
-// export const questionAtom = atom({
-//   key: "questionAtom",
-//   default: {
-//     answerIds: "",
-//     answered: false,
-//     createdAt: "",
-//     memberId: "",
-//     modifiedAt: "",
-//     questionContent: "",
-//     questionId: "",
-//     questionTitle: "",
-//     userId: "",
-//   },
-// });
 
 export const questionAtom = atom({
   key: "questionAtom",
@@ -45,5 +27,19 @@ export const answerAtom = atom({
   key: "answerAtom",
   default: {
     answer: [],
+  },
+});
+
+export const filteredArrAtom = atom({
+  key: "filteredArrAtom",
+  default: {
+    arr: [],
+  },
+});
+
+export const searchTextAtom = atom({
+  key: "searchTextAtom",
+  default: {
+    word: {},
   },
 });
