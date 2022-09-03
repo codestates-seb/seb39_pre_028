@@ -17,6 +17,7 @@ function Vote() {
     <Container>
       <FontAwesomeIcon
         icon={faPlay}
+        // rotation="270"
         size="2x"
         color="#BABFC4"
         hover="color:#ffff"

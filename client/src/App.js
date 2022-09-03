@@ -14,6 +14,7 @@ import styled from "styled-components";
 import LeftBar from "./Common/SideBar/LeftBar";
 import RightBar from "./Common/SideBar/RightBar";
 import Footer from "./Common/Footer";
+import Search from "./Search/Search";
 
 axios.defaults.withCredentials = true;
 
@@ -53,10 +54,7 @@ function App() {
               <Route path="/" element={<Board />} />
               <Route path="/board" element={<Board />} />
               <Route path="/questions" element={<Question />} />
-              <Route
-                path="/questions/:questionId"
-                element={<QuestionDetail />}
-              />
+              <Route path="/questions/:id" element={<QuestionDetail />} />
               {/* path="/questions/:questionId" */}
               <Route
                 path="/questions/edit/:questionId"
@@ -67,6 +65,7 @@ function App() {
               <Route path="/regi/signin" element={<SignIn />} />
               <Route path="/regi/signup" element={<SignUp />} />
               <Route path="/regi/signout" element={<SignOut />} />
+              <Route path="/board/search" element={<Search />} />
             </Routes>
           </MainContainer>
           <RightBar />

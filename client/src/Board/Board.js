@@ -8,6 +8,7 @@ import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
 import Pagination from "./Pagination";
 
+
 const BoardContainer = styled("section")`
   margin: 8px 30px;
   height: auto;
@@ -100,9 +101,10 @@ function Board() {
   //   pageNumber.push(i);
   // }
 
+
   const clickHandler = (question) => {
     return axios
-      .get(`/questions/${question.questionId}`)
+      .get(`/questions/4`)
       .then((res) => {
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);

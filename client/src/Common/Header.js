@@ -137,6 +137,8 @@ function Header() {
 
       <List onClick={() => navigate("/questions")}>Questions </List>
 
+      <List onClick={() => navigate("/board/search")}>Search </List>
+
       {isLogin ? (
         <IconContainer>
           <FontAwesomeIcon className="signout logo" icon={faInbox} />
