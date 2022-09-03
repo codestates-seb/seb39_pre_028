@@ -1,5 +1,4 @@
 import authAxios from "../Common/interceptor";
-import axios from "axios";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -7,7 +6,6 @@ import { useRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
 import Pagination from "./Pagination";
-
 
 const BoardContainer = styled("section")`
   margin: 8px 30px;
@@ -61,7 +59,6 @@ function Board() {
   const [questions, setQuestions] = useState([]);
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
-
   //현재 페이지는 1로 기본 설정
   const [page, SetPage] = useState(1);
   //한 페이지에 10개의 데이터 보여주기
@@ -101,10 +98,9 @@ function Board() {
   //   pageNumber.push(i);
   // }
 
-
   const clickHandler = (question) => {
-    return axios
-      .get(`/questions/4`)
+    return authAxios
+      .get(`/questions/${question.questionId}`)
       .then((res) => {
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
