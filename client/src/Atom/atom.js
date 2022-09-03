@@ -27,7 +27,9 @@ export const isLoginAtom = atom({
 
 export const questionAtom = atom({
   key: "questionAtom",
-  default: {},
+  default: {
+    answered: false,
+  },
   effects_UNSTABLE: [persistAtom],
 });
 
@@ -44,7 +46,7 @@ export const filteredArrAtom = atom({
   default: {
     arr: [],
   },
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });
 
 export const searchTextAtom = atom({
@@ -52,5 +54,5 @@ export const searchTextAtom = atom({
   default: {
     word: {},
   },
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });

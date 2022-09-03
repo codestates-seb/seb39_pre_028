@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { userStateAtom, isLoginAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 import styled from "styled-components";
@@ -61,7 +60,6 @@ function Question() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [questionInfo, setQuestionInfo] = useState({});
-  const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const userInfo = useRecoilValue(userStateAtom);
   const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
@@ -97,10 +95,7 @@ function Question() {
         resetQuestionAtom();
       })
       .then((res) => {
-        setQuestionsAtom(questionInfo);
         navigate("/board");
-        // console.log(questionsAtom);
-        // navigate(`/questions/${questionAtom.questionId}`);
         console.log(res.data);
       })
       .catch((err) => {

@@ -1,5 +1,4 @@
 import authAxios from "../Common/interceptor";
-import axios from "axios";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -60,7 +59,6 @@ function Board() {
   const [questions, setQuestions] = useState([]);
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
-  const resetQuestionAtom = useResetRecoilState(questionAtom);
 
   //현재 페이지는 1로 기본 설정
   const [page, SetPage] = useState(1);
