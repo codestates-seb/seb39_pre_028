@@ -127,7 +127,7 @@ function Header() {
 
   return (
     <Contaniner>
-      <Logo onClick={() => navigate("/board")}>
+      <Logo onClick={() => navigate("/board/home")}>
         <FontAwesomeIcon className="logo_icon" icon={faStackOverflow} />
         <span className="logo_text first">stack </span>
         <span className="logo_text second">overflow</span>
