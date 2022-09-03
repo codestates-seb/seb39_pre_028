@@ -6,7 +6,7 @@ const QuestionBox = styled("li")`
   align-items: center;
   border-bottom: 1px solid #b5b1b1;
   position: relative;
-  height: 15vh;
+  height: 9rem;
 `;
 
 const QuestionLeft = styled("div")`

@@ -95,7 +95,9 @@ function Question() {
         setQuestionsAtom(questionInfo);
         // console.log(questionsAtom);
         // navigate(`/questions/${questionAtom.questionId}`);
+        console.log(res.data);
         console.log(res);
+
       })
       .catch((err) => {
         console.log(err.message);

@@ -6,7 +6,8 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
-// import Pagination from "./Pagenation";
+import Pagination from "./Pagination";
+
 
 const BoardContainer = styled("section")`
   margin: 8px 30px;
@@ -95,24 +96,20 @@ function Board() {
       });
   };
 
-  const pageNumber = [];
-  for (let i = 1; i <= pageInfo.totalPages; i++) {
-    pageNumber.push(i);
-  }
+  // const pageNumber = [];
+  // for (let i = 1; i <= pageInfo.totalPages; i++) {
+  //   pageNumber.push(i);
+  // }
+
 
   const clickHandler = (question) => {
     return axios
       .get(`/questions/4`)
       .then((res) => {
-        // setQuestionsAtom(res.data.question);
-        console.log(res.data.question);
-        // console.log(questionsAtom);
-        // setAnswersAtom(res.data.answer);
-        // console.log(res.data.answer);
-
-        // console.log(answersAtom);
-
-        // navigate("/questiondetail");
+        setQuestionsAtom(res.data.question);
+        console.log(questionsAtom);
+        setAnswersAtom(res.data.answer);
+        console.log(answersAtom);
       })
       .catch((err) => {
         console.log("실패");
@@ -139,14 +136,7 @@ function Board() {
             </div>
           ))}
       </BoardBox>
-      <nav style={{ listStyleType: "none", display: "flex" }}>
-        {Array.isArray(pageNumber) &&
-          pageNumber.map((num, idx) => (
-            <li key={idx} onClick={() => SetPage(num)}>
-              <button>{num}</button>
-            </li>
-          ))}
-      </nav>
+      <Pagination pageInfo={pageInfo} SetPage={SetPage} />
     </BoardContainer>
   );
 }
