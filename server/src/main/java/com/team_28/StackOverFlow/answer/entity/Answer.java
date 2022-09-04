@@ -3,10 +3,7 @@ package com.team_28.StackOverFlow.answer.entity;
 import com.team_28.StackOverFlow.audit.Auditable;
 import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.question.entity.Question;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
