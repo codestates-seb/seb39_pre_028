@@ -34,11 +34,11 @@ authAxios.interceptors.response.use(
     // } = error;
 
     // 401
-    // access 검증에 실패했습니다.
+    // access 토큰 검증에 실패했습니다.
 
     if (error.response.status === 401) {
       if (error.message === "Request failed with status code 401") {
-        console.log("if 후 콘솔 error", error);
+        // console.log("if 후 콘솔 error", error);
 
         // console.log("전", localStorage.getItem("recoil-persist"));
         localStorage.removeItem("recoil-persist");

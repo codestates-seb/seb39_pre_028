@@ -24,6 +24,22 @@ const Contaniner = styled("div")`
   border-top: 4px solid #f48225;
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
+
+  /* @media all and (min-width: 1100px) and (max-width: 1490px) {
+    background-color: orange;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    background-color: yellow;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    background-color: green;
+  }
+
+  @media all and (max-width: 768px) {
+    background-color: red;
+  } */
 `;
 
 const Logo = styled("li")`
@@ -69,6 +85,11 @@ const List = styled("li")`
     color: black;
     background-color: #e3e6e8;
   }
+
+  @media all and (max-width: 768px) {
+    padding: 9px 0 12px 0;
+    font-size: 14px;
+  }
 `;
 
 const IconContainer = styled("div")`
@@ -82,6 +103,13 @@ const IconContainer = styled("div")`
     color: #757575;
     font-size: 22px;
     margin: 12px;
+  }
+
+  @media all and (max-width: 768px) {
+    .logo {
+      font-size: 20px;
+      margin: 10px;
+    }
   }
 `;
 

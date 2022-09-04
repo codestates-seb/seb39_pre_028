@@ -40,6 +40,10 @@ const MainContainer = styled("div")`
   height: auto;
   background-color: #ffff;
   width: 70vw;
+
+  @media all and (max-width: 768px) {
+    width: 500vw;
+  }
 `;
 
 function App() {

@@ -43,6 +43,22 @@ const SignupTextContainer = styled("div")`
       margin-top: -2px;
     }
   }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    width: 23rem;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    display: none;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    display: none;
+  }
+
+  @media all and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function SignupText() {
