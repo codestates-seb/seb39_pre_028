@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: auto;
@@ -146,7 +145,6 @@ const BiggerBox = styled.section`
   }
 `;
 function LeftBar() {
-  const navigate = useNavigate();
   return (
     <Container>
       <Inner>
@@ -165,7 +163,10 @@ function LeftBar() {
             <b>Stack Overflow for Teams</b> - Start collaborating and sharing
             organizational knowledge.
           </p>
-          <img src="https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e" />
+          <img
+            src="https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e"
+            alt="이미지"
+          />
           <span className="Orange">Create a free Team</span>
           <span>Why Teams?</span>
         </BiggerBox>
