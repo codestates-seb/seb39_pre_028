@@ -65,13 +65,7 @@ function QuestionEdit() {
   const setContentHandler = (event) =>
     setEditContent(event.currentTarget.value);
 
-  let dates = new Date();
-  let month = dates.getUTCMonth() + 1;
-  let day = dates.getUTCDate();
-  let year = dates.getUTCFullYear();
-  let currentDate = year + "-" + month + "-" + day;
-
-  // let date = new Date().toLocaleDateString();
+  let date = new Date().toLocaleDateString();
   useEffect(() => {
     setQuestionInfo({
       ...{
@@ -79,7 +73,7 @@ function QuestionEdit() {
         questionTitle: editTitle,
         questionContent: editContent,
         isAnswered: questionsAtom.answered,
-        modifiedAt: currentDate,
+        modifiedAt: date,
       },
     });
     localStorage.setItem("questionInfo", questionInfo);

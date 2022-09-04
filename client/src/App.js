@@ -37,7 +37,7 @@ const InnerContainer = styled("div")`
 const MainContainer = styled("div")`
   /* border: 1px solid green; */
   margin-top: 10px;
-
+  height: auto;
   background-color: #ffff;
   width: 70vw;
 

@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStackOverflow } from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
+
 const Container = styled.div`
   margin-top: 10px;
   height: auto;
@@ -72,10 +74,15 @@ const ItemHeader = styled.div`
   text-align: left;
   font-weight: 500;
   color: #3a3a3a;
-  border-bottom: solid 1px #eadcaf;
-  background-color: #f2f2f2;
+  background-color: #f7f7f7;
+  border-bottom: solid 1px rgb(166, 166, 166);
+
   &.first {
     background-color: #fbf3d5;
+    border-bottom: solid 1px #eadcaf;
+  }
+  &.about {
+    background-color: aliceblue;
   }
 
   @media all and (min-width: 1100px) and (max-width: 1490px) {
@@ -100,7 +107,7 @@ const Item = styled.div`
   margin: 10px 0px 3px 5px;
 
   &.last {
-    margin-bottom: 15px;
+    margin-bottom: 22px;
   }
   &.whitelast {
     height: 32px;
@@ -123,6 +130,49 @@ const ItemBody = styled.div`
   display: flex;
   align-items: center;
   padding-left: 5px;
+`;
+
+const AboutItem = styled.div`
+  height: auto;
+  font-size: 12px;
+  margin: 7px;
+  margin-bottom: 10px;
+`;
+const AboutText = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-left: 14px;
+  font-size: 12px;
+  span:first-child {
+    font-size: 18px;
+  }
+`;
+
+const AboutTitle = styled.section`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
+  section {
+    display: flex;
+    width: 170px;
+    div {
+      padding-top: 8px;
+    }
+  }
+  button {
+    width: 60px;
+    border: solid 1px #44b1ff;
+    background-color: #ffff;
+    color: #5e99ff;
+    border-radius: 5px;
+    height: 50px;
+    font-weight: 600;
+    box-shadow: 1px 1px 1px #d6d7d8;
+    :hover {
+      background-color: #5e99ff;
+      color: #fff;
+    }
+  }
 `;
 
 function RightBar() {
@@ -170,6 +220,27 @@ function RightBar() {
         <Board className="whiteboard">
           <ItemHeader>Custom Filters</ItemHeader>
           <Item className="whitelast">Create a custom filter</Item>
+        </Board>
+        <Board className="whiteboard">
+          <ItemHeader className="about">About Us</ItemHeader>
+          <AboutItem>
+            <AboutTitle>
+              <section>
+                <div>
+                  <FontAwesomeIcon icon={faGithub} size="3x" />
+                </div>
+                <AboutText>
+                  <span>Github</span>
+                  <sapn>3 Members</sapn>
+                </AboutText>
+              </section>
+              <a href="https://github.com/codestates-seb/seb39_pre_028/tree/dev">
+                <button>Go</button>
+              </a>
+            </AboutTitle>
+
+            <Item className="whitelast">Every commits for our project</Item>
+          </AboutItem>
         </Board>
       </Inner>
     </Container>

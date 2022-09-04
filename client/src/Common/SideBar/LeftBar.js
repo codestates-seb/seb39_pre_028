@@ -62,7 +62,7 @@ const Item = styled.div`
     color: #f48225;
     font-size: 20px;
     margin-bottom: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
     padding-left: 10px;
   }
   &.last {
@@ -169,9 +169,7 @@ function LeftBar() {
   return (
     <Container>
       <Inner>
-        <Item className="home" onClick={() => navigate("/board/search")}>
-          Search
-        </Item>
+        <Item className="home">Menu</Item>
         <span>FILTER</span>
         <Item>Tags</Item>
         <Item>Answered</Item>
