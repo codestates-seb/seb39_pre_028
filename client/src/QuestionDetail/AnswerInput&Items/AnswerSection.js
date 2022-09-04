@@ -27,11 +27,12 @@ function AnswerSecion() {
         {answerArr.map((item) => (
           <ItemContainer key={item.answerId}>
             <AnswerItem //해당 객체 속성 쓸 거 다 여기서 줘야함.
-              creator={item.userId}
+              userId={item.userId}
               content={item.content}
-              date={item.createdAt}
-              creatorMemberid={item.memberId}
-              answerid={item.answerId}
+              created_at={item.created_at}
+              modified_at={item.modified_at}
+              memberId={item.memberId}
+              answerId={item.answerId}
             />
           </ItemContainer>
         ))}
