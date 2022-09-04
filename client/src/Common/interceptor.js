@@ -36,6 +36,8 @@ authAxios.interceptors.response.use(
     // 401
     // access 토큰 검증에 실패했습니다.
 
+    // 서버에서 만료되는 시점 읽어서 보내주면 무조건 로그아웃 되도록
+
     if (error.response.status === 401) {
       if (error.message === "Request failed with status code 401") {
         // console.log("if 후 콘솔 error", error);

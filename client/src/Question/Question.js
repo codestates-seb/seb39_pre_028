@@ -62,7 +62,6 @@ function Question() {
   const [content, setContent] = useState("");
   const [questionInfo, setQuestionInfo] = useState({});
   const userInfo = useRecoilValue(userStateAtom);
-  const isLogin = useRecoilValue(isLoginAtom);
   const navigate = useNavigate();
   const resetQuestionAtom = useResetRecoilState(questionAtom);
 
