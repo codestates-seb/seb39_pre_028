@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -41,6 +42,8 @@ public class BoardController {
     }
     @GetMapping("/home")
     public ResponseEntity getBoard(){
+
+        System.out.println("/board/home GET");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

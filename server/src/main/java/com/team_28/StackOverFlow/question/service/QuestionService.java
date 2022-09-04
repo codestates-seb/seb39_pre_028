@@ -97,4 +97,6 @@ public class QuestionService {
         System.out.println(member.getMemberid()+" member 존재");
         return memberRepository.findByMemberid(memberId);
     }
+
+    //+작성자와 CRUD하는 사용자가 같은지 확인
 }

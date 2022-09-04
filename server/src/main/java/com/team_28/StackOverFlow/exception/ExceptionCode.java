@@ -11,7 +11,9 @@ public enum ExceptionCode {
     SC_FORBIDDEN(403,"접근 권한이 없습니다."),
     MEMBER_NOT_FOUND(404,"Member not found"),
     QUESTION_EXISTS(409,"Question Exists"),
-    QUESTION_NOT_FOUND(404,"Question not found");
+    QUESTION_NOT_FOUND(404,"Question not found"),
+    ANSWER_NOT_FOUND(404,"Answer not found"),
+    ANSWER_EXISTS(409, "Answer Exists");
 
     @Getter
     private int status;

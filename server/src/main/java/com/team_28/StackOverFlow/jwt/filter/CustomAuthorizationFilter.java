@@ -30,7 +30,6 @@ import java.io.IOException;
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
-@Component
 public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
     private final RedisTemplate redisTemplate;
     private final MemberRepository memberRepository;
@@ -44,27 +43,21 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        System.out.println("권한 필요한 페이지");
         String servletPath = request.getServletPath();
         String authorizationHeader = request.getHeader(ACCESS_TOKEN_HEADER);
 
         //로그인, 리프레시 요청이라면 토큰 검사X
-        if(servletPath.equals("/h2")
-                || servletPath.equals("/regi/signin")|| servletPath.equals("/regi/signin-process")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout")
-                ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")
-        ||request.getRequestURI().equals("http://localhost:3000/authcheck")){
-            filterChain.doFilter(request,response);
-            return;
-        }
+//        if(servletPath.equals("/h2")
+//                || servletPath.equals("/regi/signin")|| servletPath.equals("/regi/signin-process")|| servletPath.equals("/regi/refresh") || servletPath.equals("/regi/signup") || servletPath.equals("/regi/signout")
+//                ||servletPath.equals("/board") || servletPath.equals("/board/search") || servletPath.equals("/questions")){
+//            filterChain.doFilter(request,response);
+//            return;
+//        }
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
             //토큰값이 없거나 정상적이지 않다면 401 오류
-            logger.info("CustomAuthorizationFilter : JWT Token이 존재하지 않습니다.");
-            response.setStatus(401);
-//            response.setContentType(APPLICATION_JSON_VALUE);
-//            response.setCharacterEncoding("utf-8");
-//            ErrorResponse errorResponse = new ErrorResponse(401, "JWT Token이 존재하지 않습니다.");
-//            new ObjectMapper().writeValue(response.getWriter(), errorResponse);
-            throw new CustomLogicException(ExceptionCode.UNAUTHORIZED_NO_TOKEN);
+            filterChain.doFilter(request,response);
+            return;
         }
 
                 //Access Token만 꺼내옴

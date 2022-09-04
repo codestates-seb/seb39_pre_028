@@ -3,13 +3,14 @@ package com.team_28.StackOverFlow.answer.entity;
 import com.team_28.StackOverFlow.audit.Auditable;
 import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.question.entity.Question;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
@@ -27,6 +28,7 @@ public class Answer extends Auditable {
 
     @Column(nullable = false)
     private String answerContent;
+
 
     public void setMember(Member member){
         this.member = member;
