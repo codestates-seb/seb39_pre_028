@@ -82,5 +82,9 @@ public class QuestionController {
         System.out.println("수정 페이지 질문 번호 : "+questionId);
         return new ResponseEntity(HttpStatus.OK);
     }
+    @GetMapping
+    public ResponseEntity getQuestionPage(){
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

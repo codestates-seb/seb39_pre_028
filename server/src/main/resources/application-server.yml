@@ -14,4 +14,4 @@ spring:
     password: 12345678
     url: jdbc:mysql://database-1.ciyih17rti9c.ap-northeast-2.rds.amazonaws.com/StackOverFlow?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
 config:
-  domain: http://{AWS S3 Endpoint}
+  domain: http://team-28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com

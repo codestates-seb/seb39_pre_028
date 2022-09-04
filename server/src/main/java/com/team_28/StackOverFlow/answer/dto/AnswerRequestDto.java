@@ -12,9 +12,9 @@ public class AnswerRequestDto {
     private String content;
 
     @NotBlank
-    private Long memberId;
+    private long memberId;
 
     @NotBlank
-    private Long questionId;
+    private long questionId;
 
 }
