@@ -163,7 +163,7 @@ function RightBar() {
                 </div>
                 <AboutText>
                   <span>Github</span>
-                  <sapn>3 Members</sapn>
+                  <span>3 Members</span>
                 </AboutText>
               </section>
               <a href="https://github.com/codestates-seb/seb39_pre_028/tree/dev">

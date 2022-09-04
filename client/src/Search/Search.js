@@ -107,7 +107,6 @@ function Search() {
     <BoardContainer>
       <BoardHeader>
         <h1>Search for Questions</h1>
-
         <SearchBar />
       </BoardHeader>
       <div className="question_length">{searchResult.length} results</div>

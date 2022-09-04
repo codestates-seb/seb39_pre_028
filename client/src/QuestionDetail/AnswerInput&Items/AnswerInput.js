@@ -43,13 +43,14 @@ function AnswerInput() {
     setAnswerContent(e.target.value);
   };
   const answerInfo = {
-    answerContent,
-    memberid: `${userInfo.memberid}`,
+    content: answerContent,
+    memberId: userInfo.memberid,
+    questionId: questionInfo.questionId,
   };
   const addAnswerHandler = (e) => {
     e.preventDefault();
-
-    return authAxios.post(`/answers?q=${questionInfo.questionid}`, answerInfo);
+    console.log(userInfo);
+    return authAxios.post(`/answers/${questionInfo.questionId}`, answerInfo);
   };
 
   return (

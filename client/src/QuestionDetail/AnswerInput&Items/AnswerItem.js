@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { userStateAtom, answerAtom, questionAtom } from "../../Atom/atom";
+import { userStateAtom, questionAtom } from "../../Atom/atom";
 import authAxios from "../../Common/interceptor";
 import { useState } from "react";
 import styled from "styled-components";
@@ -81,22 +81,25 @@ const Buttons = styled.section`
     }
   }
 `;
-function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
-  // const answerInfo = useRecoilValue(answerAtom); //배열인 상태라서 사용하지 못함. props로 받아온 속성 직접 사용
+function AnswerItem({
+  userId,
+  memberId,
+  answerId,
+  content,
+  created_at,
+  modified_at,
+}) {
   const userInfo = useRecoilValue(userStateAtom);
   const questionInfo = useRecoilValue(questionAtom);
   const [IsEditorOpen, setIsEditorOpen] = useState(false);
   const [editText, setEditText] = useState(content);
-
-  const questionID = questionInfo.questionId;
-  const answerID = answerid;
 
   const deleteHandler = async () => {
     const ok = window.confirm("답변을 삭제하시겠습니까?");
     console.log(ok);
     if (ok) {
       const res = await authAxios.delete(
-        `/answers?q=${questionID}&q=${answerID}`
+        `/answers/${questionInfo.questionId}&/${answerId}`
       );
       console.log(res);
     }
@@ -105,9 +108,16 @@ function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
   const contentHandler = (e) => {
     setEditText(e.target.value);
   };
+
+  const answerEditInfo = {
+    content: editText,
+    memberId,
+    questionId: questionInfo.questionId,
+  };
+
   const editAnswerHandler = () => {
     return authAxios
-      .patch(`/answers?q=${questionID}&q=${answerID}`, editText)
+      .patch(`/answers/${questionInfo.questionId}&/${answerId}`, answerEditInfo)
       .then((res) => {
         console.log(res);
       })
@@ -125,16 +135,16 @@ function AnswerItem({ creator, content, date, creatorMemberid, answerid }) {
               <CreatorDate>
                 <div>
                   <span>Answered by</span>
-                  {creator}
+                  {userId}
                 </div>
                 <div>
                   <span>Answered</span>
-                  {date}
+                  {created_at}
                 </div>
               </CreatorDate>
-              {userInfo.memberid === creatorMemberid ? (
+              {userInfo.memberid === memberId ? (
                 <>
-                  <button onClick={() => setIsEditorOpen(true)}>Edit</button>{" "}
+                  <button onClick={() => setIsEditorOpen(true)}>Edit</button>
                   <button onClick={deleteHandler}>Delete</button>
                 </>
               ) : null}
