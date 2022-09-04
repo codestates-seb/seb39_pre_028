@@ -133,7 +133,7 @@ function Header() {
         <span className="logo_text second">overflow</span>
       </Logo>
 
-      <List onClick={() => navigate("/board")}>Board</List>
+      <List onClick={() => navigate("/board/home")}>Board</List>
 
       <List onClick={() => navigate("/questions")}>Questions </List>
 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   display: flex;
@@ -16,14 +17,13 @@ function Vote() {
   return (
     <Container>
       <FontAwesomeIcon
-        icon={faPlay}
-        // rotation="270"
-        size="2x"
+        icon={faCaretUp}
+        size="3x"
         color="#BABFC4"
         hover="color:#ffff"
       />
       <Number>8</Number>
-      <FontAwesomeIcon icon={faPlay} size="2x" color="#BABFC4" />
+      <FontAwesomeIcon icon={faCaretDown} size="3x" color="#BABFC4" />
     </Container>
   );
 }
