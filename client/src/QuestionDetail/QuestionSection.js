@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userStateAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
@@ -56,16 +56,19 @@ const VoteContent = styled.section`
 function QuestionSection() {
   const userInfo = useRecoilValue(userStateAtom);
   const questionInfo = useRecoilValue(questionAtom);
+  const navigate = useNavigate();
+  console.log(questionInfo);
 
   const deleteHandler = async () => {
     const ok = window.confirm("질문을 삭제하시겠습니까?");
     console.log(ok);
     if (ok) {
       const res = await authAxios.delete(
-        `/questions?q=${questionInfo.questionId}`
+        `/questions/${questionInfo.questionId}`
       );
       console.log(res);
     }
+    navigate("/board/home");
   };
 
   return (
@@ -83,7 +86,7 @@ function QuestionSection() {
             <span>Modified</span> {questionInfo.modifiedAt}
           </div>
           <section>
-            {userInfo.memberId === questionInfo.memberId ? (
+            {userInfo.memberid === questionInfo.memberId ? (
               <>
                 <Link to={`/questions/edit/${questionInfo.questionId}`}>
                   <button>Edit</button>
@@ -101,3 +104,5 @@ function QuestionSection() {
     </>
   );
 }
+
+export default QuestionSection;

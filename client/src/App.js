@@ -2,9 +2,9 @@ import React from "react";
 import axios from "axios";
 import Board from "./Board/Board";
 import Question from "./Question/Question";
-import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignUp/SignUp";
-import SignOut from "./SignOut/SignOut";
+import SignIn from "./Sign/SignIn/SignIn";
+import SignUp from "./Sign/SignUp/SignUp";
+import SignOut from "./Sign/SignOut/SignOut";
 import Header from "./Common/Header";
 import AuthCheck from "./Common/AuthCheck";
 import { Routes, Route } from "react-router-dom";
@@ -13,6 +13,8 @@ import QuestionEdit from "./QuestionDetail/Edit/QuestionEdit";
 import styled from "styled-components";
 import LeftBar from "./Common/SideBar/LeftBar";
 import RightBar from "./Common/SideBar/RightBar";
+import Footer from "./Common/Footer";
+import Search from "./Search/Search";
 
 axios.defaults.withCredentials = true;
 
@@ -35,8 +37,12 @@ const InnerContainer = styled("div")`
 const MainContainer = styled("div")`
   /* border: 1px solid green; */
   margin-top: 10px;
+  height: auto;
   background-color: #ffff;
   width: 70vw;
+  @media all and (max-width: 768px) {
+    width: 500vw;
+  }
 `;
 
 function App() {
@@ -49,12 +55,9 @@ function App() {
           <MainContainer>
             <Routes>
               <Route path="/" element={<Board />} />
-              <Route path="/board" element={<Board />} />
+              <Route path="/board/home" element={<Board />} />
               <Route path="/questions" element={<Question />} />
-              <Route
-                path="/questions/:questionId"
-                element={<QuestionDetail />}
-              />
+              <Route path="/questions/:id" element={<QuestionDetail />} />
               {/* path="/questions/:questionId" */}
               <Route
                 path="/questions/edit/:questionId"
@@ -65,10 +68,12 @@ function App() {
               <Route path="/regi/signin" element={<SignIn />} />
               <Route path="/regi/signup" element={<SignUp />} />
               <Route path="/regi/signout" element={<SignOut />} />
+              <Route path="/board/search" element={<Search />} />
             </Routes>
           </MainContainer>
           <RightBar />
         </InnerContainer>
+        <Footer />
       </OutContainer>
     </div>
   );

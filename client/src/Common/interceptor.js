@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useSetRecoilState } from "recoil";
-import { isLoginAtom } from "../Atom/atom";
-import { useNavigate } from "react-router-dom";
+// import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
+// import { isLoginAtom } from "../Atom/atom";
+// import { useNavigate } from "react-router-dom";
 
 const authAxios = axios.create({
   //그냥 인스턴스 만들어줌
@@ -29,19 +29,25 @@ authAxios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const {
-      response: { status },
-    } = error;
-    if (status === 401) {
-      if (error.message === "Unauthorized") {
-        console.log(error);
-        const setIsLogin = useSetRecoilState(isLoginAtom);
-        const navigate = useNavigate();
+    // const {
+    //   response: { status },
+    // } = error;
 
-        setIsLogin(false);
-        alert("로그인 만료");
+    // 401
+    // access 토큰 검증에 실패했습니다.
+
+    if (error.response.status === 401) {
+      if (error.message === "Request failed with status code 401") {
+        // console.log("if 후 콘솔 error", error);
+
+        // console.log("전", localStorage.getItem("recoil-persist"));
+        localStorage.removeItem("recoil-persist");
+        // console.log("후", localStorage.getItem("recoil-persist"));
         localStorage.removeItem("accessToken");
-        navigate("/authcheck");
+
+        alert("로그인 만료");
+        // 페이지 새로고침 -> /authcheck로 이동
+        window.location.replace("/authcheck");
       }
     }
     return Promise.reject(error);

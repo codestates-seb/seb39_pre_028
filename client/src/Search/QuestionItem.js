@@ -13,15 +13,12 @@ const QuestionLeft = styled("div")`
   margin: 10px;
   font-size: 14px;
   white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 60px;
+
   div:first-child {
     color: #000000;
     margin-bottom: 8px;
   }
+
   div:last-child {
     color: #706c6c;
   }
@@ -30,8 +27,9 @@ const QuestionLeft = styled("div")`
 const QuestionRight = styled("div")`
   display: flex;
   margin: 10px 20px;
-  margin-top: -15px;
+  margin-top: -35px;
   padding-bottom: 12px;
+
   .question_content {
     h3 {
       font-size: 22px;
@@ -39,9 +37,11 @@ const QuestionRight = styled("div")`
       color: #0074cc;
       margin-bottom: 8px;
     }
+
     h3:hover {
       color: #0a95ff;
     }
+
     div {
       margin-bottom: 6px;
       font-weight: 350;
@@ -62,35 +62,26 @@ const QuestionFooter = styled("div")`
   right: 0;
   margin-bottom: 15px;
   margin-right: 20px;
+
   div:first-child {
     margin-right: 15px;
     color: #0074cc;
   }
+
   div:last-child {
     color: #706c6c;
   }
 `;
 
-const Unanswered = styled.span`
-  background-color: aliceblue;
-  padding: 3px 6px 6px 6px;
-  border: solid 1px gray;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  font-size: 10px;
-`;
-
-function Questions({ question }) {
+function QuestionItem({ question }) {
   return (
     <QuestionBox>
       <QuestionLeft>
         <div>8 votes</div>
         <div>
-          {question.answerIds === null ? (
-            <Unanswered>ananswered</Unanswered>
-          ) : (
-            `${question.answerIds.length} answers`
-          )}
+          {question.answerIds === null
+            ? `0 answers`
+            : `${question.answerIds.length} answers`}
         </div>
       </QuestionLeft>
       <QuestionRight>
@@ -107,4 +98,4 @@ function Questions({ question }) {
   );
 }
 
-export default Questions;
+export default QuestionItem;
