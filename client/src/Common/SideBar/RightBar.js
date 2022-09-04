@@ -156,6 +156,31 @@ const AboutTitle = styled.section`
       color: #fff;
     }
   }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    flex-direction: column;
+
+    button {
+      height: 30px;
+      margin-left: 50px;
+    }
+  }
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    flex-direction: column;
+
+    button {
+      height: 30px;
+      margin-left: 30px;
+    }
+  }
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    flex-direction: column;
+
+    button {
+      height: 30px;
+      margin-left: 20px;
+    }
+  }
 `;
 
 function RightBar() {
