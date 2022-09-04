@@ -87,7 +87,7 @@ function SignOut() {
         localStorage.removeItem("recoil-persist");
         setIsLoginState(false);
         resetState();
-        navigate("/board");
+        navigate("/board/home");
         console.log(res.data);
         console.log("로그아웃 성공");
       })

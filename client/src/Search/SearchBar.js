@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import authAxios from "../Common/interceptor";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { filteredArrAtom, searchTextAtom } from "../Atom/atom";
-import axios from "axios";
 
 const Container = styled.section`
   input {
@@ -25,8 +24,7 @@ function SearchBar() {
     setSearchText(e.target.value);
   };
 
-  const SearchHandler = (e) => {
-    e.preventDefault();
+  const SearchHandler = () => {
     if (searchText.length < 2) return alert("more letters required");
     return authAxios
       .get("/board/search")
@@ -47,13 +45,24 @@ function SearchBar() {
       });
   };
 
+  const handleOnEnter = (e) => {
+    if (e.key === "Enter") {
+      SearchHandler();
+    }
+  };
+
   useEffect(() => {
     setSearchTextAtom(searchText);
   }, [isClicked]);
 
   return (
     <Container>
-      <input onChange={onChangeHandler} value={searchText} type="text" />
+      <input
+        onChange={onChangeHandler}
+        onKeyPress={handleOnEnter}
+        value={searchText}
+        type="text"
+      />
       <button className="searchbar" onClick={SearchHandler}>
         <FontAwesomeIcon icon={faSearch} />
       </button>

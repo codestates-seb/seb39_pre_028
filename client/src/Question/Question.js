@@ -95,7 +95,7 @@ function Question() {
         resetQuestionAtom();
       })
       .then((res) => {
-        navigate("/board");
+        navigate("/board/home");
         console.log(res.data);
       })
       .catch((err) => {
