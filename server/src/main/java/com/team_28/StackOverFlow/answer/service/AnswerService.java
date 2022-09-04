@@ -5,6 +5,7 @@ import com.team_28.StackOverFlow.answer.repository.AnswerRepository;
 import com.team_28.StackOverFlow.exception.CustomLogicException;
 import com.team_28.StackOverFlow.exception.ExceptionCode;
 import com.team_28.StackOverFlow.jwt.entity.Member;
+import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.question.entity.Question;
 import com.team_28.StackOverFlow.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.team_28.StackOverFlow.exception.ExceptionCode.MEMBER_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class AnswerService {
@@ -20,12 +23,13 @@ public class AnswerService {
     //같은 작성자가 단 답변인지 확인하고 수정 삭제 가능하게 하기
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
+    private final MemberRepository memberRepository;
 
     public Answer createAnswer(Answer answer){
         //존재하는 답변 id 인지 확인
-        verifiedExistAnswer(answer.getAnswerId());
         //요청으로 들어온 답변객체에 있는 질문 아이디가 존재하는지 확인
-        verifiedExistQuestion(answer.getQuestion().getQuestionId());
+        Member member = findMember(answer.getMember().getMemberid());
+        Question question = findQuestion(answer.getQuestion().getQuestionId());
         return answerRepository.save(answer);
     }
 
@@ -68,17 +72,23 @@ public class AnswerService {
             throw new CustomLogicException(ExceptionCode.ANSWER_EXISTS);
         }
     }
-        private void verifiedExistQuestion(long questionId){
+        private Question findQuestion(long questionId){
         System.out.println(questionId+" 에 해당하는 질문 확인");
         Optional<Question> question = questionRepository.findByQuestionId(questionId);
-        if(!question.isPresent()){
-            throw new CustomLogicException(ExceptionCode.QUESTION_NOT_FOUND);
-        }
+            Question findQuestion = question.orElseThrow(() -> new CustomLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+            return findQuestion;
     }
     private Answer findVerifiedAnswer(long answerId){
         Optional<Answer> answer = answerRepository.findByAnswerId(answerId);
         Answer findAnswer = answer.orElseThrow(()->new CustomLogicException(ExceptionCode.ANSWER_NOT_FOUND));
         return findAnswer;
+    }
+    private Member findMember(long memberId){
+        System.out.println("memberId 로 멤버 찾기 : service method");
+        Member member = memberRepository.findByMemberid(memberId);
+        if(member == null) throw new CustomLogicException(MEMBER_NOT_FOUND);
+        System.out.println(member.getMemberid()+" member 존재");
+        return member;
     }
 
 }

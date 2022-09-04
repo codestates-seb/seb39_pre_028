@@ -95,7 +95,7 @@ public class QuestionService {
         Member member = memberRepository.findByMemberid(memberId);
         if(member == null) throw new CustomLogicException(MEMBER_NOT_FOUND);
         System.out.println(member.getMemberid()+" member 존재");
-        return memberRepository.findByMemberid(memberId);
+        return member;
     }
 
     //+작성자와 CRUD하는 사용자가 같은지 확인

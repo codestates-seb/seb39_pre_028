@@ -27,7 +27,7 @@ public class AnswerController {
     @PostMapping("/{question-id}")
     public ResponseEntity postAnswer(@PathVariable("question-id") @Positive long questionId,
                                      @Valid @RequestBody AnswerRequestDto requestDto){
-        Answer answer = mapper.answerRequestDtoToAnswer(requestDto);
+        Answer answer = answerService.createAnswer(mapper.answerRequestDtoToAnswer(requestDto));
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
     }
 
