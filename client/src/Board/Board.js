@@ -2,7 +2,7 @@ import authAxios from "../Common/interceptor";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { questionAtom, answerAtom } from "../Atom/atom";
 import Questions from "./Questions";
 import Pagination from "./Pagination";
