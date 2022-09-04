@@ -72,7 +72,8 @@ function AuthCheck() {
           <div>Unauthorized</div>
           <Buttons>
             <button onClick={() => navigate("/regi/signin")}>Log In</button>
-            <button onClick={() => navigate(-2)}>Previous Page</button>
+            {/* <button onClick={() => navigate(-2)}>Previous Page</button> */}
+            <button onClick={() => navigate("/board/home")}>Board</button>
           </Buttons>
         </MessageButton>
       </AuthForm>

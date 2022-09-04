@@ -82,6 +82,7 @@ function QuestionEdit() {
         modifiedAt: currentDate,
       },
     });
+    localStorage.setItem("questionInfo", questionInfo);
   }, [editTitle, editContent]);
 
   const editQuestion = async (event) => {

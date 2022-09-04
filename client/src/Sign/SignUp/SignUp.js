@@ -11,6 +11,22 @@ const SignUpContainer = styled("div")`
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    background-color: orange;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    background-color: yellow;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    background-color: green;
+  }
+
+  @media all and (max-width: 768px) {
+    background-color: red;
+  }
 `;
 
 const FormContainer = styled("div")`
@@ -56,6 +72,10 @@ const FormContainer = styled("div")`
     font-size: 10px;
     color: #69737a;
     font-weight: 400;
+  }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    width: 16rem;
   }
 `;
 

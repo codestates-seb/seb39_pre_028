@@ -1,10 +1,23 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: auto;
   width: 255px;
   display: flex;
   flex-direction: row-reverse;
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    width: 200px;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    width: 170px;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    width: 140px;
+  }
 `;
 
 const Inner = styled.div`
@@ -19,6 +32,22 @@ const Inner = styled.div`
     font-size: 10px;
     width: 100%;
     padding: 0px 0px 10px 20px;
+  }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    width: 150px;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    width: 140px;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    width: 130px;
+  }
+
+  @media all and (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -43,6 +72,18 @@ const Item = styled.div`
     background-color: #f8f9f9;
     font-size: 20px;
     color: #f48225;
+  }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    font-size: 15px;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    font-size: 14px;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    font-size: 13px;
   }
 `;
 const SmallerBox = styled.section`
@@ -79,12 +120,58 @@ const BiggerBox = styled.section`
       box-shadow: #808080;
     }
   }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    height: 330px;
+    .Orange {
+      padding: 2px 0;
+      width: 90%;
+    }
+
+    span:last-child {
+      margin-top: -2px;
+    }
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    height: 320px;
+    font-size: 11.8px;
+    .Orange {
+      padding: 2px 0;
+      width: 90%;
+    }
+
+    span:last-child {
+      margin-top: -2px;
+    }
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    height: 320px;
+    font-size: 11.8px;
+
+    span {
+      font-size: 10px;
+    }
+
+    .Orange {
+      padding: 2px 0;
+      width: 90%;
+    }
+
+    span:last-child {
+      margin-top: -2px;
+    }
+  }
 `;
 function LeftBar() {
+  const navigate = useNavigate();
   return (
     <Container>
       <Inner>
-        <Item className="home">Search</Item>
+        <Item className="home" onClick={() => navigate("/board/search")}>
+          Search
+        </Item>
         <span>FILTER</span>
         <Item>Tags</Item>
         <Item>Answered</Item>

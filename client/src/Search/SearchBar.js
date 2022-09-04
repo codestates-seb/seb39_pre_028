@@ -12,6 +12,28 @@ const Container = styled.section`
     width: 550px;
     height: 30px;
   }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    display: flex;
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    display: flex;
+    width: 500px;
+    margin-bottom: 15px;
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    display: flex;
+    width: 400px;
+    margin-bottom: 15px;
+  }
+
+  @media all and (max-width: 768px) {
+    display: flex;
+    width: 400px;
+    margin-bottom: 15px;
+  }
 `;
 
 function SearchBar() {

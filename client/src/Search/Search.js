@@ -52,6 +52,50 @@ const BoardHeader = styled("div")`
   button:hover {
     background-color: #0074cc;
   }
+
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    flex-direction: column;
+    h1 {
+      font-size: 28px;
+    }
+
+    button {
+      margin-top: 0;
+    }
+  }
+
+  @media all and (min-width: 900px) and (max-width: 1100px) {
+    flex-direction: column;
+    h1 {
+      font-size: 28px;
+    }
+
+    button {
+      margin-top: 0;
+    }
+  }
+
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    flex-direction: column;
+    h1 {
+      font-size: 28px;
+    }
+
+    button {
+      margin-top: 0;
+    }
+  }
+
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+    h1 {
+      font-size: 25px;
+    }
+
+    button {
+      margin-top: 0;
+    }
+  }
 `;
 
 const BoardBox = styled("ul")`

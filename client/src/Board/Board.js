@@ -84,7 +84,7 @@ function Board() {
     return authAxios
       .get(`/board?page=${page}&size=${SIZE}`)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setQuestions(res.data.question);
         SetPageInfo(res.data.pageInfo);
         // console.log(pageInfo);
@@ -124,7 +124,7 @@ function Board() {
           Ask Question
         </button>
       </BoardHeader>
-      <div className="question_length">{questions.length} questions</div>
+      <div className="question_length">{pageInfo.totalElements} questions</div>
       <BoardBox>
         {Array.isArray(questions) &&
           questions.map((question, idx) => (

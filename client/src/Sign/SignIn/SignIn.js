@@ -95,7 +95,7 @@ function SignIn() {
         setIsLogin(true);
         setUserInfo(res.data);
         console.log(userInfo);
-        navigate("/board");
+        navigate("/board/home");
 
         console.log("로그인 성공");
         console.log(res);
