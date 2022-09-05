@@ -28,9 +28,9 @@ authAxios.interceptors.request.use(
 
 authAxios.interceptors.response.use(
   (response) => {
-    if (response.headers.accesstoken) {
+    if (response.data.accesstoken) {
       console.log(response);
-      localStorage.setItem("accessToken", response.headers.accesstoken);
+      localStorage.setItem("accessToken", response.data.accesstoken);
     }
     return response;
   },
