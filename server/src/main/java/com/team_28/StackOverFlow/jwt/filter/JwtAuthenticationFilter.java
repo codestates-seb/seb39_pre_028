@@ -11,6 +11,7 @@ import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +37,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         System.out.println("시도필터 성공");
-        if (CorsUtils.isPreFlightRequest(request)) {
+        if (request.getMethod().equals("OPTIONS")) {
             System.out.println("preflight 요청");
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST");

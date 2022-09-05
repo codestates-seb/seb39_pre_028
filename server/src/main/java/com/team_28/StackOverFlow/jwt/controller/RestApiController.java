@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
@@ -30,7 +31,7 @@ public class RestApiController {
 
     // 추가
     @PostMapping("/signup")
-    public ResponseEntity signup(@RequestBody Member member) {
+    public ResponseEntity signup(@Valid @RequestBody Member member) {
         System.out.println("회원가입 시도");
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
         member.setRoles("ROLE_USER");
