@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team_28.StackOverFlow.exception.CustomLogicException;
+import com.team_28.StackOverFlow.exception.ExceptionCode;
 import com.team_28.StackOverFlow.jwt.dto.SigninDto;
 import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.jwt.mapper.MemberMapper;
@@ -37,7 +39,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         System.out.println("시도필터 성공");
-        if (request.getMethod().equals("OPTIONS")) {
             System.out.println("preflight 요청");
             response.setHeader("Access-Control-Allow-Origin", "http://team28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST");
@@ -47,10 +48,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     "X-Requested-With, Content-Type, Authorization, X-XSRF-token"
             );
             response.setHeader("Access-Control-Allow-Credentials", "true");
-            return null;
-        } else {
+
             ObjectMapper om = new ObjectMapper();
             try {
+                if(request.getMethod().equals("OPTIONS")) {
                 SigninDto signinDto = om.readValue(request.getInputStream(), SigninDto.class);
                 String userid = signinDto.getUserid();
                 String password = signinDto.getPassword();
@@ -62,7 +63,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
                 return authentication;
-
+            }
             } catch (StreamReadException e) {
                 log.info(e.getMessage() + "+ getInputStream 실패");
                 throw new RuntimeException(e);
@@ -73,9 +74,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 log.info(e.getMessage() + " + IOException");
                 throw new RuntimeException(e);
             }
+            throw new CustomLogicException(ExceptionCode.CORS_ERROR);
         }
 
-}}
+}
 
 
 

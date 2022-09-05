@@ -13,7 +13,8 @@ public enum ExceptionCode {
     QUESTION_EXISTS(409,"Question Exists"),
     QUESTION_NOT_FOUND(404,"Question not found"),
     ANSWER_NOT_FOUND(404,"Answer not found"),
-    ANSWER_EXISTS(409, "Answer Exists");
+    ANSWER_EXISTS(409, "Answer Exists"),
+    CORS_ERROR(500,"Cors Error");
 
     @Getter
     private int status;
