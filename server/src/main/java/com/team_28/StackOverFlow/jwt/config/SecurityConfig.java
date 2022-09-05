@@ -33,7 +33,7 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CorsFilter corsFilter;
+    //private final CorsFilter corsFilter;
     private final MemberRepository memberRepository;
     private final AuthenticationFailureHandler authenticationFailureHandler;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
@@ -73,7 +73,7 @@ public class SecurityConfig {
             jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
             System.out.println("customDsl 동작");
             builder
-                    .addFilter(corsFilter)
+                    //.addFilter(corsFilter)
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterBefore(new CustomAuthorizationFilter(authenticationManager,redisTemplate,memberRepository), UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
