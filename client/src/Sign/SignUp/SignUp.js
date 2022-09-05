@@ -94,7 +94,7 @@ function SignUp() {
     event.preventDefault();
 
     return axios // 회원가입 요청
-      .post(`${process.env.REACT_APP_API_URL}/regi/signup`, signInfo)
+      .post("/regi/signup", signInfo)
       .then((res) => {
         console.log(res.data);
         console.log("회원가입 성공");

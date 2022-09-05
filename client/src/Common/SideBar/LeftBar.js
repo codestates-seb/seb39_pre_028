@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import UserInfo from "./userInfo";
+import { isLoginAtom } from "../../Atom/atom";
+import { useRecoilValue } from "recoil";
 
 const Container = styled.div`
   height: auto;
@@ -146,6 +148,8 @@ const BiggerBox = styled.section`
   }
 `;
 function LeftBar() {
+  const isLogin = useRecoilValue(isLoginAtom);
+
   return (
     <Container>
       <Inner>
@@ -171,7 +175,9 @@ function LeftBar() {
           <span className="Orange">Create a free Team</span>
           <span>Why Teams?</span>
         </BiggerBox>
-        <UserInfo></UserInfo>
+        {/* {isLogin && ( */}
+        <UserInfo />
+        {/* // )} */}
       </Inner>
     </Container>
   );
