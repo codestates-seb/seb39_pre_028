@@ -34,8 +34,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         System.out.println("successfulAuthentication");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        if(authentication == null) throw new CustomLogicException(ExceptionCode.BAD_REQUEST_TOKEN);
-
+        if(authentication == null) {
+            System.out.println("authentication == null + 프리플라이트 요청");
+            throw new CustomLogicException(ExceptionCode.BAD_REQUEST_TOKEN);
+        }
+        System.out.println("accessToken 생성");
         String accessToken = JWT.create()
                 .withSubject("access token")
                 .withExpiresAt(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXP))// 1min
@@ -51,6 +54,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 //                .sign(Algorithm.HMAC512(JWT_SECRET));
         //refreshToken DB에 저장
 //        accountService.updateRefreshToken(principalDetails.getUsername(),refreshToken);
+        System.out.println(TOKEN_HEADER_PREFIX+accessToken);
         //Access Token, Refresh Token 프론트 단에 response Header로 전달
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
