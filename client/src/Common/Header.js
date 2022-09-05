@@ -24,18 +24,6 @@ const Contaniner = styled("div")`
   border-top: 4px solid #f48225;
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
-  /* @media all and (min-width: 1100px) and (max-width: 1490px) {
-    background-color: orange;
-  }
-  @media all and (min-width: 900px) and (max-width: 1100px) {
-    background-color: yellow;
-  }
-  @media all and (min-width: 768px) and (max-width: 900px) {
-    background-color: green;
-  }
-  @media all and (max-width: 768px) {
-    background-color: red;
-  } */
 `;
 
 const Logo = styled("li")`

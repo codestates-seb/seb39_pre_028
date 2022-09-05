@@ -84,7 +84,7 @@ function SignIn() {
     event.preventDefault();
 
     return axios
-      .post("signin-process", signInfo)
+      .post("/regi/signin-process", signInfo)
       .then((res) => {
         console.log(res.headers.accesstoken);
 
@@ -101,7 +101,7 @@ function SignIn() {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err.response);
         console.log("로그인 실패");
       });
   };
