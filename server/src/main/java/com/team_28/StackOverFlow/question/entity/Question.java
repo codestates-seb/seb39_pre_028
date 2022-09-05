@@ -23,7 +23,7 @@ public class Question extends Auditable {
     @ManyToOne
     @JoinColumn(name = "MEMBERID")
     private Member member;
-    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
     @Column
     private String questionTitle;

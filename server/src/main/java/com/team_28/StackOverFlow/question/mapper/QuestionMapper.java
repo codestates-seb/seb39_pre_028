@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-
+    //질문 엔티티 -> 응답 DTO
     default QuestionResponseDto questionToQuestionResponseDto(Question question) {
         Member member = question.getMember();
         System.out.println("question -> questionsResponseDto 변환 매퍼 시작");
@@ -30,9 +30,9 @@ public interface QuestionMapper {
         System.out.println("question -> questionsResponseDto 매핑 완료");
         return questionResponseDto;
     }
-
+    //질문들 엔티티 리스트 -> 응답 DTO 리스트
     List<QuestionResponseDto> questionsToQuestionResponses(List<Question> questions);
-
+    //요청 DTO -> 질문 엔티티(post의 경우)
     default Question questionRequestDtoToQuestion(QuestionRequestDto questionRequestDto) {
         Member member = new Member();
         System.out.println("questionRequestDto-post -> question 변환 매퍼 시작");
@@ -46,7 +46,7 @@ public interface QuestionMapper {
         System.out.println("questionRequestDto-post -> question 매핑 완료");
         return question;
     }
-
+    //요청 DTO -> 질문 엔티티(patch의 경우)
     default Question questionRequestDtoToQuestionPatch(QuestionRequestDto questionRequestDto) {
         Member member = new Member();
         System.out.println("questionRequestDto-patch -> question 변환 매퍼 시작");

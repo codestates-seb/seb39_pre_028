@@ -25,15 +25,14 @@ public class AnswerService {
     private final QuestionRepository questionRepository;
     private final MemberRepository memberRepository;
 
+
     public Answer createAnswer(Answer answer){
         //존재하는 답변 id 인지 확인
         //요청으로 들어온 답변객체에 있는 질문 아이디가 존재하는지 확인
         Member member = findMember(answer.getMember().getMemberid());
         System.out.println(member.getUserid()+" = createAnswer에서 멤버의 유저아이디");
         answer.getMember().setUserid(member.getUserid());
-        Question question = findQuestion(answer.getQuestion().getQuestionId());
-        System.out.println(question.getQuestionId()+" = createAnswer에서 질문의 질문 아이디");
-        question.setAnswered(true);
+        saveAnswerInQuestion(answer);
         return answerRepository.save(answer);
     }
 
@@ -41,15 +40,14 @@ public class AnswerService {
         //받아온 작성자 이름과 바꿀 답변의 작성자 이름이 같은 지 확인
         //받아온 질문 아이디와 바꾼 질문의 아이디가 같은지 확인
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        if(answer.getQuestion().isAnswered() != findAnswer.getQuestion().isAnswered()) {
-            findAnswer.getQuestion().setAnswered(answer.getQuestion().isAnswered());
-        } else if (findAnswer.getMember().getMemberid() != answer.getMember().getMemberid()) {
+        if (findAnswer.getMember().getMemberid() != answer.getMember().getMemberid()) {
                 throw new CustomLogicException(ExceptionCode.MEMBER_NOT_FOUND);
             } else if (findAnswer.getQuestion().getQuestionId() != answer.getQuestion().getQuestionId()) {
                 throw new CustomLogicException(ExceptionCode.QUESTION_NOT_FOUND);
             }
-            findAnswer.setAnswerContent(answer.getAnswerContent());
-            return answerRepository.save(findAnswer);
+        findAnswer.setAnswerContent(answer.getAnswerContent());
+        saveAnswerInQuestion(findAnswer);
+        return answerRepository.save(findAnswer);
     }
 
     public void deleteAnswer(long answerId){
@@ -69,15 +67,6 @@ public class AnswerService {
         if(answer != null)  System.out.println(answer.getAnswerId()+"번 답변 삭제 X");
     }
 
-
-    private void verifiedExistAnswer(long answerId){
-        System.out.println(answerId+" 에 해당하는 답변 확인");
-        Optional<Answer> answer = answerRepository.findByAnswerId(answerId);
-        if(answer.isPresent()){
-            System.out.println("이미 있는 answerId 입니다.");
-            throw new CustomLogicException(ExceptionCode.ANSWER_EXISTS);
-        }
-    }
         private Question findQuestion(long questionId){
         System.out.println(questionId+" 에 해당하는 질문 확인");
         Optional<Question> question = questionRepository.findByQuestionId(questionId);
@@ -96,5 +85,12 @@ public class AnswerService {
         System.out.println(member.getMemberid()+" member 존재");
         return member;
     }
+    private void saveAnswerInQuestion(Answer answer){
+        Question question = findQuestion(answer.getQuestion().getQuestionId());
+        System.out.println(question.getQuestionId()+" = createAnswer에서 질문의 질문 아이디");
+        if(!question.isAnswered()){ question.setAnswered(true);}
+        question.setAnswer(answer);
+    }
+
 
 }

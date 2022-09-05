@@ -60,17 +60,18 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
         response.setHeader(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
+
 //        response.setHeader(REFRESH_TOKEN_HEADER, TOKEN_HEADER_PREFIX + refreshToken);
         //response로 토큰 보내기, 유저 정보 보내기
         Map<String ,String> responsMap = new HashMap<>();
         responsMap.put(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
 //        responsMap.put(REFRESH_TOKEN_HEADER,TOKEN_HEADER_PREFIX + refreshToken);
-        ResponseDto responseDto = new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid());
+        ResponseDto responseDto = new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid(),TOKEN_HEADER_PREFIX+accessToken);
         new ObjectMapper().writeValue(response.getWriter(), responseDto);
 
     }
     private void postPreflight(HttpServletResponse response) {
-        System.out.println("preflight 요청");
+        System.out.println("CORS 정책 헤더");
         response.setHeader("Access-Control-Allow-Origin", "http://team28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST");
         response.setHeader("Access-Control-Max-Age", "3600");

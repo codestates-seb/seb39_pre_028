@@ -1,5 +1,6 @@
 package com.team_28.StackOverFlow.jwt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team_28.StackOverFlow.answer.entity.Answer;
 import com.team_28.StackOverFlow.audit.Auditable;
 import com.team_28.StackOverFlow.question.entity.Question;
@@ -40,9 +41,11 @@ public class Member extends Auditable {
     //public void updateRefreshToken(String newToken){
         //this.refreshToken = newToken;
     //}
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
 
     public void setQuestion(Question question){
