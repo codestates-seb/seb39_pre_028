@@ -99,7 +99,7 @@ function AnswerItem({
     console.log(ok);
     if (ok) {
       const res = await authAxios.delete(
-        `/answers/${questionInfo.questionId}&/${answerId}`
+        `/answers/${questionInfo.questionId}/${answerId}`
       );
       console.log(res);
     }
@@ -117,7 +117,7 @@ function AnswerItem({
 
   const editAnswerHandler = () => {
     return authAxios
-      .patch(`/answers/${questionInfo.questionId}&/${answerId}`, answerEditInfo)
+      .patch(`/answers/${questionInfo.questionId}/${answerId}`, answerEditInfo)
       .then((res) => {
         console.log(res);
       })
