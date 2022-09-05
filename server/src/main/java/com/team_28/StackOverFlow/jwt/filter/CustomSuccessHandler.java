@@ -3,6 +3,8 @@ package com.team_28.StackOverFlow.jwt.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team_28.StackOverFlow.exception.CustomLogicException;
+import com.team_28.StackOverFlow.exception.ExceptionCode;
 import com.team_28.StackOverFlow.jwt.dto.ResponseDto;
 import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
@@ -32,6 +34,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         System.out.println("successfulAuthentication");
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        if(authentication == null) throw new CustomLogicException(ExceptionCode.BAD_REQUEST_TOKEN);
 
         String accessToken = JWT.create()
                 .withSubject("access token")

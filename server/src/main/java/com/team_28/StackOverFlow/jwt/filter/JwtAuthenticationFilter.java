@@ -37,9 +37,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
+        Authentication authentication = null;
         System.out.println("시도필터 성공");
-        if(request.getMethod().equals("OPTIONS")) postPreflight(response);
+        if (request.getMethod().equals("OPTIONS")) {
+            postPreflight(response);
+            System.out.println("프리플라이트 설정 완료");
+
+        } else {
             ObjectMapper om = new ObjectMapper();
             try {
                 SigninDto signinDto = om.readValue(request.getInputStream(), SigninDto.class);
@@ -50,7 +54,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 System.out.println(member.getUserid() + " + " + member.getPassword());
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getUserid(), member.getPassword());
                 System.out.println(authenticationToken.toString());
-                Authentication authentication = authenticationManager.authenticate(authenticationToken);
+                authentication = authenticationManager.authenticate(authenticationToken);
 
                 return authentication;
             } catch (StreamReadException e) {
@@ -64,7 +68,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 throw new RuntimeException(e);
             }
 
-        }
+        } return authentication;
+    }
 
     private void postPreflight(HttpServletResponse response) {
         System.out.println("preflight 요청");
