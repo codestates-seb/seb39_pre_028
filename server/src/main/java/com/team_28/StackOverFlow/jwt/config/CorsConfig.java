@@ -15,9 +15,9 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://team-28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com/");
+        config.addAllowedOrigin("http://team28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com");
         config.addAllowedHeader("Access-Control-Allow-Credentials");
-        config.addAllowedMethod("POST, GET, PATCH, DELETE");
+        config.addAllowedMethod("POST, GET, PATCH, DELETE, OPTIONS");
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
