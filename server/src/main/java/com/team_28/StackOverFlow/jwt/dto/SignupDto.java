@@ -4,11 +4,16 @@ import com.team_28.StackOverFlow.jwt.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class SignupDto {
+    @NotNull
     private String username;
+    @NotNull
     private String userid;
+    @NotNull
     private String password;
 
     public Member toEntity() {
