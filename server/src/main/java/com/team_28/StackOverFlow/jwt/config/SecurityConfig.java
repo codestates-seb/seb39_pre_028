@@ -42,23 +42,6 @@ public class SecurityConfig {
     private final MemberMapper mapper;
 
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().antMatchers("regi/**","board/**","questions/*","authcheck","h2/**");
-//    }
-
-    @Bean
-    public SecurityFilterChain ignoring(HttpSecurity http) throws Exception {
-        System.out.println("ignore 필터 체인 동작");
-        return http.requestMatchers(matchers -> matchers
-                        .antMatchers("regi/**", "board/**", "questions/*", "authcheck", "h2/**"))
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll())
-                .securityContext(AbstractHttpConfigurer::disable)
-                .sessionManagement(AbstractHttpConfigurer::disable)
-                .build();
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("시큐리티 필터 체인 동작");

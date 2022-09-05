@@ -11,14 +11,13 @@ public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
+        System.out.println("cors filter 동작");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://team-28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com/");
         config.addAllowedHeader("Access-Control-Allow-Credentials");
-        config.addAllowedMethod("DELETE");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("PATCH");
+        config.addAllowedMethod("POST, GET, PATCH, DELETE");
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);

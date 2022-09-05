@@ -20,7 +20,7 @@ import static com.team_28.StackOverFlow.exception.ExceptionCode.MEMBER_NOT_FOUND
 @RequiredArgsConstructor
 public class AnswerService {
 
-    //같은 작성자가 단 답변인지 확인하고 수정 삭제 가능하게 하기
+    //답변이 생성되면 질문 객체 잧아서 답변 저장, 답변 여부 변경해주기!!!
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
     private final MemberRepository memberRepository;
@@ -29,7 +29,11 @@ public class AnswerService {
         //존재하는 답변 id 인지 확인
         //요청으로 들어온 답변객체에 있는 질문 아이디가 존재하는지 확인
         Member member = findMember(answer.getMember().getMemberid());
+        System.out.println(member.getUserid()+" = createAnswer에서 멤버의 유저아이디");
+        answer.getMember().setUserid(member.getUserid());
         Question question = findQuestion(answer.getQuestion().getQuestionId());
+        System.out.println(question.getQuestionId()+" = createAnswer에서 질문의 질문 아이디");
+        answer.getQuestion().setAnswered(true);
         return answerRepository.save(answer);
     }
 
@@ -39,8 +43,6 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
         if(answer.getQuestion().isAnswered() != findAnswer.getQuestion().isAnswered()) {
             findAnswer.getQuestion().setAnswered(answer.getQuestion().isAnswered());
-        } else if (!answer.getQuestion().isAnswered()) {
-            throw new CustomLogicException(ExceptionCode.ANSWER_NOT_FOUND);
         } else if (findAnswer.getMember().getMemberid() != answer.getMember().getMemberid()) {
                 throw new CustomLogicException(ExceptionCode.MEMBER_NOT_FOUND);
             } else if (findAnswer.getQuestion().getQuestionId() != answer.getQuestion().getQuestionId()) {
@@ -60,6 +62,10 @@ public class AnswerService {
         question.getAnswers().removeIf(answer1 -> answer.getAnswerId().equals(answerId));
         answerRepository.delete(answer);
         System.out.println("삭제 완료");
+        if(question.getAnswers().size() == 0) {
+            System.out.println(question.getQuestionId()+" + 해당 질문에 답변 존재 X");
+            answer.getQuestion().setAnswered(false);
+        }
         if(answer != null)  System.out.println(answer.getAnswerId()+"번 답변 삭제 X");
     }
 
