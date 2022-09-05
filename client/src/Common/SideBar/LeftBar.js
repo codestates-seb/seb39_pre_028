@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import UserInfo from "./userInfo";
 
 const Container = styled.div`
   height: auto;
@@ -170,6 +171,7 @@ function LeftBar() {
           <span className="Orange">Create a free Team</span>
           <span>Why Teams?</span>
         </BiggerBox>
+        <UserInfo></UserInfo>
       </Inner>
     </Container>
   );

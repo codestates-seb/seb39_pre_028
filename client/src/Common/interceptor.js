@@ -1,11 +1,13 @@
 import axios from "axios";
+
 // import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
 // import { isLoginAtom } from "../Atom/atom";
 // import { useNavigate } from "react-router-dom";
 
 const authAxios = axios.create({
   //그냥 인스턴스 만들어줌
-  proxy: true,
+  // proxy: true,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 // 요청 갈 때는 헤더에 access토큰 가지고 감
 // 응답 올때는 401에러인지 확인
@@ -26,6 +28,10 @@ authAxios.interceptors.request.use(
 
 authAxios.interceptors.response.use(
   (response) => {
+    if (response.headers.accesstoken) {
+      console.log(response);
+      localStorage.setItem("accessToken", response.headers.accesstoken);
+    }
     return response;
   },
   async (error) => {
@@ -37,7 +43,6 @@ authAxios.interceptors.response.use(
     // access 토큰 검증에 실패했습니다.
 
     // 서버에서 만료되는 시점 읽어서 보내주면 무조건 로그아웃 되도록
-
     if (error.response.status === 401) {
       if (error.message === "Request failed with status code 401") {
         // console.log("if 후 콘솔 error", error);
