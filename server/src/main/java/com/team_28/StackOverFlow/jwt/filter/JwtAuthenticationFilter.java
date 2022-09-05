@@ -76,6 +76,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 "X-Requested-With, Content-Type, Authorization, X-XSRF-token"
         );
         response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setStatus(200);
     }
 }
 
