@@ -1,17 +1,10 @@
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: admin
-    password: 12345678
-    url: jdbc:mysql://database-1.ciyih17rti9c.ap-northeast-2.rds.amazonaws.com/StackOverFlow?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-config:
-  domain: http://team-28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

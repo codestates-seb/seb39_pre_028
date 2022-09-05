@@ -40,9 +40,9 @@ public class Member extends Auditable {
     //public void updateRefreshToken(String newToken){
         //this.refreshToken = newToken;
     //}
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
-    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
 
     public void setQuestion(Question question){

@@ -33,7 +33,7 @@ public class AnswerService {
         answer.getMember().setUserid(member.getUserid());
         Question question = findQuestion(answer.getQuestion().getQuestionId());
         System.out.println(question.getQuestionId()+" = createAnswer에서 질문의 질문 아이디");
-        answer.getQuestion().setAnswered(true);
+        question.setAnswered(true);
         return answerRepository.save(answer);
     }
 
