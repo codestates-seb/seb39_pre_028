@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("시도필터 성공");
         if (request.getMethod().equals("OPTIONS")) {
             System.out.println("preflight 요청");
-            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Origin", "http://team28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST");
             response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader(

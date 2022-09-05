@@ -1,6 +1,8 @@
 package com.team_28.StackOverFlow.jwt.controller;
 
+import com.team_28.StackOverFlow.jwt.dto.SignupDto;
 import com.team_28.StackOverFlow.jwt.entity.Member;
+import com.team_28.StackOverFlow.jwt.mapper.MemberMapper;
 import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetailsService;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.jwt.service.AccountService;
@@ -27,12 +29,14 @@ public class RestApiController {
     private final AuthenticationManager authenticationManager;
     private final AccountService accountService;
     private final PrincipalDetailsService principalDetailsService;
+    private final MemberMapper memberMapper;
 
 
     // 추가
     @PostMapping("/signup")
-    public ResponseEntity signup(@Valid @RequestBody Member member) {
+    public ResponseEntity signup(@RequestBody @Valid SignupDto signupDto) {
         System.out.println("회원가입 시도");
+        Member member = memberMapper.signupDtoToMember(signupDto);
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
         member.setRoles("ROLE_USER");
         memberRepository.save(member);
