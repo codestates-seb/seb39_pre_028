@@ -56,6 +56,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 //        accountService.updateRefreshToken(principalDetails.getUsername(),refreshToken);
         System.out.println(TOKEN_HEADER_PREFIX+accessToken);
         //Access Token, Refresh Token 프론트 단에 response Header로 전달
+        postPreflight(response);
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("utf-8");
         response.setHeader(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
@@ -67,5 +68,17 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         ResponseDto responseDto = new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid());
         new ObjectMapper().writeValue(response.getWriter(), responseDto);
 
+    }
+    private void postPreflight(HttpServletResponse response) {
+        System.out.println("preflight 요청");
+        response.setHeader("Access-Control-Allow-Origin", "http://team28-pre-bucket.s3-website.ap-northeast-2.amazonaws.com");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader(
+                "Access-Control-Allow-Headers",
+                "X-Requested-With, Content-Type, Authorization, X-XSRF-token"
+        );
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setStatus(200);
     }
 }
