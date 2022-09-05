@@ -46,6 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         } else {
             ObjectMapper om = new ObjectMapper();
             try {
+                postPreflight(response);
                 SigninDto signinDto = om.readValue(request.getInputStream(), SigninDto.class);
                 String userid = signinDto.getUserid();
                 String password = signinDto.getPassword();
@@ -83,6 +84,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setStatus(200);
     }
+
 }
 
 
