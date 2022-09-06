@@ -4,14 +4,14 @@ import { faGithub, faStackOverflow } from "@fortawesome/free-brands-svg-icons";
 import styled from "styled-components";
 
 const FooterContainer = styled("footer")`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  margin: auto;
   background-color: #232629;
   color: #ffffff;
   padding: 0rem 0 1rem 0;
-  margin-bottom: -70px;
 `;
 
 const FooterNav = styled("div")`

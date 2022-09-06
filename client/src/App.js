@@ -21,6 +21,10 @@ import Search from "./Search/Search";
 const OutContainer = styled("div")`
   display: flex;
   flex-direction: column;
+  /* min-height: 100vh;
+  height: 100%; */
+  margin: 0;
+  padding: 0;
 `;
 
 const InnerContainer = styled("div")`
@@ -28,7 +32,9 @@ const InnerContainer = styled("div")`
   position: absolute;
   top: 70px;
   justify-content: center;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 2rem;
   width: 97vw;
 `;
 
