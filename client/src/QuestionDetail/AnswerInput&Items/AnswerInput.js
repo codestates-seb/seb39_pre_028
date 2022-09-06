@@ -42,7 +42,6 @@ function AnswerInput() {
   const isLogin = useRecoilValue(isLoginAtom);
   const userInfo = useRecoilValue(userStateAtom);
   const navigate = useNavigate();
-  const [answersAtom, SetAnswersAtom] = useRecoilState(answerAtom);
 
   const contentHandler = (e) => {
     if (isLogin === false) return navigate("/authcheck");

@@ -84,7 +84,7 @@ function SignIn() {
     event.preventDefault();
 
     return axios
-      .post(`/regi/signin-process`, signInfo)
+      .post(`${process.env.REACT_APP_API_URL}/regi/signin-process`, signInfo)
       .then((res) => {
         console.log("res", res);
         console.log("res.data", res.data);

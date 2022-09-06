@@ -90,19 +90,21 @@ function SignUp() {
     });
   }, [username, id, password]);
 
-  const signInHandler = (event) => {
+  const signUpHandler = (event) => {
     event.preventDefault();
 
     return axios // 회원가입 요청
-      .post(`/regi/signup`, signInfo)
+      .post(`${process.env.REACT_APP_API_URL}/regi/signup`, signInfo)
       .then((res) => {
         console.log(res.data);
         console.log("회원가입 성공");
         navigate("/regi/signin");
       })
       .catch((err) => {
-        console.log(err.response.data);
-        console.log(err.response.status);
+        console.log(err);
+        if (err.response.data.fieldErrorList) {
+          alert(err.response.data.fieldErrorList[0].reason);
+        }
         console.log("회원가입 실패");
       });
   };
@@ -129,7 +131,7 @@ function SignUp() {
             value={password}
             onChange={onPasswordHandler}
           />
-          <button type="submit" onClick={signInHandler}>
+          <button type="submit" onClick={signUpHandler}>
             Sign up
           </button>
           <div className="form_footer">

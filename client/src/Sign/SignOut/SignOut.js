@@ -80,7 +80,7 @@ function SignOut() {
     // 액세스 토큰만 보내기
     // 리프레시, 액세스 -> 로컬스토리지 데이터 지우기
     return authAxios
-      .post("/regi/signout")
+      .post(`/regi/signout`)
       .then((res) => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("recoil-persist");
