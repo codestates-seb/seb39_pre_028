@@ -1,5 +1,5 @@
 import React from "react";
-//mport axios from "axios";
+// import axios from "axios";
 import Board from "./Board/Board";
 import Question from "./Question/Question";
 import SignIn from "./Sign/SignIn/SignIn";
@@ -16,7 +16,7 @@ import RightBar from "./Common/SideBar/RightBar";
 import Footer from "./Common/Footer";
 import Search from "./Search/Search";
 
-//axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 const OutContainer = styled("div")`
   display: flex;
