@@ -47,14 +47,19 @@ const Board = styled.section`
   &.whiteboard {
     background-color: #ffff;
   }
+  @media all and (min-width: 1100px) and (max-width: 1490px) {
+    &.first {
+      height: 500px;
+    }
+  }
   @media all and (min-width: 900px) and (max-width: 1100px) {
     &.first {
-      height: 480px;
+      height: 510px;
     }
   }
   @media all and (min-width: 768px) and (max-width: 900px) {
     &.first {
-      height: 560px;
+      height: 580px;
     }
   }
 `;

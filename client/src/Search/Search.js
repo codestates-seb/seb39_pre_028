@@ -12,6 +12,7 @@ import QuestionItem from "./QuestionItem";
 import SearchBar from "./SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+// import { useState } from "react";
 
 const BoardContainer = styled("section")`
   margin: 8px 30px;
@@ -130,6 +131,7 @@ const NoResult = styled.div`
 function Search() {
   const [questionsAtom, setQuestionsAtom] = useRecoilState(questionAtom);
   const [answersAtom, setAnswersAtom] = useRecoilState(answerAtom);
+  // const [answeredQuestion, SetAnsweredQuestion] = useState([]);
   const searchResult = useRecoilValue(filteredArrAtom);
   const searchedText = useRecoilValue(searchTextAtom);
 
@@ -147,6 +149,7 @@ function Search() {
         console.log(err.message);
       });
   };
+
   return (
     <BoardContainer>
       <BoardHeader>
@@ -154,7 +157,6 @@ function Search() {
         <SearchBar />
       </BoardHeader>
       <div className="question_length">{searchResult.length} results</div>
-
       <BoardBox>
         {searchResult.length < 1 && (
           <NoResult>
