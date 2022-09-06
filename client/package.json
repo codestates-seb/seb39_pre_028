@@ -23,6 +23,7 @@
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
+  "proxy" : "http://ec2-54-180-25-140.ap-northeast-2.compute.amazonaws.com:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
