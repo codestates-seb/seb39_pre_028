@@ -63,10 +63,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 //        response.setHeader(REFRESH_TOKEN_HEADER, TOKEN_HEADER_PREFIX + refreshToken);
         //response로 토큰 보내기, 유저 정보 보내기
-        Map<String ,String> responsMap = new HashMap<>();
-        responsMap.put(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
+//        Map<String ,String> responsMap = new HashMap<>();
+//        responsMap.put(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
 //        responsMap.put(REFRESH_TOKEN_HEADER,TOKEN_HEADER_PREFIX + refreshToken);
         ResponseDto responseDto = new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid(),TOKEN_HEADER_PREFIX+accessToken);
+        System.out.println(responseDto.getAccesstoken());
         new ObjectMapper().writeValue(response.getWriter(), responseDto);
 
     }

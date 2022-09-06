@@ -52,6 +52,7 @@ public class QuestionService {
         return questionRepository.save(findQuestion);
     }
     public Question findQuestion(long questionId){
+
         return findVerifiedQuestion(questionId);
     }
     public Page<Question> findQuestionsPage(int page, int size){

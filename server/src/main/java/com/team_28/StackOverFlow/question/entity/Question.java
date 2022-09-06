@@ -1,5 +1,6 @@
 package com.team_28.StackOverFlow.question.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team_28.StackOverFlow.answer.entity.Answer;
 import com.team_28.StackOverFlow.audit.Auditable;
 import com.team_28.StackOverFlow.jwt.entity.Member;
@@ -22,8 +23,10 @@ public class Question extends Auditable {
     private Long questionId;
     @ManyToOne
     @JoinColumn(name = "MEMBERID")
+    @JsonIgnore
     private Member member;
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Answer> answers = new ArrayList<>();
     @Column
     private String questionTitle;

@@ -1,5 +1,6 @@
 package com.team_28.StackOverFlow.answer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team_28.StackOverFlow.audit.Auditable;
 import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.question.entity.Question;
@@ -19,10 +20,12 @@ public class Answer extends Auditable {
     private Long answerId;
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
+    @JsonIgnore
     private Question question;
 
     @ManyToOne
     @JoinColumn(name = "MEMBERID")
+    @JsonIgnore
     private Member member;
 
     @Column(nullable = false)

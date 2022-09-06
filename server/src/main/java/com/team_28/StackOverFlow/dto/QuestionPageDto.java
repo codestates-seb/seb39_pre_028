@@ -10,13 +10,13 @@ import java.util.List;
 @Getter
 public class QuestionPageDto<T> {
     private QuestionResponseDto question;
-    private T answer;
+    private List<T> answer;
 
     public QuestionPageDto(QuestionResponseDto question) {
         this.question = question;
     }
 
-    public QuestionPageDto(QuestionResponseDto question, T answer) {
+    public QuestionPageDto(QuestionResponseDto question, List<T> answer) {
         this.question = question;
         this.answer = answer;
     }

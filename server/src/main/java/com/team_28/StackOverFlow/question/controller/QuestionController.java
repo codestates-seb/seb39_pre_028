@@ -26,48 +26,52 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionRequestDto requestDto){
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionRequestDto requestDto) {
         System.out.println("/questions POST 시작");
         Question question = questionService.createQuestion(questionMapper.questionRequestDtoToQuestion(requestDto));
         System.out.println(question.getQuestionContent());
-        if(!question.isAnswered()){
+        if (!question.isAnswered()) {
             return new ResponseEntity(
                     new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question)),
                     HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(
+                    new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question), question.getAnswers()),
+                    HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(
-                new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question),question.getAnswers()),
-                        HttpStatus.CREATED);
     }
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
-                                        @Valid @RequestBody QuestionRequestDto requestDto){
+                                        @Valid @RequestBody QuestionRequestDto requestDto) {
         System.out.println("/questions/{question-id} PATCH 시작");
         requestDto.setQuestionId(questionId);
         System.out.println(requestDto.getQuestionId());
         Question question = questionService.updateQuestion(questionMapper.questionRequestDtoToQuestionPatch(requestDto));
-        if(!question.isAnswered()){
+        if (!question.isAnswered()) {
             return new ResponseEntity(
                     new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question)),
                     HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(
+                    new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question), question.getAnswers()),
+                    HttpStatus.OK);
         }
-        return new ResponseEntity<>(
-                new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question),question.getAnswers()),
-                HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@PathVariable("question-id") long questionId){
+    public ResponseEntity getQuestion(@PathVariable("question-id") long questionId) {
         System.out.println("/questions/{question-id} GET 시작");
         Question question = questionService.findQuestion(questionId);
-        if(!question.isAnswered()){
+        System.out.println("아이디에 해당하는 question 객체 생성");
+        if (!question.isAnswered()) {
             return new ResponseEntity(
                     new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question)),
                     HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(
+                    new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question), question.getAnswers()),
+                    HttpStatus.OK);
         }
-        return new ResponseEntity<>(
-                new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question),question.getAnswers()),
-                HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")
