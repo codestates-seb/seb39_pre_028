@@ -95,8 +95,7 @@ function SignIn() {
         }
 
         setIsLogin(true);
-        setUserInfo(res.data.memberid);
-        setUserInfo(res.data.userid);
+        setUserInfo(res.data.responseDto);
         console.log(userInfo);
         navigate("/board/home");
 

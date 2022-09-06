@@ -93,7 +93,9 @@ function SignOut() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("로그아웃 실패");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("recoil-persist");
+        navigate("/board/home");
       });
   };
 
