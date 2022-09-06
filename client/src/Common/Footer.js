@@ -12,17 +12,16 @@ const FooterContainer = styled("footer")`
   color: #ffffff;
   padding: 0rem 0 1rem 0;
   margin-bottom: -70px;
-  height: 3.5%;
 `;
 
 const FooterNav = styled("div")`
   display: flex;
   flex-direction: row;
   position: absolute;
-  top: 50%;
-  right: -10%;
+  top: 30%;
+  right: 2%;
   margin-left: 40px;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); */
 `;
 
 const Name = styled("div")`
@@ -94,7 +93,7 @@ function Footer() {
         <FontAwesomeIcon className="stack_icon" icon={faStackOverflow} />
         <span className="logo_text first">stack </span>
         <span className="logo_text second">overflow</span>
-        &nbsp;&nbsp;&nbsp;&nbsp; site develop / design by Codestates Team 28 28
+        &nbsp;&nbsp; site develop / design by Codestates Team 28
       </CreatedAt>
     </FooterContainer>
   );
