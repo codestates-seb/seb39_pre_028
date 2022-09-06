@@ -1,29 +1,41 @@
 package com.team_28.StackOverFlow.answer.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team_28.StackOverFlow.audit.Auditable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.team_28.StackOverFlow.jwt.entity.Member;
+import com.team_28.StackOverFlow.question.entity.Question;
+import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Entity
+@Entity(name = "answer")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
+    @ManyToOne
+    @JoinColumn(name = "QUESTION_ID")
+    @JsonIgnore
+    private Question question;
 
-    @Column
-    private String content;
-    @Column
-    private boolean is_adopted;
+    @ManyToOne
+    @JoinColumn(name = "MEMBERID")
+    @JsonIgnore
+    private Member member;
 
-    private int like_count;
+    @Column(nullable = false, columnDefinition = "LONGTEXT" , length = 1000)
+    private String answerContent;
 
-    private int dislike_count;
 
-
+    public void setMember(Member member){
+        this.member = member;
+    }
+    public void setQuestion(Question question){
+        this.question = question;
+    }
 }
