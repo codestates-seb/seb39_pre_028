@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.team_28.StackOverFlow.exception.ExceptionCode.UNAUTHORIZED_NO_TOKEN;
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
@@ -54,36 +55,36 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 //            filterChain.doFilter(request,response);
 //            return;
 //        }
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             //토큰값이 없거나 정상적이지 않다면 401 오류
-            filterChain.doFilter(request,response);
-            return;
+            System.out.println("토큰이 없거나 잘못된 경우");
+            filterChain.doFilter(request, response);
+        } else {
+            //Access Token만 꺼내옴
+            System.out.println("토큰 검증 시작");
+            String accessToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
+            //Access Token 검증
+            String userId = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build().verify(accessToken).getClaim("userId").asString();
+            if (userId != null) {
+                Member member = memberRepository.findByUserid(userId);
+                PrincipalDetails principalDetails = new PrincipalDetails(member);
+                //(추가) Redis 에 해당 accessToken logout 여부 확인
+                String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
+                if (ObjectUtils.isEmpty(isLogout)) {
+                    //Access Token 내 Claim에서 userId꺼내 Authentication 객체 생성 & SecurityContext에 저장
+
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
+                System.out.println("인가 성공");
+                filterChain.doFilter(request, response);
+                System.out.println("필터 다음");
+            } else {
+                System.out.println("슈퍼 필터 전");
+                super.doFilterInternal(request, response, filterChain);
+                System.out.println("슈퍼 필터 후");
+            }
         }
-
-                //Access Token만 꺼내옴
-                String accessToken = authorizationHeader.substring(TOKEN_HEADER_PREFIX.length());
-                //Access Token 검증
-                String userId = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build().verify(accessToken).getClaim("userId").asString();
-                if(userId != null) {
-                    Member member = memberRepository.findByUserid(userId);
-                    PrincipalDetails principalDetails = new PrincipalDetails(member);
-                    //(추가) Redis 에 해당 accessToken logout 여부 확인
-                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
-                    if (ObjectUtils.isEmpty(isLogout)) {
-                        //Access Token 내 Claim에서 userId꺼내 Authentication 객체 생성 & SecurityContext에 저장
-
-                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
-                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    }
-                    System.out.println("인가 성공");
-                    filterChain.doFilter(request, response);
-                    System.out.println("필터 다음");
-                } else {
-                    System.out.println("슈퍼 필터 전");
-                    super.doFilterInternal(request, response, filterChain);
-                    System.out.println("슈퍼 필터 후");
-                }
-                }
 //             catch (TokenExpiredException e) {
 //                log.info("CustomAuthorizationfilter : Access Token이 만료되었습니다.");
 //                response.setStatus(401);
@@ -102,5 +103,5 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 //                throw new CustomLogicException(ExceptionCode.BAD_REQUEST_TOKEN);
 //            }
 
-        }
-
+    }
+}

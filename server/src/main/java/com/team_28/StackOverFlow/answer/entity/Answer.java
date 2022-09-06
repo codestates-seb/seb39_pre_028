@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@Entity
+@Entity(name = "answer")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Answer extends Auditable {

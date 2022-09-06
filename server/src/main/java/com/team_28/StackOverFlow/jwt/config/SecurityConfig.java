@@ -11,7 +11,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,6 +33,11 @@ public class SecurityConfig {
     private final RedisTemplate redisTemplate;
     private final MemberMapper mapper;
 
+    @Bean
+    public WebSecurityCustomizer configure() {
+        System.out.println("ignore 작동");
+        return (web) -> web.ignoring().antMatchers("regi/**", "board/**", "questions/*", "authcheck", "h2/**");
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

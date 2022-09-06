@@ -7,6 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
