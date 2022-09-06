@@ -85,7 +85,7 @@ function QuestionEdit() {
     console.log(ok);
     if (ok) {
       return authAxios
-        .patch(`/questions/edit/${questionsAtom.questionId}`, questionInfo)
+        .patch(`/questions/${questionsAtom.questionId}`, questionInfo)
         .then(() => {
           setQuestionsAtom(questionInfo);
           console.log(questionsAtom);

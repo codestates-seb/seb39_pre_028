@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { userStateAtom, questionAtom } from "../Atom/atom";
+import { userStateAtom, isLoginAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 import styled from "styled-components";
 
@@ -64,13 +64,14 @@ function Question() {
   const userInfo = useRecoilValue(userStateAtom);
   const navigate = useNavigate();
   const resetQuestionAtom = useResetRecoilState(questionAtom);
+  const isLogin = useRecoilValue(isLoginAtom);
 
   // 일단 로그인 안한 상태일 경우 authcheck로
-  // useEffect(() => {
-  //   if (!isLogin) {
-  //     navigate("/authcheck");
-  //   }
-  // });
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/authcheck");
+    }
+  });
 
   const setTitleHandler = (event) => setTitle(event.currentTarget.value);
   const setContentHandler = (event) => setContent(event.currentTarget.value);

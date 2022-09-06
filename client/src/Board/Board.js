@@ -101,7 +101,7 @@ function Board() {
         console.log(res);
         setQuestionsAtom(res.data.question);
         console.log(questionsAtom);
-        setAnswersAtom(res.data.answer);
+        setAnswersAtom(res.data.answerResponseDto);
         console.log(answersAtom);
       })
       .catch((err) => {
