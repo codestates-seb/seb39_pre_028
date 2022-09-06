@@ -147,15 +147,15 @@ function Header() {
           <FontAwesomeIcon
             icon={faRightFromBracket}
             className="signout logo"
-            onClick={() => navigate("regi/signout")}
+            onClick={() => navigate("/regi/signout")}
           />
         </IconContainer>
       ) : (
         <ButtonContainer>
-          <button type="submit" onClick={() => navigate("regi/signin")}>
+          <button type="submit" onClick={() => navigate("/regi/signin")}>
             Log in
           </button>
-          <button type="submit" onClick={() => navigate("regi/signup")}>
+          <button type="submit" onClick={() => navigate("/regi/signup")}>
             Sign up
           </button>
         </ButtonContainer>
