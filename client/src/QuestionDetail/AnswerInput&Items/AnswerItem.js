@@ -4,6 +4,7 @@ import authAxios from "../../Common/interceptor";
 import { useState } from "react";
 import styled from "styled-components";
 import Vote from "../../Common/Vote";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -93,7 +94,7 @@ function AnswerItem({
   const questionInfo = useRecoilValue(questionAtom);
   const [IsEditorOpen, setIsEditorOpen] = useState(false);
   const [editText, setEditText] = useState(content);
-
+  const navigate = useNavigate();
   const deleteHandler = async () => {
     const ok = window.confirm("답변을 삭제하시겠습니까?");
     console.log(ok);
@@ -102,6 +103,7 @@ function AnswerItem({
         `/answers/${questionInfo.questionId}/${answerId}`
       );
       console.log(res);
+      navigate("/");
     }
   };
 
@@ -120,6 +122,7 @@ function AnswerItem({
       .patch(`/answers/${questionInfo.questionId}/${answerId}`, answerEditInfo)
       .then((res) => {
         console.log(res);
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };

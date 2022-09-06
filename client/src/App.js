@@ -44,35 +44,31 @@ const MainContainer = styled("div")`
 
 function App() {
   return (
-    <div>
-      <OutContainer>
-        <Header />
-        <InnerContainer>
-          <LeftBar />
-          <MainContainer>
-            <Routes>
-              <Route path="/" element={<Board />} />
-              <Route path="/board/home" element={<Board />} />
-              <Route path="/questions" element={<Question />} />
-              <Route path="/questions/:id" element={<QuestionDetail />} />
-              {/* path="/questions/:questionId" */}
-              <Route
-                path="/questions/edit/:questionId"
-                // path="/questions/edit/:questionId"
-                element={<QuestionEdit />}
-              />
-              <Route path="/authcheck" element={<AuthCheck />} />
-              <Route path="/regi/signin" element={<SignIn />} />
-              <Route path="/regi/signup" element={<SignUp />} />
-              <Route path="/regi/signout" element={<SignOut />} />
-              <Route path="/board/search" element={<Search />} />
-            </Routes>
-          </MainContainer>
-          <RightBar />
-        </InnerContainer>
-        <Footer />
-      </OutContainer>
-    </div>
+    <OutContainer>
+      <Header />
+      <InnerContainer>
+        <LeftBar />
+        <MainContainer>
+          <Routes>
+            <Route path="/" element={<Board />} />
+            <Route path="/board/home" element={<Board />} />
+            <Route path="/questions" element={<Question />} />
+            <Route path="/questions/:id" element={<QuestionDetail />} />
+            <Route
+              path="/questions/edit/:questionId"
+              element={<QuestionEdit />}
+            />
+            <Route path="/authcheck" element={<AuthCheck />} />
+            <Route path="/regi/signin" element={<SignIn />} />
+            <Route path="/regi/signup" element={<SignUp />} />
+            <Route path="/regi/signout" element={<SignOut />} />
+            <Route path="/board/search" element={<Search />} />
+          </Routes>
+        </MainContainer>
+        <RightBar />
+      </InnerContainer>
+      <Footer />
+    </OutContainer>
   );
 }
 
