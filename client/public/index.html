@@ -2,19 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" />
+    <link rel="shortcut icon" href="#" />
+    <!-- 위의 코드는 favicon 에러 때문에 넣음 -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -26,7 +28,15 @@
     -->
     <title>React App</title>
   </head>
-  <body>
+  <body
+    style="
+      background-size: 10px, 30px, 10px 10px, 30px 30px;
+      background-image: linear-gradient(90deg, #00000004 1px, transparent 1px),
+        linear-gradient(90deg, #00000004 1px, transparent 1px),
+        linear-gradient(#00000004 1px, transparent 1px),
+        linear-gradient(#00000004 1px, transparent 1px);
+    "
+  >
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

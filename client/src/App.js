@@ -1,44 +1,77 @@
 import React from "react";
-import axios from "axios";
+//mport axios from "axios";
 import Board from "./Board/Board";
 import Question from "./Question/Question";
-import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignIn/SignUp";
-import SignOut from "./SignIn/SignOut";
+import SignIn from "./Sign/SignIn/SignIn";
+import SignUp from "./Sign/SignUp/SignUp";
+import SignOut from "./Sign/SignOut/SignOut";
 import Header from "./Common/Header";
 import AuthCheck from "./Common/AuthCheck";
 import { Routes, Route } from "react-router-dom";
+import QuestionDetail from "./QuestionDetail/QuestionDetail";
+import QuestionEdit from "./QuestionDetail/Edit/QuestionEdit";
+import styled from "styled-components";
+import LeftBar from "./Common/SideBar/LeftBar";
+import RightBar from "./Common/SideBar/RightBar";
+import Footer from "./Common/Footer";
+import Search from "./Search/Search";
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
+
+const OutContainer = styled("div")`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InnerContainer = styled("div")`
+  display: flex;
+  position: absolute;
+  top: 70px;
+  justify-content: center;
+  height: 100%;
+  width: 97vw;
+`;
+
+const MainContainer = styled("div")`
+  margin-top: 10px;
+  height: auto;
+  background-color: #ffff;
+  width: 70vw;
+  @media all and (max-width: 768px) {
+    width: 500vw;
+  }
+`;
 
 function App() {
-  //   const getData = async () => {
-  //     const response = await fetch("/");
-  //     const json = await response.json();
-  //     console.log(json);
-  //   };
-
-  //   const getJson = async () => {
-  //     const response = await fetch("/test");
-  //     const json = await response.json();
-  //     console.log("api", json);
-  //   };
-  //   useEffect(() => {
-  //     getData();
-  //     getJson();
-  //   }, []);
-
   return (
     <div>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Board />} />
-        <Route path="/questions" element={<Question />} />
-        <Route path="/authcheck" element={<AuthCheck />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signin/signup" element={<SignUp />} />
-        <Route path="/signin/signout" element={<SignOut />} />
-      </Routes>
+      <OutContainer>
+        <Header />
+        <InnerContainer>
+          <LeftBar />
+          <MainContainer>
+            <Routes>
+              <Route path="/" element={<Board />} />
+              <Route path="/board/home" element={<Board />} />
+              <Route path="/questions" element={<Question />} />
+              <Route path="/questions/:id" element={<QuestionDetail />} />
+              {/* path="/questions/:questionId" */}
+              <Route
+                path="/questions/edit/:questionId"
+                // path="/questions/edit/:questionId"
+                element={<QuestionEdit />}
+              />
+              <Route path="/authcheck" element={<AuthCheck />} />
+              <Route path="/regi/signin" element={<SignIn />} />
+              <Route path="/regi/signup" element={<SignUp />} />
+              <Route path="/regi/signout" element={<SignOut />} />
+              <Route path="/board/search" element={<Search />} />
+            </Routes>
+          </MainContainer>
+          <RightBar />
+        </InnerContainer>
+        <Footer />
+      </OutContainer>
     </div>
   );
 }
