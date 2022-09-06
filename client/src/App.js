@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+//mport axios from "axios";
 import Board from "./Board/Board";
 import Question from "./Question/Question";
 import SignIn from "./Sign/SignIn/SignIn";
@@ -16,12 +16,11 @@ import RightBar from "./Common/SideBar/RightBar";
 import Footer from "./Common/Footer";
 import Search from "./Search/Search";
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 const OutContainer = styled("div")`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid black; */
 `;
 
 const InnerContainer = styled("div")`
@@ -29,13 +28,11 @@ const InnerContainer = styled("div")`
   position: absolute;
   top: 70px;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   width: 97vw;
-  /* border: 1px solid red; */
 `;
 
 const MainContainer = styled("div")`
-  /* border: 1px solid green; */
   margin-top: 10px;
   height: auto;
   background-color: #ffff;

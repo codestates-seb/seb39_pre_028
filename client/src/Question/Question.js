@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { userStateAtom, isLoginAtom, questionAtom } from "../Atom/atom";
+import { userStateAtom, questionAtom } from "../Atom/atom";
 import authAxios from "../Common/interceptor";
 import styled from "styled-components";
 
