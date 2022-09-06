@@ -1,13 +1,8 @@
 import axios from "axios";
 
-// import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
-// import { isLoginAtom } from "../Atom/atom";
-// import { useNavigate } from "react-router-dom";
-
 const authAxios = axios.create({
   //그냥 인스턴스 만들어줌
-  proxy: true,
-  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 // 요청 갈 때는 헤더에 access토큰 가지고 감
 // 응답 올때는 401에러인지 확인
