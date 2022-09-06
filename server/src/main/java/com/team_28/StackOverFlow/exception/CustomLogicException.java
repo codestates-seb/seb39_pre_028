@@ -6,7 +6,7 @@ import lombok.Getter;
 public class CustomLogicException extends RuntimeException{
 
     @Getter
-    private ExceptionCode exceptionCode;
+    private final ExceptionCode exceptionCode;
 
     public CustomLogicException(ExceptionCode exceptionCode){
         super(exceptionCode.getMessage());

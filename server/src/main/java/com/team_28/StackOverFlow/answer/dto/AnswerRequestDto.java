@@ -14,10 +14,10 @@ public class AnswerRequestDto {
     @NotBlank
     private String content;
 
-    @NotBlank
+
     private Long memberId;
 
-    @NotBlank
+
     private Long questionId;
 
     public Member getMember(){

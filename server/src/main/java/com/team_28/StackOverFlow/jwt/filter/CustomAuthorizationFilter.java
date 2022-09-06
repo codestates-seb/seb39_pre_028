@@ -1,14 +1,10 @@
 package com.team_28.StackOverFlow.jwt.filter;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team_28.StackOverFlow.exception.CustomLogicException;
 import com.team_28.StackOverFlow.exception.ExceptionCode;
-import com.team_28.StackOverFlow.jwt.exception.ErrorResponse;
 import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.jwt.oauth.PrincipalDetails;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
@@ -18,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.FilterChain;
@@ -27,9 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.team_28.StackOverFlow.exception.ExceptionCode.UNAUTHORIZED_NO_TOKEN;
 import static com.team_28.StackOverFlow.jwt.filter.JwtConstants.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @Slf4j
 public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
     private final RedisTemplate redisTemplate;

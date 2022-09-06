@@ -19,7 +19,7 @@ public class QuestionRequestDto {
 
     @NotBlank
     private String questionContent;
-    @NotBlank
+
     private long memberId;
 
     private String createdAt;

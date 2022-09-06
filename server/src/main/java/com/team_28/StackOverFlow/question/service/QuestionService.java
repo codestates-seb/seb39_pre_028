@@ -3,7 +3,6 @@ package com.team_28.StackOverFlow.question.service;
 import com.team_28.StackOverFlow.exception.CustomLogicException;
 import com.team_28.StackOverFlow.exception.ExceptionCode;
 import com.team_28.StackOverFlow.jwt.entity.Member;
-import com.team_28.StackOverFlow.jwt.exception.ErrorResponse;
 import com.team_28.StackOverFlow.jwt.repository.MemberRepository;
 import com.team_28.StackOverFlow.question.entity.Question;
 import com.team_28.StackOverFlow.question.repository.QuestionRepository;

@@ -70,7 +70,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         LoginResponseDto responseDto = new LoginResponseDto(new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid()),TOKEN_HEADER_PREFIX+accessToken);
         System.out.println(responseDto.getAccesstoken());
         new ObjectMapper().writeValue(response.getWriter(), responseDto);
-
     }
     private void postPreflight(HttpServletResponse response) {
         System.out.println("CORS 정책 헤더");
