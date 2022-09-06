@@ -1,5 +1,6 @@
 package com.team_28.StackOverFlow.question.controller;
 
+import com.team_28.StackOverFlow.answer.mapper.AnswerMapper;
 import com.team_28.StackOverFlow.dto.BoardResponseDto;
 import com.team_28.StackOverFlow.dto.QuestionPageDto;
 import com.team_28.StackOverFlow.question.dto.QuestionRequestDto;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Positive;
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
+    private final AnswerMapper answerMapper;
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionRequestDto requestDto) {
@@ -69,7 +71,7 @@ public class QuestionController {
                     HttpStatus.OK);
         } else {
             return new ResponseEntity<>(
-                    new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question), question.getAnswers()),
+                    new QuestionPageDto<>(questionMapper.questionToQuestionResponseDto(question), answerMapper.answersToAnswerResponseDto(question.getAnswers())),
                     HttpStatus.OK);
         }
     }

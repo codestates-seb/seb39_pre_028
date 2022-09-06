@@ -7,6 +7,7 @@ import com.team_28.StackOverFlow.jwt.entity.Member;
 import com.team_28.StackOverFlow.question.entity.Question;
 import lombok.Builder;
 import org.mapstruct.Mapper;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
@@ -35,4 +36,5 @@ public interface AnswerMapper {
                 .build();
         return answerResponseDto;
     }
+    List<AnswerResponseDto> answersToAnswerResponseDto(List<Answer> answers);
 }

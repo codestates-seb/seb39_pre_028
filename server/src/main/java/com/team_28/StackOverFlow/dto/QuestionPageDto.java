@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class QuestionPageDto<T> {
     private QuestionResponseDto question;
-    private List<T> answer;
+    private List<T> answerResponseDto;
 
     public QuestionPageDto(QuestionResponseDto question) {
         this.question = question;
@@ -18,7 +18,7 @@ public class QuestionPageDto<T> {
 
     public QuestionPageDto(QuestionResponseDto question, List<T> answer) {
         this.question = question;
-        this.answer = answer;
+        this.answerResponseDto = answer;
     }
 }
 
