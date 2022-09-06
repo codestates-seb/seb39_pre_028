@@ -58,7 +58,9 @@ function AnswerInput() {
     console.log(userInfo);
     return authAxios
       .post(`/answers/${questionInfo.questionId}`, answerInfo)
-      .then((res) => {});
+      .then((res) => {
+        navigate("/");
+      });
   };
 
   return (
