@@ -79,7 +79,6 @@ function SignOut() {
   const onSignOutHandler = () => {
     // 액세스 토큰만 보내기
     // 리프레시, 액세스 -> 로컬스토리지 데이터 지우기
-
     return authAxios
       .post("/regi/signout")
       .then((res) => {
@@ -93,7 +92,9 @@ function SignOut() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("로그아웃 실패");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("recoil-persist");
+        navigate("/board/home");
       });
   };
 
