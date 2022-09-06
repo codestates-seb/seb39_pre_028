@@ -2,7 +2,8 @@ import axios from "axios";
 
 const authAxios = axios.create({
   //그냥 인스턴스 만들어줌
-  baseURL: process.env.REACT_APP_API_URL,
+  proxy: true,
+  // baseURL: process.env.REACT_APP_API_URL,
 });
 // 요청 갈 때는 헤더에 access토큰 가지고 감
 // 응답 올때는 401에러인지 확인
