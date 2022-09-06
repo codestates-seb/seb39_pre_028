@@ -23,6 +23,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        System.out.println("유효성 검사 실패!!");
         final ErrorResponse response = ErrorResponse.of(e.getBindingResult());
         return response;
     }
