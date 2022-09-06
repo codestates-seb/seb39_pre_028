@@ -3,6 +3,7 @@ package com.team_28.StackOverFlow.jwt.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team_28.StackOverFlow.dto.LoginResponseDto;
 import com.team_28.StackOverFlow.exception.CustomLogicException;
 import com.team_28.StackOverFlow.exception.ExceptionCode;
 import com.team_28.StackOverFlow.jwt.dto.ResponseDto;
@@ -66,7 +67,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 //        Map<String ,String> responsMap = new HashMap<>();
 //        responsMap.put(ACCESS_TOKEN_HEADER,TOKEN_HEADER_PREFIX + accessToken);
 //        responsMap.put(REFRESH_TOKEN_HEADER,TOKEN_HEADER_PREFIX + refreshToken);
-        ResponseDto responseDto = new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid(),TOKEN_HEADER_PREFIX+accessToken);
+        LoginResponseDto responseDto = new LoginResponseDto(new ResponseDto(principalDetails.getMember().getMemberid(),principalDetails.getMember().getUserid()),TOKEN_HEADER_PREFIX+accessToken);
         System.out.println(responseDto.getAccesstoken());
         new ObjectMapper().writeValue(response.getWriter(), responseDto);
 

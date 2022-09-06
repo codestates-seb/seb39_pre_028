@@ -8,5 +8,4 @@ import lombok.Getter;
 public class ResponseDto {
     private Long memberid;
     private String userid;
-    private String accesstoken;
 }
