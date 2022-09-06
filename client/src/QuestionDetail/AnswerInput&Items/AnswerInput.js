@@ -1,5 +1,10 @@
-import { questionAtom, userStateAtom, isLoginAtom } from "../../Atom/atom";
-import { useRecoilValue } from "recoil";
+import {
+  questionAtom,
+  userStateAtom,
+  isLoginAtom,
+  answerAtom,
+} from "../../Atom/atom";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useState } from "react";
 import authAxios from "../../Common/interceptor";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +42,7 @@ function AnswerInput() {
   const isLogin = useRecoilValue(isLoginAtom);
   const userInfo = useRecoilValue(userStateAtom);
   const navigate = useNavigate();
+  const [answersAtom, SetAnswersAtom] = useRecoilState(answerAtom);
 
   const contentHandler = (e) => {
     if (isLogin === false) return navigate("/authcheck");
@@ -50,7 +56,9 @@ function AnswerInput() {
   const addAnswerHandler = (e) => {
     e.preventDefault();
     console.log(userInfo);
-    return authAxios.post(`/answers/${questionInfo.questionId}`, answerInfo);
+    return authAxios
+      .post(`/answers/${questionInfo.questionId}`, answerInfo)
+      .then((res) => {});
   };
 
   return (

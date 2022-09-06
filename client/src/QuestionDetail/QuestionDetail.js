@@ -9,6 +9,7 @@ import AnswerInput from "./AnswerInput&Items/AnswerInput";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 const QuestionContainer = styled("div")`
   /* border: 1px solid red; */
@@ -34,11 +35,12 @@ function QuestionDetail() {
   //질문 데이터 Atom에서 받아와서 뿌려줘야함
   //답변 여부에 따라 답변 컴포넌트를 조건부로 보여줌
   const questionInfo = useRecoilValue(questionAtom);
+  const [isChanged, setIsChanged] = useState(false);
 
   return (
     <QuestionContainer>
-      <QuestionSection />
-      <AnswerInput />
+      <QuestionSection setIsChanged={setIsChanged} isChanged={isChanged} />
+      <AnswerInput setIsChanged={setIsChanged} isChanged={isChanged} />
       <div>
         {questionInfo.answered ? (
           <AnswerSecion />
