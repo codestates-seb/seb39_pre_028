@@ -23,11 +23,11 @@ public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberid;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 30)
     private String userid;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String password;
     private String roles;
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -13,12 +14,12 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class QuestionRequestDto {
     private long questionId;
-    @NotNull
+    @NotBlank
     private String questionTitle;
 
-    @NotNull
+    @NotBlank
     private String questionContent;
-    @NotNull
+    @NotBlank
     private long memberId;
 
     private String createdAt;

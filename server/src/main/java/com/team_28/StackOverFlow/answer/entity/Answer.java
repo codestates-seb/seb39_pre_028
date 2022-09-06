@@ -28,7 +28,7 @@ public class Answer extends Auditable {
     @JsonIgnore
     private Member member;
 
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false, columnDefinition = "LONGTEXT" , length = 1000)
     private String answerContent;
 
 

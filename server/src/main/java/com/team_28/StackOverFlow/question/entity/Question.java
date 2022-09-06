@@ -28,9 +28,9 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Answer> answers = new ArrayList<>();
-    @Column
+    @Column(nullable = false, columnDefinition = "TEXT" ,length = 100)
     private String questionTitle;
-    @Column
+    @Column(nullable = false, columnDefinition = "LONGTEXT", length = 4000)
     private String questionContent;
     @Column
     private boolean isAnswered;

@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Builder
 public class AnswerRequestDto {
-    @NotNull
+    @NotBlank
     private String content;
 
-    @NotNull
+    @NotBlank
     private Long memberId;
 
-    @NotNull
+    @NotBlank
     private Long questionId;
 
     public Member getMember(){
