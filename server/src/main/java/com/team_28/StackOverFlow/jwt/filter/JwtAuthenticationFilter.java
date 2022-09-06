@@ -24,8 +24,11 @@ import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.annotation.W3CDomHandler;
 import java.io.IOException;
 import java.util.stream.Collectors;
+
+import static com.team_28.StackOverFlow.exception.ExceptionCode.SC_UNAUTHORIZED;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -53,6 +56,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 System.out.println(userid + " + " + password);
                 Member member = memberRepository.findByUserid(userid);
                 System.out.println(member.getUserid() + " + " + member.getPassword());
+                if(!password.equals(member.getPassword())){
+                    System.out.println("입력된 비밀번호가 다릅니다.");
+                    throw new CustomLogicException(SC_UNAUTHORIZED);
+                }
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getUserid(), member.getPassword());
                 System.out.println(authenticationToken.toString());
                 authentication = authenticationManager.authenticate(authenticationToken);

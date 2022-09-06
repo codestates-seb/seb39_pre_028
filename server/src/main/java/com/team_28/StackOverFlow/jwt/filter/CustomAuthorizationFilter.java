@@ -66,8 +66,11 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
                 //Access Token 검증
                 String userId = JWT.require(Algorithm.HMAC512(JWT_SECRET)).build().verify(accessToken).getClaim("userId").asString();
                 if (userId != null) {
+                    System.out.println("유저 아이디가 null이 아닐 경우..");
                     Member member = memberRepository.findByUserid(userId);
+                    System.out.println("멤버 아이디 : "+member.getMemberid());
                     PrincipalDetails principalDetails = new PrincipalDetails(member);
+                    System.out.println("member 의 비밀번호 : "+member.getPassword()+" , principalDetails의 비밀번호 : "+principalDetails.getPassword());
                     //(추가) Redis 에 해당 accessToken logout 여부 확인
                     String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
                     if (ObjectUtils.isEmpty(isLogout)) {
