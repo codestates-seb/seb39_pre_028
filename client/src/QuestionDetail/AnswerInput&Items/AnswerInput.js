@@ -50,7 +50,11 @@ function AnswerInput() {
   const addAnswerHandler = (e) => {
     e.preventDefault();
     console.log(userInfo);
-    return authAxios.post(`/answers/${questionInfo.questionId}`, answerInfo);
+    return authAxios
+      .post(`/answers/${questionInfo.questionId}`, answerInfo)
+      .then((res) => {
+        navigate(`/board/home}`);
+      });
   };
 
   return (

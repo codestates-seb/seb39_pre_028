@@ -12,11 +12,15 @@ const Container = styled.div`
 `;
 const Content = styled.div`
   display: inline-flex;
-  height: 170px;
+  height: 120px;
   width: 100%;
   padding: 0px 10px 10px 10px;
-`;
+  word-break: break-all;
 
+  :overflow-y {
+    overflow-y: scroll;
+  }
+`;
 const ContentCreateInfo = styled.section`
   display: flex;
   flex-direction: column;
