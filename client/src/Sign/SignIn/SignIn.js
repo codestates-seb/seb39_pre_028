@@ -87,15 +87,16 @@ function SignIn() {
       .post(`${process.env.REACT_APP_API_URL}/regi/signin-process`, signInfo)
       .then((res) => {
         console.log("res", res);
-        console.log("res.headers", res.headers);
-        console.log("res.headers.accesstoken", res.headers.accesstoken);
+        console.log("res.data", res.data);
+        console.log("res.data.accesstoken", res.data.accesstoken);
 
-        if (res.headers.accesstoken) {
-          localStorage.setItem("accessToken", res.headers.accesstoken);
+        if (res.data.accesstoken) {
+          localStorage.setItem("accessToken", res.data.accesstoken);
         }
 
         setIsLogin(true);
-        setUserInfo(res.data);
+        setUserInfo(res.data.memberid);
+        setUserInfo(res.data.userid);
         console.log(userInfo);
         navigate("/board/home");
 
