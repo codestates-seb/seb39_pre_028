@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("regi/**", "board/**", "questions/*", "authcheck", "h2/**").permitAll()
+                //.antMatchers("regi/**", "board/**", "questions/*", "authcheck", "h2/**").permitAll()
                 .antMatchers("answers/**", "questions/edit/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/questions").authenticated()
                 .antMatchers(HttpMethod.PATCH, "/questions/**").authenticated()
