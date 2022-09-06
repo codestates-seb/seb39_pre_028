@@ -19,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
@@ -36,7 +37,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
-    private final MemberMapper memberMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -56,7 +57,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 System.out.println(userid + " + " + password);
                 Member member = memberRepository.findByUserid(userid);
                 System.out.println(member.getUserid() + " + " + member.getPassword());
-                if(!password.equals(member.getPassword())){
+                if(!bCryptPasswordEncoder.matches(password,member.getPassword()) || password==null){
                     System.out.println("입력된 비밀번호가 다릅니다.");
                     throw new CustomLogicException(SC_UNAUTHORIZED);
                 }

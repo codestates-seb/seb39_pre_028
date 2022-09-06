@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -31,7 +32,8 @@ public class SecurityConfig {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AccessDeniedHandler accessDeniedHandler;
     private final RedisTemplate redisTemplate;
-    private final MemberMapper mapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -64,7 +66,7 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, memberRepository, mapper);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, memberRepository, bCryptPasswordEncoder);
             jwtAuthenticationFilter.setFilterProcessesUrl("/regi/signin-process");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
             jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
