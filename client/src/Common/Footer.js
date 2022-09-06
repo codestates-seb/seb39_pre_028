@@ -26,14 +26,12 @@ const FooterNav = styled("div")`
 
 const Name = styled("div")`
   margin: 0 40px;
-
   .git_icon {
     font-size: 22px;
     color: #ffffff;
     margin-left: -35px;
     margin-bottom: 7px;
   }
-
   div {
     font-size: 12px;
     margin-top: -30px;
@@ -46,21 +44,17 @@ const CreatedAt = styled("div")`
   margin-top: 12px;
   margin-left: 30px;
   color: #b2aeae;
-
   .stack_icon {
     color: #f38630;
     font-size: 20px;
     margin-right: 3px;
   }
-
   .logo_text {
     color: #ffffff;
   }
-
   .first {
     font-weight: 400;
   }
-
   .second {
     font-weight: 700;
   }
