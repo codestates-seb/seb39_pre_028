@@ -175,9 +175,7 @@ function LeftBar() {
           <span className="Orange">Create a free Team</span>
           <span>Why Teams?</span>
         </BiggerBox>
-        {/* {isLogin && ( */}
-        <UserInfo />
-        {/* // )} */}
+        {isLogin && <UserInfo />}
       </Inner>
     </Container>
   );
